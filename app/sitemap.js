@@ -1,0 +1,31 @@
+export default function sitemap() {
+  const base = "https://gvonflue.com";
+  const lastModified = new Date();
+  return [
+    { url: `${base}/`, lastModified, changeFrequency: "weekly", priority: 1 },
+    {
+      url: `${base}/about`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${base}/listings`,
+      lastModified,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
+      url: `${base}/blog`,
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: `${base}/contact`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+  ];
+}
