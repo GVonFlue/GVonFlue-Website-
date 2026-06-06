@@ -41,11 +41,13 @@ export default function Hero() {
         <div className="hero-copy">
           <Reveal as="span" className="eyebrow">
             <span className="eyebrow-dot" /> Wichita &amp; Surrounding Areas
-          </Reveal>
-          <Reveal as="h1" delay={80} className="hero-title">
-            Your first home,
+           <Reveal as="h1" delay={80} className="hero-title">
+            Relationship First
             <br />
-            <em>none</em> of the guesswork.
+            Real <em>Estate</em>.
+          </Reveal>
+          <Reveal as="p" delay={160} className="hero-sub">
+            No suit. No jargon. Just <span className="hl">keys.</span>
           </Reveal>
           <Reveal as="p" delay={160} className="hero-sub">
             I&apos;m Garrett. I help first-time buyers go from
