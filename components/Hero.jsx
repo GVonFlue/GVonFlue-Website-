@@ -49,15 +49,6 @@ export default function Hero() {
           <Reveal as="p" delay={160} className="hero-sub">
             No suit. No jargon. Just <span className="hl">keys.</span>
           </Reveal>
-          <Reveal as="p" delay={160} className="hero-sub">
-            I&apos;m Garrett. I help first-time buyers go from
-            <span className="hl">
-              {" "}
-              &ldquo;where do we even start?&rdquo;
-            </span>{" "}
-            to keys in hand — without the jargon, the pressure, or the wasted
-            weekends.
-          </Reveal>
           <Reveal delay={240} className="hero-ctas">
             <a href="#guide" className="btn btn-gold btn-lg">
               Get the Free Homebuyer Guide <ArrowUpRight size={20} />
