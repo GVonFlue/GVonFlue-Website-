@@ -47,7 +47,7 @@ export default function Hero() {
             Real <em>Estate</em>.
           </Reveal>
           <Reveal as="p" delay={160} className="hero-sub">
-            No suit. No jargon. Just <span className="hl">keys.</span>
+            No Suit. No Jargon. Just <span className="hl">Keys.</span>
           </Reveal>
           <Reveal delay={240} className="hero-ctas">
             <a href="#guide" className="btn btn-gold btn-lg">
