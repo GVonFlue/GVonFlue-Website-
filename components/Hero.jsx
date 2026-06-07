@@ -9,7 +9,6 @@ export default function Hero() {
   const ref = useRef(null);
   const p = useScrollProgress(ref);
 
-  // Scroll-linked: copy drifts up & fades, photo lifts + zooms, mesh parallaxes
   const copyStyle = {
     transform: `translateY(${mapRange(p, 0.4, 1, 0, -70)}px)`,
     opacity: mapRange(p, 0.55, 1, 1, 0.35),
@@ -41,7 +40,8 @@ export default function Hero() {
         <div className="hero-copy">
           <Reveal as="span" className="eyebrow">
             <span className="eyebrow-dot" /> Wichita &amp; Surrounding Areas
-           <Reveal as="h1" delay={80} className="hero-title">
+          </Reveal>
+          <Reveal as="h1" delay={80} className="hero-title">
             Relationship First
             <br />
             Real <em>Estate</em>.
