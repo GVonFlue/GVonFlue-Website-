@@ -54,10 +54,10 @@ export default function ContactPage() {
           </p>
           <div style={{ marginTop: "32px", display: "grid", gap: "12px" }}>
             <a
-              href="mailto:hello@gvonflue.com"
+              href="mailto:gvonflue@gmail.com"
               style={{ display: "flex", alignItems: "center", gap: "10px" }}
             >
-              <Mail size={18} /> hello@gvonflue.com
+              <Mail size={18} /> gvonflue@gmail.com
             </a>
             <a
               href="tel:+13165550142"
