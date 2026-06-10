@@ -1,12 +1,36 @@
+"use client";
+
+import { useRef } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import Reveal from "./Reveal";
+import { useScrollProgress, mapRange } from "./useScroll";
 
 export default function About() {
+  const sectionRef = useRef(null);
+  const p = useScrollProgress(sectionRef);
+
+  // Slide photo in from the left, copy in from the right.
+  // Animation begins as section enters viewport (p > 0)
+  // and lands fully in place by p = 0.45.
+  const photoStyle = {
+    transform: `translateX(${mapRange(p, 0, 0.45, -180, 0)}px)`,
+    opacity: mapRange(p, 0, 0.35, 0, 1),
+    transition: "transform 80ms linear, opacity 80ms linear",
+    willChange: "transform, opacity",
+  };
+
+  const copyStyle = {
+    transform: `translateX(${mapRange(p, 0, 0.45, 180, 0)}px)`,
+    opacity: mapRange(p, 0, 0.35, 0, 1),
+    transition: "transform 80ms linear, opacity 80ms linear",
+    willChange: "transform, opacity",
+  };
+
   return (
-    <section className="about" id="about">
+    <section className="about" id="about" ref={sectionRef}>
       <div className="section-wrap about-grid">
-        <Reveal className="about-photo">
+        <div className="about-photo" style={photoStyle}>
           <div className="about-photo-inner">
             <img
               src="/images/team-photo.jpg"
@@ -24,8 +48,9 @@ export default function About() {
             <strong>5★</strong>
             <span>How clients describe the experience</span>
           </div>
-        </Reveal>
-        <div className="about-copy">
+        </div>
+
+        <div className="about-copy" style={copyStyle}>
           <Reveal as="span" className="section-kicker">
             01 — Who you&apos;re working with
           </Reveal>
