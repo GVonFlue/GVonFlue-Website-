@@ -47,7 +47,7 @@ export default function Hero() {
             Real <em>Estate</em>.
           </Reveal>
           <Reveal as="p" delay={160} className="hero-sub">
-            No Suit. No Jargon. Just <span className="hl">Keys.</span>
+            No suit. No jargon. Just <span className="hl">keys.</span>
           </Reveal>
           <Reveal delay={240} className="hero-ctas">
             <a href="#guide" className="btn btn-gold btn-lg">
@@ -72,7 +72,21 @@ export default function Hero() {
 
         <Reveal delay={200} className="hero-card">
           <div className="hero-photo" style={cardStyle}>
-            <span className="photo-tag">That&apos;s me 👋</span>
+            <iframe
+              src="https://www.youtube.com/embed/PGIN6MfYS1k?autoplay=1&mute=1&loop=1&playlist=PGIN6MfYS1k&controls=1&rel=0&modestbranding=1&playsinline=1"
+              title="Meet Garrett — GVonFlue Real Estate"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                border: "none",
+                borderRadius: "26px",
+              }}
+            />
           </div>
           <div className="hero-badge">
             <Compass size={18} />
