@@ -252,7 +252,7 @@
 
 /* ===== SCROLL-LINKED EFFECTS ========================================= */
 /* global progress bar */
-.scrollbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:200;background:transparent}
+.scrollbar{position:fixed;top:0;left:0;right:0;height:8px;z-index:200;background:transparent}
 .scrollbar span{display:block;height:100%;width:0;
   background:linear-gradient(90deg,var(--cobalt),var(--gold));
   box-shadow:0 0 12px rgba(231,181,60,.6)}
