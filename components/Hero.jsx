@@ -53,8 +53,8 @@ export default function Hero() {
             <a href="#guide" className="btn btn-gold btn-lg">
               Get the Free Homebuyer Guide <ArrowUpRight size={20} />
             </a>
-            <a href="#listings" className="btn btn-ghost btn-lg">
-              Browse Listings
+            <a href="https://calendly.com/gvonflue-all0/30min" target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg">
+              Schedule a Call
             </a>
           </Reveal>
           <Reveal delay={320} className="hero-trust">
