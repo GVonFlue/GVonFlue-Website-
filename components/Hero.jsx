@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { ArrowUpRight, Compass } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Reveal from "./Reveal";
 import { useScrollProgress, mapRange } from "./useScroll";
 
@@ -87,13 +87,6 @@ export default function Hero() {
                 borderRadius: "26px",
               }}
             />
-          </div>
-          <div className="hero-badge">
-            <Compass size={18} />
-            <div>
-              <strong>Local connector</strong>
-              <span>Lender, inspector, the good taco spot</span>
-            </div>
           </div>
         </Reveal>
       </div>
