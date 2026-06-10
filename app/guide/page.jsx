@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Mail, Download, CheckCircle2 } from "lucide-react";
+import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ScrollBar from "@/components/ScrollBar";
@@ -68,6 +68,17 @@ const stepRow = {
   lineHeight: 1.6,
 };
 
+const helperP = {
+  color: "var(--muted)",
+  fontSize: "0.95rem",
+  marginTop: "32px",
+};
+
+const emailLink = {
+  color: "var(--cobalt)",
+  textDecoration: "underline",
+};
+
 const downloadBox = {
   background: "var(--ink)",
   color: "#fff",
@@ -96,6 +107,8 @@ const ctaRow = {
   flexWrap: "wrap",
 };
 
+const stepIcon = { flexShrink: 0, marginTop: 2 };
+
 export default function GuidePage() {
   return (
     <>
@@ -106,7 +119,8 @@ export default function GuidePage() {
           <CheckCircle2 size={44} strokeWidth={2.5} />
         </div>
         <h1 className="section-title" style={h1Style}>
-          You&apos;re in. <em style={{ color: "var(--gold)" }}>Check your email.</em>
+          You&apos;re in.{" "}
+          <em style={{ color: "var(--gold)" }}>Check your email.</em>
         </h1>
         <p style={ledeStyle}>
           Your Wichita Homebuyer Guide is on the way — sent to the email
@@ -117,38 +131,31 @@ export default function GuidePage() {
         <div style={stepsBox}>
           <h3 style={stepsH3}>What happens next:</h3>
           <div style={stepRow}>
-            <CheckCircle2 size={20} color="#1338DE" style={{ flexShrink: 0, marginTop: 2 }} />
+            <CheckCircle2 size={20} color="#1338DE" style={stepIcon} />
             <span>
               <strong>Check your inbox</strong> for an email from me, Garrett
               von Flue.
             </span>
           </div>
           <div style={stepRow}>
-            <CheckCircle2 size={20} color="#1338DE" style={{ flexShrink: 0, marginTop: 2 }} />
+            <CheckCircle2 size={20} color="#1338DE" style={stepIcon} />
             <span>
               <strong>Click the confirm link</strong> in that email (this is
               a one-time spam check).
             </span>
           </div>
           <div style={stepRow}>
-            <CheckCircle2 size={20} color="#1338DE" style={{ flexShrink: 0, marginTop: 2 }} />
+            <CheckCircle2 size={20} color="#1338DE" style={stepIcon} />
             <span>
-              <strong>Your guide downloads instantly</strong> — plus you&apos;ll
-              get a personal note from me with my phone number.
+              <strong>Your guide downloads instantly</strong> — plus
+              you&apos;ll get a personal note from me with my phone number.
             </span>
           </div>
         </div>
 
-        <p style={{ color: "var(--muted)", fontSize: "0.95rem", marginTop: "32px" }}>
+        <p style={helperP}>
           Didn&apos;t see the email? Check your spam folder, or shoot me a
-          note at{" "}
-          
-            href="mailto:hello@gvonflue.com"
-            style={{ color: "var(--cobalt)", textDecoration: "underline" }}
-          >
-            hello@gvonflue.com
-          </a>
-          .
+          note at <a href="mailto:hello@gvonflue.com" style={emailLink}>hello@gvonflue.com</a>.
         </p>
 
         <div style={downloadBox}>
