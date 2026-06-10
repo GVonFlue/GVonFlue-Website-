@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Download, MessageCircle, Instagram, ArrowUpRight } from "lucide-react";
+import { Download as DownloadIcon, MessageCircle, Instagram, ArrowUpRight } from "lucide-react";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ScrollBar from "@/components/ScrollBar";
@@ -39,6 +39,12 @@ const downloadBtnRow = {
   marginBottom: "20px",
 };
 
+const downloadBtnStyle = {
+  display: "inline-flex",
+  alignItems: "center",
+  gap: "8px",
+};
+
 const pdfFrame = {
   width: "100%",
   height: "85vh",
@@ -73,6 +79,14 @@ const hardCopyP = {
   margin: "0 auto 28px",
 };
 
+const hardCopyFooter = {
+  color: "rgba(255,255,255,0.7)",
+  fontSize: "0.9rem",
+  lineHeight: 1.6,
+  maxWidth: "52ch",
+  margin: "20px auto 0",
+};
+
 const contactRow = {
   display: "flex",
   gap: "14px",
@@ -94,6 +108,8 @@ const contactBtn = {
   textDecoration: "none",
 };
 
+const backRow = { textAlign: "center", marginTop: "60px" };
+
 export default function GuidePage() {
   return (
     <>
@@ -109,22 +125,13 @@ export default function GuidePage() {
             Thanks for grabbing the guide. Flip through it right here on the page, or hit download to save a copy. If anything in here sparks a question, my number&apos;s at the bottom — text me anytime.
           </p>
           <div style={downloadBtnRow}>
-            
-              href="/guide.pdf"
-              download="GVonFlue-Homebuyer-Guide.pdf"
-              className="btn btn-gold btn-lg"
-              style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}
-            >
-              <Download size={20} /> Download PDF
+            <a href="/guide.pdf" download className="btn btn-gold btn-lg" style={downloadBtnStyle}>
+              <DownloadIcon size={20} /> Download PDF
             </a>
           </div>
         </div>
 
-        <iframe
-          src="/guide.pdf"
-          style={pdfFrame}
-          title="Wichita Homebuyer Guide"
-        />
+        <iframe src="/guide.pdf" style={pdfFrame} title="Wichita Homebuyer Guide" />
 
         <div style={hardCopyBox}>
           <h2 style={hardCopyH2}>Want a hard copy?</h2>
@@ -135,21 +142,16 @@ export default function GuidePage() {
             <a href="sms:+19013353905?body=guide" style={contactBtn}>
               <MessageCircle size={18} /> Text 901-335-3905
             </a>
-            
-              href="https://instagram.com/gvonflue"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={contactBtn}
-            >
+            <a href="https://instagram.com/gvonflue" target="_blank" rel="noopener noreferrer" style={contactBtn}>
               <Instagram size={18} /> DM @gvonflue
             </a>
           </div>
-          <p style={{ ...hardCopyP, marginTop: "20px", marginBottom: 0, fontSize: "0.9rem" }}>
+          <p style={hardCopyFooter}>
             Just say &ldquo;guide&rdquo; — I&apos;ll know what you mean.
           </p>
         </div>
 
-        <div style={{ textAlign: "center", marginTop: "60px" }}>
+        <div style={backRow}>
           <Link href="/" className="btn btn-ghost btn-lg">
             Back to home <ArrowUpRight size={20} />
           </Link>
