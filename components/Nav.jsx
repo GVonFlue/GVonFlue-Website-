@@ -17,10 +17,7 @@ const wrap = {
   padding: "140px 28px 80px",
 };
 
-const inner = {
-  maxWidth: "640px",
-  textAlign: "center",
-};
+const inner = { maxWidth: "640px", textAlign: "center" };
 
 const kicker = {
   display: "inline-block",
@@ -40,10 +37,7 @@ const h1Style = {
   color: "var(--ink)",
 };
 
-const goldWord = {
-  color: "var(--gold)",
-  fontStyle: "normal",
-};
+const goldWord = { color: "var(--gold)", fontStyle: "normal" };
 
 const ledeStyle = {
   color: "var(--muted)",
