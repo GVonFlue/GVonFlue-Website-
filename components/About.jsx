@@ -10,21 +10,22 @@ export default function About() {
   const sectionRef = useRef(null);
   const p = useScrollProgress(sectionRef);
 
-  // Slide photo in from the left, copy in from the right.
-  // Animation begins as section enters viewport (p > 0)
-  // and lands fully in place by p = 0.45.
+  // Photo: slides from far-left + tilted -60deg, lands centered at 0deg by p=0.9
   const photoStyle = {
-    transform: `translateX(${mapRange(p, 0, 0.45, -180, 0)}px)`,
-    opacity: mapRange(p, 0, 0.35, 0, 1),
+    transform: `translateX(${mapRange(p, 0, 0.9, -400, 0)}px) rotate(${mapRange(p, 0, 0.9, -60, 0)}deg)`,
+    opacity: mapRange(p, 0, 0.7, 0, 1),
     transition: "transform 80ms linear, opacity 80ms linear",
     willChange: "transform, opacity",
+    transformOrigin: "center center",
   };
 
+  // Copy: mirrors photo — slides from far-right + tilted +60deg, lands at 0deg
   const copyStyle = {
-    transform: `translateX(${mapRange(p, 0, 0.45, 180, 0)}px)`,
-    opacity: mapRange(p, 0, 0.35, 0, 1),
+    transform: `translateX(${mapRange(p, 0, 0.9, 400, 0)}px) rotate(${mapRange(p, 0, 0.9, 60, 0)}deg)`,
+    opacity: mapRange(p, 0, 0.7, 0, 1),
     transition: "transform 80ms linear, opacity 80ms linear",
     willChange: "transform, opacity",
+    transformOrigin: "center center",
   };
 
   return (
