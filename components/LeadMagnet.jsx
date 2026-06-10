@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import Reveal from "./Reveal";
 
-const KIT_FORM_ACTION = "https://app.kit.com/forms/9545600/subscriptions";
+const WEB3FORMS_KEY = "e87c5fc0-d3e8-47e8-a1ab-5be73241a042";
 
 const BULLETS = [
   "The full buying process, in plain-English steps",
@@ -60,7 +60,6 @@ const inputStyle = {
   color: "#fff",
   fontFamily: "var(--body)",
   outline: "none",
-  transition: "all 200ms ease",
 };
 
 const submitBtn = {
@@ -78,7 +77,6 @@ const submitBtn = {
   alignItems: "center",
   justifyContent: "center",
   gap: "8px",
-  transition: "transform 150ms ease, box-shadow 150ms ease",
   boxShadow: "0 8px 24px rgba(231,181,60,0.3)",
 };
 
@@ -90,45 +88,11 @@ const finePrint = {
   textAlign: "center",
 };
 
-const headlineStyle = {
-  color: "#fff",
-};
-
-const goldWord = {
-  color: "var(--gold)",
-  fontStyle: "normal",
-};
-
-const bulletList = {
-  listStyle: "none",
-  padding: 0,
-  margin: "32px 0 0 0",
-  display: "grid",
-  gap: "14px",
-};
-
-const bulletItem = {
-  display: "flex",
-  alignItems: "flex-start",
-  gap: "12px",
-  color: "rgba(255,255,255,0.85)",
-  fontSize: "1.02rem",
-  lineHeight: 1.5,
-};
-
-const bulletIcon = {
-  flexShrink: 0,
-  marginTop: 3,
-  color: "var(--gold)",
-};
-
-const ledeText = {
-  color: "rgba(255,255,255,0.7)",
-  fontSize: "1.1rem",
-  lineHeight: 1.6,
-  marginTop: "20px",
-  maxWidth: "44ch",
-};
+const goldWord = { color: "var(--gold)", fontStyle: "normal" };
+const bulletList = { listStyle: "none", padding: 0, margin: "32px 0 0 0", display: "grid", gap: "14px" };
+const bulletItem = { display: "flex", alignItems: "flex-start", gap: "12px", color: "rgba(255,255,255,0.85)", fontSize: "1.02rem", lineHeight: 1.5 };
+const bulletIcon = { flexShrink: 0, marginTop: 3, color: "var(--gold)" };
+const ledeText = { color: "rgba(255,255,255,0.7)", fontSize: "1.1rem", lineHeight: 1.6, marginTop: "20px", maxWidth: "44ch" };
 
 export default function LeadMagnet() {
   const [submitting, setSubmitting] = useState(false);
@@ -136,19 +100,27 @@ export default function LeadMagnet() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
+
     const form = e.target;
     const formData = new FormData(form);
 
     try {
-      await fetch(KIT_FORM_ACTION, {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         body: formData,
-        mode: "no-cors",
       });
-      window.location.href = "/guide";
+      const data = await response.json();
+      if (data.success) {
+        window.location.href = "/guide";
+      } else {
+        console.error("Web3Forms error:", data);
+        alert("Something went wrong. Please try again or text Garrett directly at 901-335-3905.");
+        setSubmitting(false);
+      }
     } catch (err) {
       console.error("Form submission error:", err);
-      window.location.href = "/guide";
+      alert("Something went wrong. Please try again or text Garrett directly at 901-335-3905.");
+      setSubmitting(false);
     }
   };
 
@@ -159,11 +131,11 @@ export default function LeadMagnet() {
           <Reveal as="span" className="section-kicker">
             03 — The free homebuyer guide
           </Reveal>
-          <Reveal as="h2" className="section-title" delay={60} style={headlineStyle}>
+          <Reveal as="h2" className="section-title" delay={60} style={{ color: "#fff" }}>
             Everything I wish someone handed me <span style={goldWord}>before</span> my first home.
           </Reveal>
           <Reveal as="p" delay={120} style={ledeText}>
-            A no-fluff PDF I built for first-time buyers in Wichita and the surrounding areas. Drop your name and email — I&apos;ll send it straight to your inbox.
+            A no-fluff PDF I built for first-time buyers in Wichita and the surrounding areas. Drop your name and email — I&apos;ll send you straight to the guide.
           </Reveal>
           <Reveal as="ul" delay={180} style={bulletList}>
             {BULLETS.map((b) => (
@@ -176,21 +148,21 @@ export default function LeadMagnet() {
         </div>
 
         <Reveal delay={200}>
-          <form
-            style={formCard}
-            onSubmit={handleSubmit}
-            action={KIT_FORM_ACTION}
-            method="post"
-          >
+          <form style={formCard} onSubmit={handleSubmit}>
+            <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+            <input type="hidden" name="subject" value="New Homebuyer Guide Lead — GVonFlue" />
+            <input type="hidden" name="from_name" value="GVonFlue Website" />
+            <input type="checkbox" name="botcheck" style={{ display: "none" }} tabIndex="-1" autoComplete="off" />
+
             <h3 style={formH3}>Get the free guide</h3>
             <p style={formSub}>
-              Sent instantly. No spam — just the guide and the occasional note from me.
+              Click submit and you&apos;ll be reading it in 5 seconds. No spam, no waiting.
             </p>
 
             <label style={fieldLabel}>First name</label>
             <input
               type="text"
-              name="fields[first_name]"
+              name="first_name"
               placeholder="Garrett"
               required
               style={inputStyle}
@@ -199,14 +171,14 @@ export default function LeadMagnet() {
             <label style={fieldLabel}>Email</label>
             <input
               type="email"
-              name="email_address"
+              name="email"
               placeholder="you@example.com"
               required
               style={inputStyle}
             />
 
             <button type="submit" style={submitBtn} disabled={submitting}>
-              {submitting ? "Sending…" : "Send me the guide"}
+              {submitting ? "Loading your guide…" : "Send me the guide"}
               <ArrowUpRight size={20} />
             </button>
 
