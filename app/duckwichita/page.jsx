@@ -4,7 +4,7 @@ import { useState } from "react";
 import Lockup from "@/components/Lockup";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
-import { ArrowUpRight, Instagram, Sparkles } from "lucide-react";
+import { ArrowUpRight, Instagram, Sparkles, Ticket, DollarSign, Calendar, MapPin } from "lucide-react";
 
 const FORM_KEY = "e87c5fc0-d3e8-47e8-a1ab-5be73241a042";
 
@@ -65,6 +65,21 @@ export default function DuckWichita() {
   const faqQuestionStyle = { fontFamily: "var(--disp)", fontSize: "1.15rem", fontWeight: 600, color: "var(--ink)", margin: "0 0 8px" };
   const faqAnswerStyle = { color: "var(--muted)", margin: 0, lineHeight: 1.6 };
 
+  // Prize showcase styles
+  const prizeWrapStyle = { position: "relative", padding: "80px 24px 120px", maxWidth: "1280px", margin: "0 auto", overflow: "hidden" };
+  const prizeBadgeStyle = { display: "inline-flex", alignItems: "center", gap: "8px", padding: "10px 20px", background: "var(--gold)", color: "var(--ink)", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 700, fontSize: ".9rem", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: "24px", boxShadow: "0 0 0 0 rgba(231,181,60,.7)", animation: "pulse 2.5s infinite" };
+  const prizeHeadlineStyle = { fontFamily: "var(--disp)", fontSize: "clamp(2.4rem, 6vw, 4.4rem)", lineHeight: 1, letterSpacing: "-.02em", margin: "0 0 16px", color: "var(--ink)", textAlign: "center" };
+  const prizeSubStyle = { fontSize: "1.2rem", color: "var(--muted)", maxWidth: "640px", margin: "0 auto 48px", textAlign: "center", lineHeight: 1.5 };
+  const prizeCardsStyle = { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "24px", maxWidth: "920px", margin: "0 auto" };
+  const prizeCardStyle = { background: "linear-gradient(160deg, #1338DE 0%, #0A0B14 100%)", color: "#fff", borderRadius: "24px", padding: "36px 32px", position: "relative", overflow: "hidden", boxShadow: "0 24px 60px rgba(11,30,138,.25)", border: "1px solid rgba(231,181,60,.3)" };
+  const prizeIconWrapStyle = { width: "56px", height: "56px", borderRadius: "16px", background: "var(--gold)", color: "var(--ink)", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "20px" };
+  const prizeCardTitleStyle = { fontFamily: "var(--disp)", fontSize: "1.7rem", margin: "0 0 12px", color: "#fff", lineHeight: 1.15 };
+  const prizeCardBodyStyle = { color: "rgba(255,255,255,.75)", margin: "0 0 16px", lineHeight: 1.55, fontSize: ".98rem" };
+  const prizeCardMetaStyle = { display: "flex", alignItems: "center", gap: "8px", fontSize: ".85rem", color: "var(--gold)", fontFamily: "var(--disp)", fontWeight: 600, textTransform: "uppercase", letterSpacing: ".05em" };
+  const prizeFooterStyle = { textAlign: "center", marginTop: "48px" };
+  const prizeValueLineStyle = { fontFamily: "var(--disp)", fontSize: "1.3rem", color: "var(--ink)", margin: "0 0 8px" };
+  const prizeDrawingLineStyle = { color: "var(--muted)", margin: "0 0 28px", fontSize: "1rem" };
+
   const faqs = [
     { q: "Is this a real giveaway?", a: "100% real. One person from the flock wins a local prize every month. No tricks, no purchase, no kidding." },
     { q: "What if I don't win the first month?", a: "You're still in. Once you enter, your name stays in the flock for 2 full years — that's 24 drawings. Every month's winner is pulled from everyone who's ever entered. Best move: follow @gvonflue on Instagram so you'll see the second your name comes up." },
@@ -76,6 +91,15 @@ export default function DuckWichita() {
 
   return (
     <main style={pageStyle}>
+      <style>{`
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(231,181,60,.7); } 70% { box-shadow: 0 0 0 22px rgba(231,181,60,0); } 100% { box-shadow: 0 0 0 0 rgba(231,181,60,0); } }
+        @keyframes arrow-bob-left { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(14px); } }
+        @keyframes arrow-bob-right { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-14px); } }
+        .prize-arrow-left { position: absolute; left: -40px; top: 50%; transform: translateY(-50%); animation: arrow-bob-left 1.8s ease-in-out infinite; z-index: 1; opacity: .9; }
+        .prize-arrow-right { position: absolute; right: -40px; top: 50%; transform: translateY(-50%); animation: arrow-bob-right 1.8s ease-in-out infinite; z-index: 1; opacity: .9; }
+        @media (max-width: 900px) { .prize-arrow-left, .prize-arrow-right { display: none; } }
+      `}</style>
+
       <div style={topBarStyle}><Lockup /></div>
 
       {/* HERO */}
@@ -92,6 +116,55 @@ export default function DuckWichita() {
         <Reveal delay={260}>
           <div style={duckFrameStyle}>
             <img src="/images/duck.jpg" alt="The DuckWichita eagle-duck" style={duckImgStyle} />
+          </div>
+        </Reveal>
+      </section>
+
+      {/* THIS MONTH'S PRIZE — GRAND SHOWCASE */}
+      <section style={prizeWrapStyle}>
+        <div className="prize-arrow-left">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 40 L60 40 M45 25 L60 40 L45 55" stroke="var(--gold)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+        <div className="prize-arrow-right">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ transform: "rotate(180deg)" }}>
+            <path d="M10 40 L60 40 M45 25 L60 40 L45 55" stroke="var(--gold)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+
+        <div style={{ textAlign: "center" }}>
+          <Reveal><span style={prizeBadgeStyle}>🦆 June Prize</span></Reveal>
+          <Reveal as="h2" delay={80} style={prizeHeadlineStyle}>
+            A night at the <span style={goldAccent}>ballpark</span>.<br/>On the house.
+          </Reveal>
+          <Reveal as="p" delay={140} style={prizeSubStyle}>
+            Wichita Wind Surge baseball, behind home plate, plus cash for hot dogs, beer, and whatever else makes the night perfect. This is the first DuckWichita prize and we&apos;re going big.
+          </Reveal>
+        </div>
+
+        <Reveal delay={200}>
+          <div style={prizeCardsStyle}>
+            <div style={prizeCardStyle}>
+              <div style={prizeIconWrapStyle}><Ticket size={28} /></div>
+              <h3 style={prizeCardTitleStyle}>4 Tickets · Section A</h3>
+              <p style={prizeCardBodyStyle}>Directly behind home plate. Bring the family, a date, your crew — whoever you want. Good for any Wind Surge home game this season.</p>
+              <div style={prizeCardMetaStyle}><MapPin size={14} /> Riverfront Stadium</div>
+            </div>
+            <div style={prizeCardStyle}>
+              <div style={prizeIconWrapStyle}><DollarSign size={28} /></div>
+              <h3 style={prizeCardTitleStyle}>$100 Cash</h3>
+              <p style={prizeCardBodyStyle}>For the food, the drinks, the parking, the t-shirts off the cannon — whatever makes the night feel like a real night out.</p>
+              <div style={prizeCardMetaStyle}><Sparkles size={14} /> Spend it however</div>
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal delay={260}>
+          <div style={prizeFooterStyle}>
+            <p style={prizeValueLineStyle}>Total value: <span style={goldAccent}>$200+</span></p>
+            <p style={prizeDrawingLineStyle}><Calendar size={16} style={{ display: "inline", marginRight: "6px", verticalAlign: "-3px" }} />Drawing: June 30 · Winner announced on @gvonflue</p>
+            <a href="#enter" className="btn btn-gold btn-lg">Enter Now <ArrowUpRight size={20} /></a>
           </div>
         </Reveal>
       </section>
