@@ -70,8 +70,11 @@ export default function Hero() {
           </Reveal>
         </div>
 
-        <Reveal delay={200} className="hero-card">
-          <div className="hero-photo" style={cardStyle}>
+        <Reveal delay={200} className="hero-card" style={{ position: "relative", zIndex: 10 }}>
+          <div
+            className="hero-photo"
+            style={{ ...cardStyle, position: "relative", zIndex: 10, pointerEvents: "auto" }}
+          >
             <iframe
               src="https://www.youtube.com/embed/PGIN6MfYS1k?autoplay=1&mute=1&loop=1&playlist=PGIN6MfYS1k&controls=1&rel=0&modestbranding=1&playsinline=1"
               title="Meet Garrett — GVonFlue Real Estate"
@@ -85,6 +88,8 @@ export default function Hero() {
                 height: "100%",
                 border: "none",
                 borderRadius: "26px",
+                zIndex: 10,
+                pointerEvents: "auto",
               }}
             />
           </div>
