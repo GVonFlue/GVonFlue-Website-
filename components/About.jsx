@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import Reveal from "./Reveal";
 
 export default function About() {
@@ -6,7 +8,17 @@ export default function About() {
       <div className="section-wrap about-grid">
         <Reveal className="about-photo">
           <div className="about-photo-inner">
-            <span className="photo-tag dark">On the job</span>
+            <img
+              src="/images/team-photo.jpg"
+              alt="Garrett von Flue and business partner"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "center",
+                display: "block",
+              }}
+            />
           </div>
           <div className="about-stat">
             <strong>5★</strong>
@@ -33,8 +45,13 @@ export default function About() {
             or honestly the best lunch near a showing — I know a person.
           </Reveal>
           <Reveal delay={240} className="signature">
-            Garrett von Flue
+            Garrett Von Flue
             <span>REALTOR® · Real Broker LLC</span>
+          </Reveal>
+          <Reveal delay={300} style={{ marginTop: "28px" }}>
+            <Link href="/about" className="btn btn-gold btn-lg">
+              More about Garrett <ArrowUpRight size={20} />
+            </Link>
           </Reveal>
         </div>
       </div>
