@@ -10,20 +10,18 @@ export default function About() {
   const sectionRef = useRef(null);
   const p = useScrollProgress(sectionRef);
 
-  // Section is 200vh tall + content pinned via sticky.
-  // Animation runs from p=0.1 (entry) to p=0.55 (landed).
-  // From 0.55 to 1.0, content holds in place — then scrolls out.
+  // Animation lands by p=0.4, then holds in place until p=1.0 releases the pin.
   const photoStyle = {
-    transform: `translateX(${mapRange(p, 0.1, 0.55, -400, 0)}px) rotate(${mapRange(p, 0.1, 0.55, -60, 0)}deg)`,
-    opacity: mapRange(p, 0.1, 0.45, 0, 1),
+    transform: `translateX(${mapRange(p, 0.05, 0.4, -400, 0)}px) rotate(${mapRange(p, 0.05, 0.4, -60, 0)}deg)`,
+    opacity: mapRange(p, 0.05, 0.35, 0, 1),
     transition: "transform 80ms linear, opacity 80ms linear",
     willChange: "transform, opacity",
     transformOrigin: "center center",
   };
 
   const copyStyle = {
-    transform: `translateX(${mapRange(p, 0.1, 0.55, 400, 0)}px) rotate(${mapRange(p, 0.1, 0.55, 60, 0)}deg)`,
-    opacity: mapRange(p, 0.1, 0.45, 0, 1),
+    transform: `translateX(${mapRange(p, 0.05, 0.4, 400, 0)}px) rotate(${mapRange(p, 0.05, 0.4, 60, 0)}deg)`,
+    opacity: mapRange(p, 0.05, 0.35, 0, 1),
     transition: "transform 80ms linear, opacity 80ms linear",
     willChange: "transform, opacity",
     transformOrigin: "center center",
@@ -31,18 +29,19 @@ export default function About() {
 
   return (
     <section
-      className="about"
       id="about"
       ref={sectionRef}
-      style={{ position: "relative", height: "200vh", overflow: "hidden" }}
+      style={{ position: "relative", height: "220vh" }}
     >
       <div
+        className="about"
         style={{
           position: "sticky",
           top: 0,
           height: "100vh",
           display: "flex",
           alignItems: "center",
+          overflow: "hidden",
         }}
       >
         <div className="section-wrap about-grid" style={{ width: "100%" }}>
