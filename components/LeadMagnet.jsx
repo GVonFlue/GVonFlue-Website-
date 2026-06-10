@@ -50,6 +50,15 @@ const fieldLabel = {
   marginTop: "16px",
 };
 
+const optionalHint = {
+  textTransform: "none",
+  letterSpacing: 0,
+  fontWeight: 400,
+  color: "rgba(255,255,255,0.4)",
+  marginLeft: "6px",
+  fontSize: "0.78rem",
+};
+
 const inputStyle = {
   width: "100%",
   background: "rgba(255,255,255,0.06)",
@@ -165,6 +174,16 @@ export default function LeadMagnet() {
               name="first_name"
               placeholder="Garrett"
               required
+              style={inputStyle}
+            />
+
+            <label style={fieldLabel}>
+              Phone <span style={optionalHint}>(optional — so I can text you back)</span>
+            </label>
+            <input
+              type="tel"
+              name="phone"
+              placeholder="(316) 555-1234"
               style={inputStyle}
             />
 
