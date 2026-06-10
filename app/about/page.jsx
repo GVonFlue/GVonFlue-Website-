@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Mail, Phone } from "lucide-react";
+import { ArrowUpRight, Mail } from "lucide-react";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ScrollBar from "@/components/ScrollBar";
@@ -23,7 +23,6 @@ export default function AboutPage() {
           padding: "160px 28px 80px",
         }}
       >
-        {/* === HERO STRIP === */}
         <div
           style={{
             display: "grid",
@@ -32,7 +31,6 @@ export default function AboutPage() {
             alignItems: "center",
             marginBottom: "120px",
           }}
-          className="about-hero"
         >
           <div>
             <span className="section-kicker">About Garrett</span>
@@ -71,18 +69,19 @@ export default function AboutPage() {
               fontWeight: 700,
             }}
           >
-            {/* TODO: replace with real photo at /images/garrett-headshot.jpg */}
             Photo placeholder
           </div>
         </div>
 
-        {/* === STORY SECTIONS === */}
         <div style={{ maxWidth: "720px", margin: "0 auto" }}>
           <section style={{ marginBottom: "80px" }}>
             <span className="section-kicker">My story</span>
             <h2
               className="section-title"
-              style={{ fontSize: "clamp(1.8rem,3.4vw,2.6rem)", marginTop: "12px" }}
+              style={{
+                fontSize: "clamp(1.8rem,3.4vw,2.6rem)",
+                marginTop: "12px",
+              }}
             >
               How I ended up here.
             </h2>
@@ -95,8 +94,8 @@ export default function AboutPage() {
               }}
             >
               I grew up around Wichita and never had any plans to leave. I
-              served in the military, came home, and started paying attention to
-              the way people in my generation talked about buying a home —
+              served in the military, came home, and started paying attention
+              to the way people in my generation talked about buying a home —
               mostly with anxiety, or as something that would happen &ldquo;one
               day&rdquo; instead of an actual plan.
             </p>
@@ -116,7 +115,6 @@ export default function AboutPage() {
             </p>
           </section>
 
-          {/* === IMAGE BREAK === */}
           <div
             style={{
               aspectRatio: "16/9",
@@ -132,7 +130,6 @@ export default function AboutPage() {
               marginBottom: "80px",
             }}
           >
-            {/* TODO: replace with photo at /images/garrett-action.jpg */}
             Action photo placeholder
           </div>
 
@@ -140,7 +137,10 @@ export default function AboutPage() {
             <span className="section-kicker">My approach</span>
             <h2
               className="section-title"
-              style={{ fontSize: "clamp(1.8rem,3.4vw,2.6rem)", marginTop: "12px" }}
+              style={{
+                fontSize: "clamp(1.8rem,3.4vw,2.6rem)",
+                marginTop: "12px",
+              }}
             >
               What working with me actually looks like.
             </h2>
@@ -172,12 +172,15 @@ export default function AboutPage() {
             </p>
           </section>
 
-          {/* === VALUES GRID === */}
           <section style={{ marginBottom: "80px" }}>
             <span className="section-kicker">What I believe</span>
             <h2
               className="section-title"
-              style={{ fontSize: "clamp(1.8rem,3.4vw,2.6rem)", marginTop: "12px", marginBottom: "32px" }}
+              style={{
+                fontSize: "clamp(1.8rem,3.4vw,2.6rem)",
+                marginTop: "12px",
+                marginBottom: "32px",
+              }}
             >
               Three things I won&apos;t budge on.
             </h2>
@@ -202,8 +205,9 @@ export default function AboutPage() {
                   Plain English over jargon. Always.
                 </h3>
                 <p style={{ color: "var(--muted)", lineHeight: 1.65 }}>
-                  If you have to Google a word I just used, I screwed up. Buying
-                  a home is hard enough without the secret-handshake vocabulary.
+                  If you have to Google a word I just used, I screwed up.
+                  Buying a home is hard enough without the secret-handshake
+                  vocabulary.
                 </p>
               </div>
 
@@ -252,19 +256,21 @@ export default function AboutPage() {
                 </h3>
                 <p style={{ color: "var(--muted)", lineHeight: 1.65 }}>
                   Questions don&apos;t wait for business hours. Reach out
-                  whenever — I&apos;ll get back to you like a friend would, not
-                  a corporate inbox.
+                  whenever — I&apos;ll get back to you like a friend would,
+                  not a corporate inbox.
                 </p>
               </div>
             </div>
           </section>
 
-          {/* === OUTSIDE WORK === */}
           <section style={{ marginBottom: "80px" }}>
             <span className="section-kicker">Off the clock</span>
             <h2
               className="section-title"
-              style={{ fontSize: "clamp(1.8rem,3.4vw,2.6rem)", marginTop: "12px" }}
+              style={{
+                fontSize: "clamp(1.8rem,3.4vw,2.6rem)",
+                marginTop: "12px",
+              }}
             >
               When I&apos;m not closing on homes.
             </h2>
@@ -277,14 +283,11 @@ export default function AboutPage() {
               }}
             >
               [TODO: write a few sentences about your hobbies, family, what
-              makes you tick. The more human, the better. Examples: spending
-              time outdoors, working on your truck, grabbing tacos at your
-              favorite Wichita spot, whatever makes you you.]
+              makes you tick. The more human, the better.]
             </p>
           </section>
         </div>
 
-        {/* === CTA === */}
         <div
           style={{
             background: "var(--ink)",
