@@ -155,6 +155,7 @@ export default function DuckWichita() {
                 <option>Just Here For The Duck</option>
               </select>
               <button type="submit" style={submitBtnStyle} disabled={submitting}>{submitting ? "Adding you..." : "Enter Me In The Flock"}</button>
+              <p style={{ marginTop: "16px", textAlign: "center", fontSize: ".9rem", color: "var(--muted)", lineHeight: 1.5 }}>Enter once, stay in the flock for <strong style={{ color: "var(--ink)" }}>2 full years</strong>. Every monthly drawing pulls from the whole flock — so your name has 24 shots, not 1.</p>
             </form>
           )}
         </div>
