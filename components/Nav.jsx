@@ -1,84 +1,59 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
-import ScrollBar from "@/components/ScrollBar";
+import Lockup from "./Lockup";
 
-export const metadata = {
-  title: "About Garrett — Coming Soon",
-  description: "More about Garrett von Flue, GVonFlue Real Estate, Wichita.",
-};
+const LINKS = [
+  { label: "Listings", href: "/listings" },
+  { label: "Guide", href: "/#guide" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
+];
 
-const wrap = {
-  minHeight: "calc(100vh - 200px)",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  padding: "140px 28px 80px",
-};
+export default function Nav() {
+  const [open, setOpen] = useState(false);
+  const [solid, setSolid] = useState(false);
 
-const inner = { maxWidth: "640px", textAlign: "center" };
+  useEffect(() => {
+    const onScroll = () => setSolid(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-const kicker = {
-  display: "inline-block",
-  fontSize: "0.85rem",
-  fontWeight: 600,
-  letterSpacing: "0.18em",
-  textTransform: "uppercase",
-  color: "var(--cobalt)",
-  marginBottom: "24px",
-};
-
-const h1Style = {
-  fontFamily: "var(--disp)",
-  fontSize: "clamp(2.6rem,6vw,4.4rem)",
-  lineHeight: 1.05,
-  marginBottom: "24px",
-  color: "var(--ink)",
-};
-
-const goldWord = { color: "var(--gold)", fontStyle: "normal" };
-
-const ledeStyle = {
-  color: "var(--muted)",
-  fontSize: "1.15rem",
-  lineHeight: 1.65,
-  maxWidth: "48ch",
-  margin: "0 auto 40px",
-};
-
-const ctaRow = {
-  display: "flex",
-  gap: "14px",
-  justifyContent: "center",
-  flexWrap: "wrap",
-};
-
-export default function AboutPage() {
   return (
     <>
-      <ScrollBar />
-      <Nav />
-      <main style={wrap}>
-        <div style={inner}>
-          <span style={kicker}>About Garrett</span>
-          <h1 style={h1Style}>
-            Something <span style={goldWord}>good</span> is coming.
-          </h1>
-          <p style={ledeStyle}>
-            I&apos;m putting the finishing touches on this page. In the meantime, the homepage has plenty about me — or just reach out and we&apos;ll grab coffee.
-          </p>
-          <div style={ctaRow}>
-            <Link href="/" className="btn btn-gold btn-lg">
-              Back to home <ArrowUpRight size={20} />
-            </Link>
-            <Link href="/#guide" className="btn btn-ghost btn-lg">
-              Get the free guide
-            </Link>
+      <header className={`nav ${solid ? "nav-solid" : ""}`}>
+        <div className="nav-inner">
+          <Link href="/" aria-label="GVonFlue home" style={{ display: "inline-flex" }}>
+            <Lockup />
+          </Link>
+          <nav className="nav-links">
+            {LINKS.map((l) => (
+              <Link key={l.label} href={l.href}>{l.label}</Link>
+            ))}
+            <Link href="/#guide" className="btn btn-gold btn-sm">Get the Free Guide</Link>
+          </nav>
+          <button className="nav-toggle" aria-label="Menu" onClick={() => setOpen(true)}>
+            <Menu size={22} />
+          </button>
+        </div>
+      </header>
+
+      {open && (
+        <div className="nav-sheet">
+          <button className="nav-sheet-close" aria-label="Close menu" onClick={() => setOpen(false)}>
+            <X size={24} />
+          </button>
+          <div className="nav-sheet-links">
+            {LINKS.map((l) => (
+              <Link key={l.label} href={l.href} onClick={() => setOpen(false)}>{l.label}</Link>
+            ))}
+            <Link href="/#guide" className="btn btn-gold btn-lg" onClick={() => setOpen(false)}>Get the Free Guide</Link>
           </div>
         </div>
-      </main>
-      <Footer />
+      )}
     </>
   );
 }
