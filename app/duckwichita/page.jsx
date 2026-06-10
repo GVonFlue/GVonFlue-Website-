@@ -51,6 +51,7 @@ export default function DuckWichita() {
   const inputStyle = { width: "100%", padding: "16px 18px", border: "1.5px solid rgba(11,11,20,.12)", borderRadius: "12px", fontSize: "1rem", fontFamily: "var(--body)", marginBottom: "14px", background: "#fff", color: "var(--ink)", outline: "none", boxSizing: "border-box" };
   const labelStyle = { display: "block", fontSize: ".85rem", fontWeight: 600, color: "var(--ink)", marginBottom: "6px", fontFamily: "var(--disp)" };
   const submitBtnStyle = { width: "100%", padding: "18px", background: "var(--gold)", color: "var(--ink)", border: "none", borderRadius: "999px", fontFamily: "var(--disp)", fontSize: "1.05rem", fontWeight: 700, cursor: "pointer", marginTop: "12px" };
+  const flockReassureStyle = { marginTop: "16px", textAlign: "center", fontSize: ".9rem", color: "var(--muted)", lineHeight: 1.5 };
   const darkSectionStyle = { background: "var(--ink)", color: "#fff", padding: "80px 32px", borderRadius: "32px", margin: "60px auto", maxWidth: "1180px", textAlign: "center" };
   const faqItemStyle = { padding: "24px 0", borderBottom: "1px solid rgba(11,11,20,.1)" };
   const successStyle = { textAlign: "center", padding: "32px 0" };
@@ -66,6 +67,7 @@ export default function DuckWichita() {
 
   const faqs = [
     { q: "Is this a real giveaway?", a: "100% real. One person from the flock wins a local prize every month. No tricks, no purchase, no kidding." },
+    { q: "What if I don't win the first month?", a: "You're still in. Once you enter, your name stays in the flock for 2 full years — that's 24 drawings. Every month's winner is pulled from everyone who's ever entered. Best move: follow @gvonflue on Instagram so you'll see the second your name comes up." },
     { q: "Do I need to buy or sell a home?", a: "Nope. You can be 'just here for the duck' on the form and still win. The real estate stuff is just what I do for a living." },
     { q: "Can I duck someone else?", a: "Absolutely. If you want to pass yours along, do it. The duck moves how it wants to move." },
     { q: "Can businesses participate?", a: "Yes — local businesses can sponsor a month, contribute a prize, or just get featured. Hit the sponsor button above." },
@@ -155,7 +157,7 @@ export default function DuckWichita() {
                 <option>Just Here For The Duck</option>
               </select>
               <button type="submit" style={submitBtnStyle} disabled={submitting}>{submitting ? "Adding you..." : "Enter Me In The Flock"}</button>
-              <p style={{ marginTop: "16px", textAlign: "center", fontSize: ".9rem", color: "var(--muted)", lineHeight: 1.5 }}>Enter once, stay in the flock for <strong style={{ color: "var(--ink)" }}>2 full years</strong>. Every monthly drawing pulls from the whole flock — so your name has 24 shots, not 1.</p>
+              <p style={flockReassureStyle}>Enter once, stay in the flock for <strong style={{ color: "var(--ink)" }}>2 full years</strong>. Every monthly drawing pulls from the whole flock — so your name has 24 shots, not 1.</p>
             </form>
           )}
         </div>
@@ -165,7 +167,7 @@ export default function DuckWichita() {
       <section style={sectionStyle}>
         <Reveal as="span" className="section-kicker">04 — Spread the flock</Reveal>
         <Reveal as="h2" delay={60} className="section-title">Post your <span style={goldAccent}>duck.</span></Reveal>
-        <Reveal as="p" delay={120} style={ledeStyle}>Take a photo with your eagle-duck and post it using <strong>#DuckWichita</strong>. Tag me so I can repost it.</Reveal>
+        <Reveal as="p" delay={120} style={ledeStyle}>Take a photo with your eagle-duck and post it using <strong>#DuckWichita</strong>. Tag me so I can repost it — and follow <strong>@gvonflue</strong> while you&apos;re there, because that&apos;s where I announce who won each month.</Reveal>
         <Reveal delay={180}>
           <div style={flockBtnsStyle}>
             <a href="https://instagram.com/gvonflue" target="_blank" rel="noopener noreferrer" className="btn btn-gold btn-lg"><Instagram size={20} /> Tag @gvonflue</a>
