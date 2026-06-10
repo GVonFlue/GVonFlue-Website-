@@ -45,14 +45,23 @@ const downloadBtnStyle = {
   gap: "8px",
 };
 
+const pdfWideWrap = {
+  width: "100%",
+  maxWidth: "1400px",
+  margin: "0 auto",
+  padding: "0 28px",
+  boxSizing: "border-box",
+};
+
 const pdfFrame = {
   width: "100%",
-  height: "85vh",
-  minHeight: "700px",
+  height: "calc(100vh - 120px)",
+  minHeight: "900px",
   border: "1px solid var(--mist)",
   borderRadius: "24px",
   boxShadow: "0 24px 60px rgba(10,11,20,0.18)",
   background: "#fff",
+  display: "block",
 };
 
 const hardCopyBox = {
@@ -109,52 +118,59 @@ const contactBtn = {
 };
 
 const backRow = { textAlign: "center", marginTop: "60px" };
+const finalWrap = { maxWidth: "1100px", margin: "0 auto", padding: "60px 28px 80px" };
 
 export default function GuidePage() {
   return (
     <>
       <ScrollBar />
       <Nav />
-      <main style={wrap}>
-        <div style={heroBlock}>
-          <span className="section-kicker">Your free guide</span>
-          <h1 className="section-title" style={h1Style}>
-            Welcome to your <em style={{ color: "var(--gold)" }}>Wichita Homebuyer Guide</em>.
-          </h1>
-          <p style={ledeStyle}>
-            Thanks for grabbing the guide. Flip through it right here on the page, or hit download to save a copy. If anything in here sparks a question, my number&apos;s at the bottom — text me anytime.
-          </p>
-          <div style={downloadBtnRow}>
-            <a href="/guide.pdf" download className="btn btn-gold btn-lg" style={downloadBtnStyle}>
-              <DownloadIcon size={20} /> Download PDF
-            </a>
+      <main>
+        <div style={wrap}>
+          <div style={heroBlock}>
+            <span className="section-kicker">Your free guide</span>
+            <h1 className="section-title" style={h1Style}>
+              Welcome to your <em style={{ color: "var(--gold)" }}>Wichita Homebuyer Guide</em>.
+            </h1>
+            <p style={ledeStyle}>
+              Thanks for grabbing the guide. Flip through it right here on the page, or hit download to save a copy. If anything in here sparks a question, my number&apos;s at the bottom — text me anytime.
+            </p>
+            <div style={downloadBtnRow}>
+              <a href="/guide.pdf" download className="btn btn-gold btn-lg" style={downloadBtnStyle}>
+                <DownloadIcon size={20} /> Download PDF
+              </a>
+            </div>
           </div>
         </div>
 
-        <iframe src="/guide.pdf" style={pdfFrame} title="Wichita Homebuyer Guide" />
-
-        <div style={hardCopyBox}>
-          <h2 style={hardCopyH2}>Want a hard copy?</h2>
-          <p style={hardCopyP}>
-            I&apos;ve got printed copies in the truck. If you&apos;d rather flip through real pages with a coffee, just reach out and we&apos;ll get one in your hands.
-          </p>
-          <div style={contactRow}>
-            <a href="sms:+19013353905?body=guide" style={contactBtn}>
-              <MessageCircle size={18} /> Text 901-335-3905
-            </a>
-            <a href="https://instagram.com/gvonflue" target="_blank" rel="noopener noreferrer" style={contactBtn}>
-              <Instagram size={18} /> DM @gvonflue
-            </a>
-          </div>
-          <p style={hardCopyFooter}>
-            Just say &ldquo;guide&rdquo; — I&apos;ll know what you mean.
-          </p>
+        <div style={pdfWideWrap}>
+          <iframe src="/guide.pdf#view=FitH" style={pdfFrame} title="Wichita Homebuyer Guide" />
         </div>
 
-        <div style={backRow}>
-          <Link href="/" className="btn btn-ghost btn-lg">
-            Back to home <ArrowUpRight size={20} />
-          </Link>
+        <div style={finalWrap}>
+          <div style={hardCopyBox}>
+            <h2 style={hardCopyH2}>Want a hard copy?</h2>
+            <p style={hardCopyP}>
+              I&apos;ve got printed copies in the truck. If you&apos;d rather flip through real pages with a coffee, just reach out and we&apos;ll get one in your hands.
+            </p>
+            <div style={contactRow}>
+              <a href="sms:+19013353905?body=guide" style={contactBtn}>
+                <MessageCircle size={18} /> Text 901-335-3905
+              </a>
+              <a href="https://instagram.com/gvonflue" target="_blank" rel="noopener noreferrer" style={contactBtn}>
+                <Instagram size={18} /> DM @gvonflue
+              </a>
+            </div>
+            <p style={hardCopyFooter}>
+              Just say &ldquo;guide&rdquo; — I&apos;ll know what you mean.
+            </p>
+          </div>
+
+          <div style={backRow}>
+            <Link href="/" className="btn btn-ghost btn-lg">
+              Back to home <ArrowUpRight size={20} />
+            </Link>
+          </div>
         </div>
       </main>
       <Footer />
