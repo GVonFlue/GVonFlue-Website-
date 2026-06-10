@@ -5,13 +5,6 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import Lockup from "./Lockup";
 
-const LINKS = [
-  { label: "About", href: "/about" },
-  { label: "Listings", href: "/listings" },
-  { label: "Guide", href: "/#guide" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "/contact" },
-];
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
