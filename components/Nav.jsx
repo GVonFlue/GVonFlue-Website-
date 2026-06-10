@@ -2,9 +2,16 @@
 
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
 import Lockup from "./Lockup";
 
-const LINKS = ["About", "Listings", "Guide", "Blog", "Contact"];
+const LINKS = [
+  { label: "About", href: "/about" },
+  { label: "Listings", href: "/listings" },
+  { label: "Guide", href: "/#guide" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
+];
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
@@ -17,39 +24,61 @@ export default function Nav() {
   }, []);
 
   return (
-    <header className={`nav ${solid ? "nav-solid" : ""}`}>
-      <div className="nav-inner">
-        <Lockup />
-        <nav className="nav-links">
-          {LINKS.map((l) => (
-            <a key={l} href={`#${l.toLowerCase()}`}>
-              {l}
-            </a>
-          ))}
-          <a href="#guide" className="btn btn-gold btn-sm">
-            Get the Free Guide
-          </a>
-        </nav>
-        <button
-          className="nav-toggle"
-          onClick={() => setOpen((o) => !o)}
-          aria-label="Menu"
-        >
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
+    <>
+      <header className={`nav ${solid ? "nav-solid" : ""}`}>
+        <div className="nav-inner">
+          <Link href="/" aria-label="GVonFlue home" style={{ display: "inline-flex" }}>
+            <Lockup />
+          </Link>
+          <nav className="nav-links">
+            {LINKS.map((l) => (
+              <Link key={l.label} href={l.href}>
+                {l.label}
+              </Link>
+            ))}
+            <Link href="/#guide" className="btn btn-gold btn-sm">
+              Get the Free Guide
+            </Link>
+          </nav>
+          <button
+            className="nav-toggle"
+            aria-label="Menu"
+            onClick={() => setOpen(true)}
+          >
+            <Menu size={22} />
+          </button>
+        </div>
+      </header>
+
       {open && (
-        <div className="nav-mobile">
-          {LINKS.map((l) => (
-            <a key={l} href={`#${l.toLowerCase()}`} onClick={() => setOpen(false)}>
-              {l}
-            </a>
-          ))}
-          <a href="#guide" className="btn btn-gold" onClick={() => setOpen(false)}>
-            Get the Free Guide
-          </a>
+        <div className="nav-sheet">
+          <button
+            className="nav-sheet-close"
+            aria-label="Close menu"
+            onClick={() => setOpen(false)}
+          >
+            <X size={24} />
+          </button>
+          <div className="nav-sheet-links">
+            {LINKS.map((l) => (
+              <Link
+                key={l.label}
+                href={l.href}
+                onClick={() => setOpen(false)}
+              >
+                {l.label}
+              </Link>
+            ))}
+            <Link
+              href="/#guide"
+              className="btn btn-gold btn-lg"
+              onClick={() => setOpen(false)}
+            >
+              Get the Free Guide
+            </Link>
+          </div>
         </div>
       )}
-    </header>
+    </>
   );
 }
