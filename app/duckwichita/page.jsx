@@ -4,7 +4,7 @@ import Link from "next/link";
 import Lockup from "@/components/Lockup";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
-import { Instagram, Facebook, Sparkles, ArrowUpRight, Heart, MapPin, Share2, QrCode, Search, Trophy, Ticket, DollarSign, Calendar } from "lucide-react";
+import { Instagram, Facebook, Sparkles, ArrowUpRight, Heart, MapPin, Share2, QrCode, Search, Trophy, Ticket, DollarSign, Calendar, Flame, UtensilsCrossed, Shirt } from "lucide-react";
 
 export default function DuckWichita() {
   const COBALT = "#1338DE";
@@ -40,20 +40,25 @@ export default function DuckWichita() {
   const flowStepTitleStyle = { fontFamily: "var(--disp)", fontSize: "1.2rem", margin: "0 0 10px", color: INK, lineHeight: 1.2 };
   const flowStepBodyStyle = { color: "rgba(10,11,20,.65)", fontSize: ".95rem", lineHeight: 1.5, margin: 0 };
 
+  // PRIZE SECTION — expanded with 5 prize cards
   const prizeWrapStyle = { position: "relative", padding: "120px 24px 120px", maxWidth: "1280px", margin: "0 auto" };
   const prizeButtonStyle = { position: "relative", padding: "70px 40px 70px", borderRadius: "40px", border: `5px solid ${ORANGE}`, background: "#FFFFFF", boxShadow: `0 30px 80px rgba(255,107,53,.25), 0 0 0 1px rgba(255,107,53,.1)`, overflow: "visible" };
   const prizeDuckStyle = { position: "absolute", top: "-100px", right: "50px", width: "200px", height: "200px", objectFit: "cover", objectPosition: "center top", borderRadius: "50%", border: `5px solid ${ORANGE}`, boxShadow: `0 20px 40px rgba(19,56,222,.25)`, zIndex: 10 };
   const prizeBadgeStyle = { display: "inline-flex", alignItems: "center", gap: "12px", padding: "18px 36px", background: ORANGE, color: "#FFFFFF", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: "1.2rem", letterSpacing: ".15em", textTransform: "uppercase", marginBottom: "36px", boxShadow: "0 0 0 0 rgba(255,107,53,.7)", animation: "pulse-big 2.5s infinite" };
   const prizeHeadlineStyle = { fontFamily: "var(--disp)", fontSize: "clamp(2.6rem, 6.5vw, 4.8rem)", lineHeight: 1, letterSpacing: "-.02em", margin: "0 0 20px", color: INK, textAlign: "center" };
   const prizeSubStyle = { fontSize: "1.2rem", color: "rgba(10,11,20,.7)", maxWidth: "640px", margin: "0 auto 48px", textAlign: "center", lineHeight: 1.5 };
-  const prizeCardsStyle = { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px", maxWidth: "880px", margin: "0 auto" };
-  const prizeCardStyle = { background: `linear-gradient(160deg, ${COBALT} 0%, ${INK} 100%)`, color: "#fff", borderRadius: "24px", padding: "36px 32px", position: "relative", overflow: "hidden", boxShadow: "0 24px 60px rgba(19,56,222,.25)", border: `1px solid rgba(255,107,53,.3)` };
-  const prizeIconWrapStyle = { width: "56px", height: "56px", borderRadius: "16px", background: ORANGE, color: "#FFFFFF", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "20px" };
-  const prizeCardTitleStyle = { fontFamily: "var(--disp)", fontSize: "1.7rem", margin: "0 0 12px", color: "#fff", lineHeight: 1.15 };
-  const prizeCardBodyStyle = { color: "rgba(255,255,255,.78)", margin: "0 0 16px", lineHeight: 1.55, fontSize: ".98rem" };
-  const prizeCardMetaStyle = { display: "flex", alignItems: "center", gap: "8px", fontSize: ".85rem", color: ORANGE, fontFamily: "var(--disp)", fontWeight: 600, textTransform: "uppercase", letterSpacing: ".05em" };
+  const prizeCardsStyle = { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "20px", maxWidth: "1100px", margin: "0 auto" };
+  const prizeCardStyle = { background: `linear-gradient(160deg, ${COBALT} 0%, ${INK} 100%)`, color: "#fff", borderRadius: "20px", padding: "28px 26px", position: "relative", overflow: "hidden", boxShadow: "0 24px 60px rgba(19,56,222,.22)", border: `1px solid rgba(255,107,53,.3)` };
+  const prizeCardHeadlineStyle = { background: `linear-gradient(160deg, #D62828 0%, #8C1A1A 100%)`, color: "#fff", borderRadius: "20px", padding: "28px 26px", position: "relative", overflow: "hidden", boxShadow: "0 28px 70px rgba(214,40,40,.35)", border: `3px solid ${INK}` };
+  const prizeIconWrapStyle = { width: "48px", height: "48px", borderRadius: "14px", background: ORANGE, color: "#FFFFFF", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "16px" };
+  const prizeIconHeadlineWrapStyle = { width: "48px", height: "48px", borderRadius: "14px", background: "#FFFFFF", color: "#D62828", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "16px" };
+  const prizeCardTitleStyle = { fontFamily: "var(--disp)", fontSize: "1.35rem", margin: "0 0 10px", color: "#fff", lineHeight: 1.15 };
+  const prizeCardBodyStyle = { color: "rgba(255,255,255,.8)", margin: "0 0 14px", lineHeight: 1.5, fontSize: ".92rem" };
+  const prizeCardMetaStyle = { display: "flex", alignItems: "center", gap: "8px", fontSize: ".78rem", color: ORANGE, fontFamily: "var(--disp)", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".05em" };
+  const prizeCardMetaHeadlineStyle = { display: "flex", alignItems: "center", gap: "8px", fontSize: ".78rem", color: "#FFE4D6", fontFamily: "var(--disp)", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".05em" };
+  const headlineBadgeStyle = { position: "absolute", top: "-10px", right: "12px", background: "#FFFFFF", color: "#D62828", fontFamily: "var(--disp)", fontWeight: 800, fontSize: ".7rem", padding: "4px 10px", borderRadius: "999px", border: `2px solid #D62828`, letterSpacing: ".1em" };
   const prizeFooterStyle = { textAlign: "center", marginTop: "48px" };
-  const prizeValueLineStyle = { fontFamily: "var(--disp)", fontSize: "1.5rem", color: INK, margin: "0 0 8px", fontWeight: 700 };
+  const prizeValueLineStyle = { fontFamily: "var(--disp)", fontSize: "1.75rem", color: INK, margin: "0 0 8px", fontWeight: 800 };
   const prizeDrawingLineStyle = { color: "rgba(10,11,20,.65)", margin: "0 0 28px", fontSize: "1rem" };
 
   const noDuckWrapStyle = { background: "rgba(19,56,222,.06)", border: `2px dashed ${COBALT}`, borderRadius: "24px", padding: "40px 32px", marginTop: "60px", textAlign: "center", maxWidth: "780px", marginLeft: "auto", marginRight: "auto" };
@@ -167,7 +172,7 @@ export default function DuckWichita() {
                 <span style={flowStepNumStyle}>STEP 03</span>
                 <div style={flowIconWrapStyle}><Sparkles size={32} /></div>
                 <h3 style={flowStepTitleStyle}>Join the flock</h3>
-                <p style={flowStepBodyStyle}>You&apos;ll land on a secret page. Drop your name, you&apos;re in the bucket for 2 full years.</p>
+                <p style={flowStepBodyStyle}>You&apos;ll land on a secret page. Drop your name, you&apos;re in the bucket for 1 full year.</p>
               </div>
             </Reveal>
 
@@ -191,35 +196,64 @@ export default function DuckWichita() {
         </Reveal>
       </section>
 
+      {/* JUNE LAUNCH PRIZE — expanded package */}
       <section style={prizeWrapStyle} id="prize">
         <div className="prize-button" style={prizeButtonStyle}>
           <img className="prize-duck" src="/images/duck.jpg" alt="DuckWichita patriotic duck" style={prizeDuckStyle} />
           <div style={{ textAlign: "center" }}>
-            <Reveal><span style={prizeBadgeStyle}>🦆 June Prize</span></Reveal>
-            <Reveal as="h2" delay={80} style={prizeHeadlineStyle}>A night at the <span style={orangeAccent}>ballpark</span>.<br/>On the house.</Reveal>
-            <Reveal as="p" delay={140} style={prizeSubStyle}>Wichita Wind Surge baseball, behind home plate, plus cash for hot dogs, beer, and whatever else makes the night perfect. This is the <strong style={{ color: INK }}>First DuckWichita Prize</strong> and we&apos;re going big.</Reveal>
+            <Reveal><span style={prizeBadgeStyle}>🦆 June Launch Prize</span></Reveal>
+            <Reveal as="h2" delay={80} style={prizeHeadlineStyle}>The Ultimate <span style={orangeAccent}>Wichita Summer Night.</span></Reveal>
+            <Reveal as="p" delay={140} style={prizeSubStyle}>Tickets, fireworks, dinner, merch, and cash — all funded by local Wichita businesses. This is the <strong style={{ color: INK }}>First DuckWichita Prize</strong> and we&apos;re going big.</Reveal>
           </div>
 
           <Reveal delay={200}>
             <div style={prizeCardsStyle}>
+              {/* Wind Surge Tickets */}
               <div style={prizeCardStyle}>
-                <div style={prizeIconWrapStyle}><Ticket size={28} /></div>
-                <h3 style={prizeCardTitleStyle}>4 Tickets · Section A</h3>
-                <p style={prizeCardBodyStyle}>Directly behind home plate. Bring the family, a date, your crew — whoever you want. Good for any Wind Surge home game this season.</p>
-                <div style={prizeCardMetaStyle}><MapPin size={14} /> Equity Bank Park</div>
+                <div style={prizeIconWrapStyle}><Ticket size={24} /></div>
+                <h3 style={prizeCardTitleStyle}>4 Wind Surge Tickets</h3>
+                <p style={prizeCardBodyStyle}>Section A, directly behind home plate. Good for any home game this season.</p>
+                <div style={prizeCardMetaStyle}><MapPin size={12} /> Equity Bank Park</div>
               </div>
+
+              {/* Joe Dirt Fireworks — HEADLINE */}
+              <div style={prizeCardHeadlineStyle}>
+                <span style={headlineBadgeStyle}>HEADLINE</span>
+                <div style={prizeIconHeadlineWrapStyle}><Flame size={24} /></div>
+                <h3 style={prizeCardTitleStyle}>Joe Dirt&apos;s Fireworks Bundle</h3>
+                <p style={prizeCardBodyStyle}>A $300 premium showcase bundle, packed with the good stuff. Sponsor: Joe Dirt&apos;s Fireworks.</p>
+                <div style={prizeCardMetaHeadlineStyle}><Sparkles size={12} /> Founding Sponsor</div>
+              </div>
+
+              {/* Dinner Gift Card */}
               <div style={prizeCardStyle}>
-                <div style={prizeIconWrapStyle}><DollarSign size={28} /></div>
-                <h3 style={prizeCardTitleStyle}>$100 Cash</h3>
-                <p style={prizeCardBodyStyle}>For the food, the drinks, the parking, the t-shirts off the cannon — whatever makes the night feel like a real night out.</p>
-                <div style={prizeCardMetaStyle}><Sparkles size={14} /> Spend it however</div>
+                <div style={prizeIconWrapStyle}><UtensilsCrossed size={24} /></div>
+                <h3 style={prizeCardTitleStyle}>$200 Dinner Gift Card</h3>
+                <p style={prizeCardBodyStyle}>A night out on a local Wichita restaurant. Sponsor announcement coming soon.</p>
+                <div style={prizeCardMetaStyle}><MapPin size={12} /> Local restaurant</div>
+              </div>
+
+              {/* DuckWichita Merch */}
+              <div style={prizeCardStyle}>
+                <div style={prizeIconWrapStyle}><Shirt size={24} /></div>
+                <h3 style={prizeCardTitleStyle}>DuckWichita Merch</h3>
+                <p style={prizeCardBodyStyle}>2 official tees + the full sticker pack. First-edition merch, never re-printed.</p>
+                <div style={prizeCardMetaStyle}><Sparkles size={12} /> Collector&apos;s edition</div>
+              </div>
+
+              {/* Cash */}
+              <div style={prizeCardStyle}>
+                <div style={prizeIconWrapStyle}><DollarSign size={24} /></div>
+                <h3 style={prizeCardTitleStyle}>$200 Cash</h3>
+                <p style={prizeCardBodyStyle}>For the food, drinks, parking, gas — whatever makes the night feel like a real night out.</p>
+                <div style={prizeCardMetaStyle}><Sparkles size={12} /> Spend it however</div>
               </div>
             </div>
           </Reveal>
 
           <Reveal delay={260}>
             <div style={prizeFooterStyle}>
-              <p style={prizeValueLineStyle}>Total value: <span style={orangeAccent}>$200+</span></p>
+              <p style={prizeValueLineStyle}>Total package value: <span style={orangeAccent}>$840+</span></p>
               <p style={prizeDrawingLineStyle}><Calendar size={16} style={{ display: "inline", marginRight: "6px", verticalAlign: "-3px" }} />Drawings: 1st &amp; 15th of every month · Winners announced on @gvonflue</p>
             </div>
           </Reveal>
