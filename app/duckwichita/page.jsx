@@ -300,7 +300,7 @@ export default function DuckWichita() {
         <Reveal as="h2" delay={60} style={sponsorTitleStyle}>Be part of <span style={{ color: INK }}>the flock.</span></Reveal>
         <Reveal as="p" delay={120} style={sponsorCopyStyle}>Local restaurants, coffee shops, gyms, boutiques, services, and event spaces can sponsor a month, donate a prize, or just host a duck. It&apos;s low-key, real, and connects you to the actual people of this city.</Reveal>
         <Reveal delay={180}>
-          <a href="mailto:gvonflue@gmail.com?subject=DuckWichita Sponsor Inquiry" style={whiteBtnStyle}>Become a sponsor <ArrowUpRight size={20} /></a>
+          <a href="/sponsor" style={whiteBtnStyle}>Become a sponsor <ArrowUpRight size={20} /></a>
         </Reveal>
       </section>
 
