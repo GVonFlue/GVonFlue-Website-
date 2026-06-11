@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Lockup from "@/components/Lockup";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
-import { ArrowUpRight, Instagram, Sparkles, Ticket, DollarSign, Calendar, MapPin, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, Instagram, Sparkles, Ticket, DollarSign, Calendar, MapPin, Flame, UtensilsCrossed, Shirt, ShieldCheck } from "lucide-react";
 
 const FORM_KEY = "e87c5fc0-d3e8-47e8-a1ab-5be73241a042";
 
@@ -34,6 +34,11 @@ export default function JoinTheFlock() {
     }
   };
 
+  const COBALT = "#1338DE";
+  const GOLD = "#E7B53C";
+  const RED = "#D62828";
+  const INK = "#0A0B14";
+
   const pageStyle = { background: "linear-gradient(180deg, #FFF9EC 0%, #FFFFFF 35%)", minHeight: "100vh", color: "var(--ink)" };
   const topBarStyle = { padding: "28px 24px", display: "flex", justifyContent: "center" };
   const heroStyle = { padding: "60px 24px 100px", textAlign: "center", maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 1 };
@@ -59,7 +64,7 @@ export default function JoinTheFlock() {
   const flockReassureStyle = { marginTop: "16px", textAlign: "center", fontSize: ".9rem", color: "var(--muted)", lineHeight: 1.5 };
   const darkSectionStyle = { background: "var(--ink)", color: "#fff", padding: "80px 32px", borderRadius: "32px", margin: "60px auto", maxWidth: "1180px", textAlign: "center" };
   const faqItemStyle = { padding: "24px 0", borderBottom: "1px solid rgba(11,11,20,.1)" };
-  const flockBtnsStyle = { display: "flex", gap: "14px", marginTop: "32px", flexWrap: "wrap" };
+  const flockBtnsStyle = { display: "flex", gap: "14px", marginTop: "32px", flexWrap: "wrap", justifyContent: "center" };
   const sponsorKickerStyle = { color: "var(--gold)", fontFamily: "var(--disp)", fontWeight: 600, letterSpacing: ".08em", textTransform: "uppercase", fontSize: ".85rem" };
   const sponsorTitleStyle = { fontFamily: "var(--disp)", fontSize: "clamp(2rem, 5vw, 3.4rem)", margin: "20px 0 24px", lineHeight: 1.05, color: "#fff" };
   const sponsorCopyStyle = { maxWidth: "640px", margin: "0 auto 32px", fontSize: "1.15rem", lineHeight: 1.6, color: "rgba(255,255,255,.75)" };
@@ -68,24 +73,45 @@ export default function JoinTheFlock() {
   const faqQuestionStyle = { fontFamily: "var(--disp)", fontSize: "1.15rem", fontWeight: 600, color: "var(--ink)", margin: "0 0 8px" };
   const faqAnswerStyle = { color: "var(--muted)", margin: 0, lineHeight: 1.6 };
 
+  // Prize section styles
   const prizeWrapStyle = { position: "relative", padding: "60px 24px 120px", maxWidth: "1280px", margin: "0 auto" };
   const prizeButtonStyle = { position: "relative", padding: "70px 40px 70px", borderRadius: "40px", border: "5px solid var(--gold)", background: "linear-gradient(180deg, #FFFEFA 0%, #FFF6E0 100%)", boxShadow: "0 30px 80px rgba(231,181,60,.25), 0 0 0 1px rgba(231,181,60,.1), inset 0 1px 0 rgba(255,255,255,.9)", overflow: "hidden" };
   const prizeBadgeStyle = { display: "inline-flex", alignItems: "center", gap: "12px", padding: "18px 36px", background: "var(--gold)", color: "var(--ink)", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: "1.2rem", letterSpacing: ".15em", textTransform: "uppercase", marginBottom: "36px", boxShadow: "0 0 0 0 rgba(231,181,60,.7)", animation: "pulse-big 2.5s infinite" };
   const prizeHeadlineStyle = { fontFamily: "var(--disp)", fontSize: "clamp(2.6rem, 6.5vw, 4.8rem)", lineHeight: 1, letterSpacing: "-.02em", margin: "0 0 20px", color: "var(--ink)", textAlign: "center" };
   const prizeSubStyle = { fontSize: "1.2rem", color: "var(--muted)", maxWidth: "640px", margin: "0 auto 48px", textAlign: "center", lineHeight: 1.5 };
-  const prizeCardsStyle = { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px", maxWidth: "880px", margin: "0 auto" };
-  const prizeCardStyle = { background: "linear-gradient(160deg, #1338DE 0%, #0A0B14 100%)", color: "#fff", borderRadius: "24px", padding: "36px 32px", position: "relative", overflow: "hidden", boxShadow: "0 24px 60px rgba(11,30,138,.25)", border: "1px solid rgba(231,181,60,.3)" };
-  const prizeIconWrapStyle = { width: "56px", height: "56px", borderRadius: "16px", background: "var(--gold)", color: "var(--ink)", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "20px" };
-  const prizeCardTitleStyle = { fontFamily: "var(--disp)", fontSize: "1.7rem", margin: "0 0 12px", color: "#fff", lineHeight: 1.15 };
-  const prizeCardBodyStyle = { color: "rgba(255,255,255,.78)", margin: "0 0 16px", lineHeight: 1.55, fontSize: ".98rem" };
-  const prizeCardMetaStyle = { display: "flex", alignItems: "center", gap: "8px", fontSize: ".85rem", color: "var(--gold)", fontFamily: "var(--disp)", fontWeight: 600, textTransform: "uppercase", letterSpacing: ".05em" };
   const prizeFooterStyle = { textAlign: "center", marginTop: "48px" };
   const prizeValueLineStyle = { fontFamily: "var(--disp)", fontSize: "1.5rem", color: "var(--ink)", margin: "0 0 8px", fontWeight: 700 };
   const prizeDrawingLineStyle = { color: "var(--muted)", margin: "0 0 28px", fontSize: "1rem" };
 
+  // Headline (Joe Dirt) card - RED, scaled up
+  const headlineCardWrapStyle = { maxWidth: "560px", margin: "0 auto 24px", position: "relative" };
+  const headlineRibbonStyle = { position: "absolute", top: "-14px", left: "50%", transform: "translateX(-50%)", background: RED, color: "#FFFFFF", padding: "8px 22px", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: ".82rem", letterSpacing: ".15em", boxShadow: "0 6px 20px rgba(214,40,40,.4)", zIndex: 3 };
+  const headlineCardStyle = { background: `linear-gradient(160deg, ${RED} 0%, #8B1A1A 100%)`, color: "#fff", borderRadius: "28px", padding: "44px 36px", boxShadow: "0 30px 70px rgba(214,40,40,.35)", border: `2px solid ${GOLD}`, textAlign: "center", transform: "scale(1.02)" };
+  const headlineIconStyle = { width: "64px", height: "64px", borderRadius: "18px", background: GOLD, color: INK, display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "18px" };
+  const headlineTitleStyle = { fontFamily: "var(--disp)", fontSize: "1.9rem", margin: "0 0 10px", color: "#fff", lineHeight: 1.1 };
+  const headlineSponsorStyle = { fontFamily: "var(--disp)", fontWeight: 700, color: GOLD, fontSize: ".95rem", letterSpacing: ".08em", textTransform: "uppercase", margin: "0 0 14px" };
+  const headlineBodyStyle = { color: "rgba(255,255,255,.85)", margin: "0 0 18px", lineHeight: 1.55, fontSize: "1rem" };
+  const headlineValueStyle = { display: "inline-block", padding: "6px 18px", background: "rgba(255,255,255,.15)", borderRadius: "999px", color: "#fff", fontFamily: "var(--disp)", fontWeight: 700, fontSize: ".95rem" };
+
+  // Standard cobalt prize cards (4 supporting prizes)
+  const prizeCardsStyle = { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "20px", maxWidth: "1100px", margin: "0 auto" };
+  const prizeCardStyle = { background: `linear-gradient(160deg, ${COBALT} 0%, ${INK} 100%)`, color: "#fff", borderRadius: "24px", padding: "32px 28px", position: "relative", overflow: "hidden", boxShadow: "0 24px 60px rgba(11,30,138,.25)", border: "1px solid rgba(231,181,60,.3)" };
+  const prizeIconWrapStyle = { width: "52px", height: "52px", borderRadius: "14px", background: "var(--gold)", color: "var(--ink)", display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "18px" };
+  const prizeCardTitleStyle = { fontFamily: "var(--disp)", fontSize: "1.4rem", margin: "0 0 10px", color: "#fff", lineHeight: 1.15 };
+  const prizeCardBodyStyle = { color: "rgba(255,255,255,.78)", margin: "0 0 14px", lineHeight: 1.5, fontSize: ".95rem" };
+  const prizeCardMetaStyle = { display: "flex", alignItems: "center", gap: "8px", fontSize: ".8rem", color: "var(--gold)", fontFamily: "var(--disp)", fontWeight: 600, textTransform: "uppercase", letterSpacing: ".05em" };
+
+  // Bonus entry callout in Post Your Duck section
+  const bonusBoxStyle = { background: "linear-gradient(135deg, var(--gold) 0%, #D9A030 100%)", color: INK, padding: "32px 28px", borderRadius: "24px", maxWidth: "640px", margin: "32px auto 0", textAlign: "center", boxShadow: "0 20px 50px rgba(231,181,60,.3)", border: `2px solid ${INK}` };
+  const bonusKickerStyle = { display: "inline-block", padding: "6px 16px", background: INK, color: GOLD, borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: ".78rem", letterSpacing: ".15em", marginBottom: "14px" };
+  const bonusTitleStyle = { fontFamily: "var(--disp)", fontSize: "1.8rem", fontWeight: 800, color: INK, margin: "0 0 10px", lineHeight: 1.1 };
+  const bonusBodyStyle = { color: "rgba(10,11,20,.78)", margin: "0", fontSize: "1rem", lineHeight: 1.55 };
+  const bonusEmphasisStyle = { color: INK, fontWeight: 700 };
+
   const faqs = [
     { q: "Is this a real giveaway?", a: "100% real. One person from the flock wins a local prize every drawing. No tricks, no purchase, no kidding. Read the official rules for the full breakdown." },
     { q: "What if I don't win the first drawing?", a: "You're still in. Once you enter, your name stays in the flock for 1 full year — that's 24 drawings (1st and 15th of every month). Every drawing pulls from everyone who's currently active. Best move: follow @gvonflue on Instagram so you'll see the second your name comes up." },
+    { q: "How do I get bonus entries?", a: "Post a photo of you with your duck on Instagram or Facebook using #DuckWichita. Once we see the post, you get 4 extra entries on top of your original — 5 total. One bonus per person per cycle. Make sure the duck is in the photo." },
     { q: "Do I need to buy or sell a home?", a: "Nope. You can be 'just here for the duck' on the form and still win. The real estate stuff is just what I do for a living." },
     { q: "Can I duck someone else?", a: "Absolutely. If you want to pass yours along, do it. The duck moves how it wants to move." },
     { q: "Can businesses participate?", a: "Yes — local businesses can sponsor a month, contribute a prize, or just get featured. Hit the sponsor button above." },
@@ -143,6 +169,7 @@ export default function JoinTheFlock() {
         </Reveal>
       </section>
 
+      {/* JUNE LAUNCH PRIZE — full $840+ package */}
       <section style={prizeWrapStyle}>
         <div className="prize-arrow-left">
           <svg width="90" height="90" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 40 L62 40 M45 22 L62 40 L45 58" stroke="var(--gold)" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -153,32 +180,59 @@ export default function JoinTheFlock() {
 
         <div className="prize-button" style={prizeButtonStyle}>
           <div style={{ textAlign: "center" }}>
-            <Reveal><span style={prizeBadgeStyle}>🦆 June Prize</span></Reveal>
-            <Reveal as="h2" delay={80} style={prizeHeadlineStyle}>A night at the <span style={goldAccent}>ballpark</span>.<br/>On the house.</Reveal>
-            <Reveal as="p" delay={140} style={prizeSubStyle}>Wichita Wind Surge baseball, behind home plate, plus cash for hot dogs, beer, and whatever else makes the night perfect. This is the first DuckWichita prize and we&apos;re going big.</Reveal>
+            <Reveal><span style={prizeBadgeStyle}>🦆 July 1 Drawing</span></Reveal>
+            <Reveal as="h2" delay={80} style={prizeHeadlineStyle}>The ultimate <span style={goldAccent}>Wichita summer</span> package.</Reveal>
+            <Reveal as="p" delay={140} style={prizeSubStyle}>Five prizes. Over $840 in total value. One Wichita winner. This is what we&apos;re launching with — and we&apos;re only getting bigger.</Reveal>
           </div>
 
-          <Reveal delay={200}>
+          {/* Headline Sponsor — Joe Dirt */}
+          <Reveal delay={180}>
+            <div style={headlineCardWrapStyle}>
+              <div style={headlineRibbonStyle}>★ HEADLINE SPONSOR ★</div>
+              <div style={headlineCardStyle}>
+                <div style={headlineIconStyle}><Flame size={32} /></div>
+                <p style={headlineSponsorStyle}>Sponsored by Joe Dirt Fireworks</p>
+                <h3 style={headlineTitleStyle}>$300 Fireworks Bundle</h3>
+                <p style={headlineBodyStyle}>The headline prize. Joe Dirt Fireworks is loading up a premium $300 bundle of the loudest, brightest fireworks Wichita has to offer. Light up your 4th of July.</p>
+                <span style={headlineValueStyle}>$300 value</span>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* 4 supporting prizes */}
+          <Reveal delay={240}>
             <div style={prizeCardsStyle}>
               <div style={prizeCardStyle}>
-                <div style={prizeIconWrapStyle}><Ticket size={28} /></div>
-                <h3 style={prizeCardTitleStyle}>4 Tickets · Section A</h3>
-                <p style={prizeCardBodyStyle}>Directly behind home plate. Bring the family, a date, your crew — whoever you want. Good for any Wind Surge home game this season.</p>
+                <div style={prizeIconWrapStyle}><Ticket size={24} /></div>
+                <h3 style={prizeCardTitleStyle}>4 Wind Surge Tickets</h3>
+                <p style={prizeCardBodyStyle}>Section A, directly behind home plate. Bring the family, a date, your crew. Good for any home game this season.</p>
                 <div style={prizeCardMetaStyle}><MapPin size={14} /> Equity Bank Park</div>
               </div>
               <div style={prizeCardStyle}>
-                <div style={prizeIconWrapStyle}><DollarSign size={28} /></div>
-                <h3 style={prizeCardTitleStyle}>$100 Cash</h3>
-                <p style={prizeCardBodyStyle}>For the food, the drinks, the parking, the t-shirts off the cannon — whatever makes the night feel like a real night out.</p>
+                <div style={prizeIconWrapStyle}><UtensilsCrossed size={24} /></div>
+                <h3 style={prizeCardTitleStyle}>$200 Dinner Gift Card</h3>
+                <p style={prizeCardBodyStyle}>A full dinner on the house at a top Wichita restaurant. Bring whoever you want. Restaurant sponsor announcement coming soon.</p>
+                <div style={prizeCardMetaStyle}><Sparkles size={14} /> Local restaurant</div>
+              </div>
+              <div style={prizeCardStyle}>
+                <div style={prizeIconWrapStyle}><Shirt size={24} /></div>
+                <h3 style={prizeCardTitleStyle}>DuckWichita Merch Bundle</h3>
+                <p style={prizeCardBodyStyle}>Two official DuckWichita tees and a sticker pack. Collector&apos;s edition — only the first winners get these.</p>
+                <div style={prizeCardMetaStyle}><Sparkles size={14} /> Limited drop</div>
+              </div>
+              <div style={prizeCardStyle}>
+                <div style={prizeIconWrapStyle}><DollarSign size={24} /></div>
+                <h3 style={prizeCardTitleStyle}>$200 Cash</h3>
+                <p style={prizeCardBodyStyle}>No strings, no restrictions. Spend it on whatever the rest of this package doesn&apos;t cover.</p>
                 <div style={prizeCardMetaStyle}><Sparkles size={14} /> Spend it however</div>
               </div>
             </div>
           </Reveal>
 
-          <Reveal delay={260}>
+          <Reveal delay={300}>
             <div style={prizeFooterStyle}>
-              <p style={prizeValueLineStyle}>Total value: <span style={goldAccent}>$200+</span></p>
-              <p style={prizeDrawingLineStyle}><Calendar size={16} style={{ display: "inline", marginRight: "6px", verticalAlign: "-3px" }} />Drawing: July 1 · Winner announced on @gvonflue</p>
+              <p style={prizeValueLineStyle}>Total package value: <span style={goldAccent}>$840+</span></p>
+              <p style={prizeDrawingLineStyle}><Calendar size={16} style={{ display: "inline", marginRight: "6px", verticalAlign: "-3px" }} />First drawing: July 1, 2026 · Winner announced on @gvonflue</p>
               <a href="#enter" className="btn btn-gold btn-lg">Enter Now <ArrowUpRight size={20} /></a>
             </div>
           </Reveal>
@@ -242,11 +296,21 @@ export default function JoinTheFlock() {
         </div>
       </section>
 
+      {/* POST YOUR DUCK — now with 5x bonus entry */}
       <section style={sectionStyle}>
         <Reveal as="span" className="section-kicker">04 — Spread the flock</Reveal>
         <Reveal as="h2" delay={60} className="section-title">Post your <span style={goldAccent}>duck.</span></Reveal>
         <Reveal as="p" delay={120} style={ledeStyle}>Take a photo with your duck and post it using <strong>#DuckWichita</strong>. Tag me so I can repost it — and follow <strong>@gvonflue</strong> while you&apos;re there, because that&apos;s where I announce who won each drawing.</Reveal>
+
         <Reveal delay={180}>
+          <div style={bonusBoxStyle}>
+            <span style={bonusKickerStyle}>🎯 BONUS</span>
+            <h3 style={bonusTitleStyle}>Post your duck = <span style={bonusEmphasisStyle}>5x entries.</span></h3>
+            <p style={bonusBodyStyle}>Snap a photo with your duck and post it to Instagram or Facebook using <strong style={bonusEmphasisStyle}>#DuckWichita</strong>. Once we see it, we&apos;ll bump your entry from 1 to <strong style={bonusEmphasisStyle}>5 entries</strong> — five times the chances to win the package. Make sure the duck is in the photo.</p>
+          </div>
+        </Reveal>
+
+        <Reveal delay={240}>
           <div style={flockBtnsStyle}>
             <a href="https://instagram.com/gvonflue" target="_blank" rel="noopener noreferrer" className="btn btn-gold btn-lg"><Instagram size={20} /> Tag @gvonflue</a>
             <a href="https://www.facebook.com/garrettvonflue/" target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg">Find me on Facebook</a>
