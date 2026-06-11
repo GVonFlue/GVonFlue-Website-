@@ -84,8 +84,8 @@ export default function JoinTheFlock() {
   const prizeDrawingLineStyle = { color: "var(--muted)", margin: "0 0 28px", fontSize: "1rem" };
 
   const faqs = [
-    { q: "Is this a real giveaway?", a: "100% real. One person from the flock wins a local prize every month. No tricks, no purchase, no kidding." },
-    { q: "What if I don't win the first month?", a: "You're still in. Once you enter, your name stays in the flock for 2 full years — that's 24 drawings. Every month's winner is pulled from everyone who's ever entered. Best move: follow @gvonflue on Instagram so you'll see the second your name comes up." },
+    { q: "Is this a real giveaway?", a: "100% real. Two people from the flock win local prizes every month — drawings on the 1st and the 15th. No tricks, no purchase, no kidding." },
+    { q: "What if I don't win the first drawing?", a: "You're still in. Once you enter, your name stays in the flock for 1 full year — that's 24 drawings (two a month). Every drawing pulls from everyone who's currently in the flock. Best move: follow @gvonflue on Instagram so you'll see the second your name comes up." },
     { q: "Do I need to buy or sell a home?", a: "Nope. You can be 'just here for the duck' on the form and still win. The real estate stuff is just what I do for a living." },
     { q: "Can I duck someone else?", a: "Absolutely. If you want to pass yours along, do it. The duck moves how it wants to move." },
     { q: "Can businesses participate?", a: "Yes — local businesses can sponsor a month, contribute a prize, or just get featured. Hit the sponsor button above." },
@@ -133,7 +133,7 @@ export default function JoinTheFlock() {
 
         <Reveal><span style={heroKickerStyle}><Sparkles size={16} /> Wichita, KS · The Flock</span></Reveal>
         <Reveal as="h1" delay={80} style={heroTitleStyle}>You&apos;ve Been <span style={goldAccent}>Ducked</span>, Wichita.</Reveal>
-        <Reveal as="p" delay={140} style={heroSubStyle}>Somewhere out there, a tiny patriotic eagle-duck chose <strong style={{ color: "var(--ink)" }}>you</strong>. Now you&apos;re part of the flock — and there&apos;s a real prize with your name on it.</Reveal>
+        <Reveal as="p" delay={140} style={heroSubStyle}>Somewhere out there, a tiny patriotic duck chose <strong style={{ color: "var(--ink)" }}>you</strong>. Now you&apos;re part of the flock — and there&apos;s a real prize with your name on it.</Reveal>
         <Reveal delay={200}>
           <div style={heroCtasStyle}>
             <a href="#enter" className="btn btn-gold btn-lg">Enter The Giveaway <ArrowUpRight size={20} /></a>
@@ -142,7 +142,7 @@ export default function JoinTheFlock() {
         </Reveal>
         <Reveal delay={260}>
           <div className="duck-frame-wrap" style={duckFrameStyle}>
-            <img src="/images/duck.jpg" alt="The DuckWichita eagle-duck" style={duckImgStyle} />
+            <img src="/images/duck.jpg" alt="The DuckWichita patriotic duck" style={duckImgStyle} />
           </div>
         </Reveal>
       </section>
@@ -156,7 +156,7 @@ export default function JoinTheFlock() {
         </div>
 
         <div className="prize-button" style={prizeButtonStyle}>
-          <img className="prize-duck" src="/images/duck.jpg" alt="DuckWichita eagle-duck" style={prizeDuckStyle} />
+          <img className="prize-duck" src="/images/duck.jpg" alt="DuckWichita patriotic duck" style={prizeDuckStyle} />
           <div style={{ textAlign: "center" }}>
             <Reveal><span style={prizeBadgeStyle}>🦆 June Prize</span></Reveal>
             <Reveal as="h2" delay={80} style={prizeHeadlineStyle}>A night at the <span style={goldAccent}>ballpark</span>.<br/>On the house.</Reveal>
@@ -183,7 +183,7 @@ export default function JoinTheFlock() {
           <Reveal delay={260}>
             <div style={prizeFooterStyle}>
               <p style={prizeValueLineStyle}>Total value: <span style={goldAccent}>$200+</span></p>
-              <p style={prizeDrawingLineStyle}><Calendar size={16} style={{ display: "inline", marginRight: "6px", verticalAlign: "-3px" }} />Drawing: June 30 · Winner announced on @gvonflue</p>
+              <p style={prizeDrawingLineStyle}><Calendar size={16} style={{ display: "inline", marginRight: "6px", verticalAlign: "-3px" }} />Drawings: 1st &amp; 15th of every month · Winners announced on @gvonflue</p>
               <a href="#enter" className="btn btn-gold btn-lg">Enter Now <ArrowUpRight size={20} /></a>
             </div>
           </Reveal>
@@ -193,18 +193,18 @@ export default function JoinTheFlock() {
       <section style={sectionStyle} id="what">
         <Reveal as="span" className="section-kicker">02 — How it works</Reveal>
         <Reveal as="h2" delay={60} className="section-title">So... what just <span style={goldAccent}>happened?</span></Reveal>
-        <Reveal as="p" delay={120} style={ledeStyle}>You found one of the DuckWichita eagle-ducks. No catch. No weird sales pitch. Just a random little piece of Wichita fun created to make people smile, support local businesses, and give people a chance to win cool stuff.</Reveal>
+        <Reveal as="p" delay={120} style={ledeStyle}>You found one of the DuckWichita patriotic ducks. No catch. No weird sales pitch. Just a random little piece of Wichita fun created to make people smile, support local businesses, and give people a chance to win cool stuff.</Reveal>
         <div style={cardsGridStyle}>
-          <Reveal delay={180}><div style={cardStyle}><div style={cardNumStyle}>1</div><h3 style={cardTitleStyle}>You Got Ducked</h3><p style={cardBodyStyle}>A little eagle-duck found its way to you somewhere around Wichita. That&apos;s not random — that&apos;s the universe paying you a tiny compliment.</p></div></Reveal>
-          <Reveal delay={240}><div style={cardStyle}><div style={cardNumStyle}>2</div><h3 style={cardTitleStyle}>Scan The Code</h3><p style={cardBodyStyle}>You scanned the QR. That&apos;s how you got here. Welcome to the flock — it&apos;s quieter than you&apos;d think.</p></div></Reveal>
-          <Reveal delay={300}><div style={cardStyle}><div style={cardNumStyle}>3</div><h3 style={cardTitleStyle}>Enter To Win</h3><p style={cardBodyStyle}>Drop your name below for monthly local prize drawings. Gift cards, dinners, experiences, the works.</p></div></Reveal>
+          <Reveal delay={180}><div style={cardStyle}><div style={cardNumStyle}>1</div><h3 style={cardTitleStyle}>You Got Ducked</h3><p style={cardBodyStyle}>A little patriotic duck found its way to you somewhere around Wichita. That&apos;s not random — that&apos;s the universe paying you a tiny compliment.</p></div></Reveal>
+          <Reveal delay={240}><div style={cardStyle}><div style={cardNumStyle}>2</div><h3 style={cardTitleStyle}>Scan The Code</h3><p style={cardBodyStyle}>You scanned the QR code on the Duck Tag. That&apos;s how you got here. Welcome to the flock — it&apos;s quieter than you&apos;d think.</p></div></Reveal>
+          <Reveal delay={300}><div style={cardStyle}><div style={cardNumStyle}>3</div><h3 style={cardTitleStyle}>Enter To Win</h3><p style={cardBodyStyle}>Drop your name below for twice-monthly local prize drawings. Gift cards, dinners, experiences, the works.</p></div></Reveal>
         </div>
       </section>
 
       <section style={sectionStyle} id="enter">
         <Reveal as="span" className="section-kicker">03 — Enter the flock</Reveal>
-        <Reveal as="h2" delay={60} className="section-title">Enter the monthly <span style={goldAccent}>DuckWichita</span> giveaway.</Reveal>
-        <Reveal as="p" delay={120} style={ledeStyle}>Every month, someone from the flock wins local prizes — gift cards, experiences, event tickets, food, coffee, and whatever other fun things we can get our hands on.</Reveal>
+        <Reveal as="h2" delay={60} className="section-title">Enter the <span style={goldAccent}>DuckWichita</span> giveaway.</Reveal>
+        <Reveal as="p" delay={120} style={ledeStyle}>Twice a month, someone from the flock wins local prizes — gift cards, experiences, event tickets, food, coffee, and whatever other fun things we can get our hands on.</Reveal>
         <div style={formCardStyle}>
           <form onSubmit={handleSubmit}>
             <input type="hidden" name="botcheck" />
@@ -224,7 +224,7 @@ export default function JoinTheFlock() {
               <option>Just Here For The Duck</option>
             </select>
             <button type="submit" style={submitBtnStyle} disabled={submitting}>{submitting ? "Adding you..." : "Enter Me In The Flock"}</button>
-            <p style={flockReassureStyle}>Enter once, stay in the flock for <strong style={{ color: "var(--ink)" }}>2 full years</strong>. Every monthly drawing pulls from the whole flock — so your name has 24 shots, not 1.</p>
+            <p style={flockReassureStyle}>Enter once, stay in the flock for <strong style={{ color: "var(--ink)" }}>1 full year</strong>. Drawings happen twice a month — so your name has <strong style={{ color: "var(--ink)" }}>24 shots</strong>, not 1.</p>
           </form>
         </div>
       </section>
@@ -232,7 +232,7 @@ export default function JoinTheFlock() {
       <section style={sectionStyle}>
         <Reveal as="span" className="section-kicker">04 — Spread the flock</Reveal>
         <Reveal as="h2" delay={60} className="section-title">Post your <span style={goldAccent}>duck.</span></Reveal>
-        <Reveal as="p" delay={120} style={ledeStyle}>Take a photo with your eagle-duck and post it using <strong>#DuckWichita</strong>. Tag me so I can repost it — and follow <strong>@gvonflue</strong> while you&apos;re there, because that&apos;s where I announce who won each month.</Reveal>
+        <Reveal as="p" delay={120} style={ledeStyle}>Take a photo with your patriotic duck and post it using <strong>#DuckWichita</strong>. Tag me so I can repost it — and follow <strong>@gvonflue</strong> while you&apos;re there, because that&apos;s where I announce winners.</Reveal>
         <Reveal delay={180}>
           <div style={flockBtnsStyle}>
             <a href="https://instagram.com/gvonflue" target="_blank" rel="noopener noreferrer" className="btn btn-gold btn-lg"><Instagram size={20} /> Tag @gvonflue</a>
