@@ -5,6 +5,7 @@ import Journey from "@/components/Journey";
 import About from "@/components/About";
 import Values from "@/components/Values";
 import LeadMagnet from "@/components/LeadMagnet";
+import DuckWichita from "@/components/DuckWichita";
 import Social from "@/components/Social";
 import Local from "@/components/Local";
 import FinalCTA from "@/components/FinalCTA";
@@ -20,6 +21,7 @@ export default function HomePage() {
       <About />
       <Values />
       <LeadMagnet />
+      <DuckWichita />
       <Social />
       <Local />
       <FinalCTA />
