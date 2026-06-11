@@ -65,6 +65,11 @@ export default function DuckWichita() {
   const noDuckTitleStyle = { fontFamily: "var(--disp)", fontSize: "1.6rem", margin: "0 0 12px", color: COBALT };
   const noDuckBodyStyle = { color: "rgba(10,11,20,.7)", fontSize: "1.05rem", lineHeight: 1.55, margin: "0 0 20px" };
 
+  const bonusWrapStyle = { background: "#FFFFFF", border: `3px solid ${ORANGE}`, borderRadius: "24px", padding: "44px 32px", marginTop: "40px", textAlign: "center", maxWidth: "780px", marginLeft: "auto", marginRight: "auto", boxShadow: `0 24px 60px rgba(255,107,53,.18)` };
+  const bonusBadgeStyle = { display: "inline-flex", alignItems: "center", gap: "8px", padding: "8px 20px", background: ORANGE, color: "#FFFFFF", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: ".85rem", letterSpacing: ".12em", textTransform: "uppercase", marginBottom: "20px" };
+  const bonusTitleStyle = { fontFamily: "var(--disp)", fontSize: "clamp(1.6rem, 4vw, 2.3rem)", margin: "0 0 14px", color: INK, lineHeight: 1.15 };
+  const bonusBodyStyle = { color: "rgba(10,11,20,.7)", fontSize: "1.08rem", lineHeight: 1.55, margin: "0 auto", maxWidth: "560px" };
+
   const galleryGridStyle = { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "16px", marginTop: "48px" };
   const galleryCardStyle = { aspectRatio: "1/1", background: `linear-gradient(135deg, ${COBALT} 0%, ${INK} 100%)`, borderRadius: "16px", display: "flex", alignItems: "center", justifyContent: "center", color: "rgba(255,255,255,.5)", fontFamily: "var(--disp)", fontSize: ".85rem", letterSpacing: ".1em", textTransform: "uppercase", border: `2px solid ${ORANGE}` };
 
@@ -187,7 +192,15 @@ export default function DuckWichita() {
           </div>
         </div>
 
-        <Reveal delay={440}>
+        <Reveal delay={420}>
+          <div style={bonusWrapStyle}>
+            <span style={bonusBadgeStyle}>🎯 5x Bonus</span>
+            <h3 style={bonusTitleStyle}>Post your duck = <span style={orangeAccent}>5x the chances.</span></h3>
+            <p style={bonusBodyStyle}>Once you&apos;re in the flock, snap a photo with your duck and post it to Instagram or Facebook using <strong>#DuckWichita</strong>. When we spot it, your single entry jumps to <strong style={orangeAccent}>5 entries</strong> — five times the shot at the prize. Just make sure the duck is in the photo. Always free, no purchase ever.</p>
+          </div>
+        </Reveal>
+
+        <Reveal delay={480}>
           <div style={noDuckWrapStyle}>
             <h3 style={noDuckTitleStyle}>Don&apos;t have a duck yet?</h3>
             <p style={noDuckBodyStyle}>The only way into the flock right now is to find one in the wild. Follow <strong>@gvonflue</strong> on Instagram for clues on where the latest ducks have been dropped.</p>
