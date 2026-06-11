@@ -67,8 +67,9 @@ export default function JoinTheFlock() {
   const faqQuestionStyle = { fontFamily: "var(--disp)", fontSize: "1.15rem", fontWeight: 600, color: "var(--ink)", margin: "0 0 8px" };
   const faqAnswerStyle = { color: "var(--muted)", margin: 0, lineHeight: 1.6 };
 
-  const prizeWrapStyle = { position: "relative", padding: "60px 24px 120px", maxWidth: "1280px", margin: "0 auto" };
-  const prizeButtonStyle = { position: "relative", padding: "70px 40px 70px", borderRadius: "40px", border: "5px solid var(--gold)", background: "linear-gradient(180deg, #FFFEFA 0%, #FFF6E0 100%)", boxShadow: "0 30px 80px rgba(231,181,60,.25), 0 0 0 1px rgba(231,181,60,.1), inset 0 1px 0 rgba(255,255,255,.9)", overflow: "hidden" };
+  const prizeWrapStyle = { position: "relative", padding: "120px 24px 120px", maxWidth: "1280px", margin: "0 auto" };
+  const prizeButtonStyle = { position: "relative", padding: "70px 40px 70px", borderRadius: "40px", border: "5px solid var(--gold)", background: "linear-gradient(180deg, #FFFEFA 0%, #FFF6E0 100%)", boxShadow: "0 30px 80px rgba(231,181,60,.25), 0 0 0 1px rgba(231,181,60,.1), inset 0 1px 0 rgba(255,255,255,.9)", overflow: "visible" };
+  const prizeDuckStyle = { position: "absolute", top: "-100px", right: "50px", width: "200px", height: "200px", objectFit: "cover", objectPosition: "center top", borderRadius: "50%", border: "5px solid var(--gold)", boxShadow: "0 20px 40px rgba(11,30,138,.25)", zIndex: 10 };
   const prizeBadgeStyle = { display: "inline-flex", alignItems: "center", gap: "12px", padding: "18px 36px", background: "var(--gold)", color: "var(--ink)", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: "1.2rem", letterSpacing: ".15em", textTransform: "uppercase", marginBottom: "36px", boxShadow: "0 0 0 0 rgba(231,181,60,.7)", animation: "pulse-big 2.5s infinite" };
   const prizeHeadlineStyle = { fontFamily: "var(--disp)", fontSize: "clamp(2.6rem, 6.5vw, 4.8rem)", lineHeight: 1, letterSpacing: "-.02em", margin: "0 0 20px", color: "var(--ink)", textAlign: "center" };
   const prizeSubStyle = { fontSize: "1.2rem", color: "var(--muted)", maxWidth: "640px", margin: "0 auto 48px", textAlign: "center", lineHeight: 1.5 };
@@ -99,10 +100,12 @@ export default function JoinTheFlock() {
         @keyframes arrow-bob-right { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-16px); } }
         @keyframes sparkle-float { 0%, 100% { transform: translateY(0) scale(1) rotate(0deg); opacity: .5; } 50% { transform: translateY(-18px) scale(1.2) rotate(20deg); opacity: 1; } }
         @keyframes duck-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+        @keyframes duck-bob { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-8px) rotate(3deg); } }
         .prize-button { transition: transform .35s ease, box-shadow .35s ease; }
         .prize-button:hover { transform: translateY(-6px); box-shadow: 0 40px 100px rgba(231,181,60,.4), 0 0 0 1px rgba(231,181,60,.2), inset 0 1px 0 rgba(255,255,255,.9); }
         .prize-arrow-left { position: absolute; left: -10px; top: 50%; transform: translateY(-50%); animation: arrow-bob-left 1.8s ease-in-out infinite; z-index: 2; }
         .prize-arrow-right { position: absolute; right: -10px; top: 50%; transform: translateY(-50%); animation: arrow-bob-right 1.8s ease-in-out infinite; z-index: 2; }
+        .prize-duck { animation: duck-bob 4s ease-in-out infinite; transform-origin: center bottom; }
         .duck-frame-wrap { animation: duck-float 5s ease-in-out infinite; }
         .hero-sparkle { position: absolute; z-index: 0; pointer-events: none; }
         .hero-sparkle.s1 { top: 12%; left: 8%; animation: sparkle-float 4s ease-in-out 0s infinite; }
@@ -111,7 +114,11 @@ export default function JoinTheFlock() {
         .hero-sparkle.s4 { top: 60%; right: 6%; animation: sparkle-float 4.2s ease-in-out 1.8s infinite; }
         .hero-sparkle.s5 { top: 78%; left: 14%; animation: sparkle-float 4s ease-in-out .4s infinite; }
         .hero-sparkle.s6 { top: 82%; right: 16%; animation: sparkle-float 4.6s ease-in-out 1s infinite; }
-        @media (max-width: 900px) { .prize-arrow-left, .prize-arrow-right { display: none; } .hero-sparkle { display: none; } }
+        @media (max-width: 700px) {
+          .prize-arrow-left, .prize-arrow-right { display: none; }
+          .hero-sparkle { display: none; }
+          .prize-duck { width: 140px !important; height: 140px !important; top: -70px !important; right: 20px !important; border-width: 4px !important; }
+        }
       `}</style>
 
       <div style={topBarStyle}><Lockup /></div>
@@ -149,10 +156,11 @@ export default function JoinTheFlock() {
         </div>
 
         <div className="prize-button" style={prizeButtonStyle}>
+          <img className="prize-duck" src="/images/duck.jpg" alt="DuckWichita eagle-duck" style={prizeDuckStyle} />
           <div style={{ textAlign: "center" }}>
             <Reveal><span style={prizeBadgeStyle}>🦆 June Prize</span></Reveal>
             <Reveal as="h2" delay={80} style={prizeHeadlineStyle}>A night at the <span style={goldAccent}>ballpark</span>.<br/>On the house.</Reveal>
-            <Reveal as="p" delay={140} style={prizeSubStyle}>Wichita Wind Surge baseball, behind home plate, plus cash for hot dogs, beer, and whatever else makes the night perfect. This is the first DuckWichita prize and we&apos;re going big.</Reveal>
+            <Reveal as="p" delay={140} style={prizeSubStyle}>Wichita Wind Surge baseball, behind home plate, plus cash for hot dogs, beer, and whatever else makes the night perfect. This is the <strong style={{ color: "var(--ink)" }}>First DuckWichita Prize</strong> and we&apos;re going big.</Reveal>
           </div>
 
           <Reveal delay={200}>
