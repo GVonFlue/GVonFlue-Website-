@@ -14,7 +14,6 @@ export default function DuckWichita() {
   const pageStyle = { background: "#FFFFFF", minHeight: "100vh", color: INK };
   const topBarStyle = { padding: "28px 24px", display: "flex", justifyContent: "center" };
 
-  // HERO
   const heroStyle = { padding: "60px 24px 80px", textAlign: "center", maxWidth: "1180px", margin: "0 auto", position: "relative" };
   const heroKickerStyle = { display: "inline-flex", alignItems: "center", gap: "10px", padding: "10px 22px", background: "rgba(255,107,53,.12)", borderRadius: "999px", color: ORANGE, fontFamily: "var(--disp)", fontSize: ".9rem", fontWeight: 700, letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "32px", border: `1.5px solid rgba(255,107,53,.4)` };
   const heroTitleStyle = { fontFamily: "var(--disp)", fontSize: "clamp(3rem, 9vw, 7rem)", lineHeight: 0.92, letterSpacing: "-.025em", margin: "0 0 28px", color: INK };
@@ -24,18 +23,15 @@ export default function DuckWichita() {
   const heroDuckWrapStyle = { maxWidth: "420px", margin: "0 auto", aspectRatio: "1/1", borderRadius: "32px", background: `linear-gradient(135deg, ${COBALT} 0%, ${INK} 100%)`, overflow: "hidden", boxShadow: `0 30px 80px rgba(19,56,222,.3), 0 0 70px rgba(255,107,53,.2)`, position: "relative" };
   const heroDuckImgStyle = { width: "100%", height: "100%", objectFit: "cover", display: "block" };
 
-  // SECTIONS
   const sectionStyle = { padding: "100px 24px", maxWidth: "1180px", margin: "0 auto" };
   const sectionKickerStyle = { display: "inline-block", fontFamily: "var(--disp)", fontSize: ".85rem", fontWeight: 700, color: ORANGE, letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "16px" };
   const sectionTitleStyle = { fontFamily: "var(--disp)", fontSize: "clamp(2.4rem, 6vw, 4.2rem)", lineHeight: 1, letterSpacing: "-.02em", margin: "0 0 28px", color: INK };
   const ledeStyle = { maxWidth: "680px", fontSize: "1.2rem", color: "rgba(10,11,20,.7)", lineHeight: 1.6 };
 
-  // MANIFESTO
   const manifestoWrapStyle = { background: INK, color: "#fff", padding: "100px 32px", borderRadius: "32px", margin: "60px auto", maxWidth: "1180px", textAlign: "center" };
   const manifestoTitleStyle = { fontFamily: "var(--disp)", fontSize: "clamp(2.4rem, 6vw, 4.2rem)", margin: "0 0 32px", lineHeight: 1.05, color: "#fff", letterSpacing: "-.02em" };
   const manifestoCopyStyle = { color: "rgba(255,255,255,.78)", fontSize: "1.25rem", lineHeight: 1.6, maxWidth: "640px", margin: "0 auto 24px" };
 
-  // FLOWCHART — the key visual
   const flowchartWrapStyle = { marginTop: "60px", position: "relative" };
   const flowGridStyle = { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "20px", alignItems: "stretch", position: "relative" };
   const flowStepStyle = { background: "#FFFFFF", border: `3px solid ${INK}`, borderRadius: "20px", padding: "32px 24px", textAlign: "center", position: "relative", display: "flex", flexDirection: "column", alignItems: "center" };
@@ -43,9 +39,7 @@ export default function DuckWichita() {
   const flowStepNumStyle = { position: "absolute", top: "-16px", left: "50%", transform: "translateX(-50%)", background: COBALT, color: "#FFFFFF", borderRadius: "999px", padding: "4px 14px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: ".85rem", letterSpacing: ".1em" };
   const flowStepTitleStyle = { fontFamily: "var(--disp)", fontSize: "1.2rem", margin: "0 0 10px", color: INK, lineHeight: 1.2 };
   const flowStepBodyStyle = { color: "rgba(10,11,20,.65)", fontSize: ".95rem", lineHeight: 1.5, margin: 0 };
-  const flowArrowStyle = { position: "absolute", top: "50%", transform: "translateY(-50%)", color: ORANGE, zIndex: 5 };
 
-  // PRIZE SECTION
   const prizeWrapStyle = { position: "relative", padding: "120px 24px 120px", maxWidth: "1280px", margin: "0 auto" };
   const prizeButtonStyle = { position: "relative", padding: "70px 40px 70px", borderRadius: "40px", border: `5px solid ${ORANGE}`, background: "#FFFFFF", boxShadow: `0 30px 80px rgba(255,107,53,.25), 0 0 0 1px rgba(255,107,53,.1)`, overflow: "visible" };
   const prizeDuckStyle = { position: "absolute", top: "-100px", right: "50px", width: "200px", height: "200px", objectFit: "cover", objectPosition: "center top", borderRadius: "50%", border: `5px solid ${ORANGE}`, boxShadow: `0 20px 40px rgba(19,56,222,.25)`, zIndex: 10 };
@@ -62,33 +56,27 @@ export default function DuckWichita() {
   const prizeValueLineStyle = { fontFamily: "var(--disp)", fontSize: "1.5rem", color: INK, margin: "0 0 8px", fontWeight: 700 };
   const prizeDrawingLineStyle = { color: "rgba(10,11,20,.65)", margin: "0 0 28px", fontSize: "1rem" };
 
-  // CALLOUT for "Don't have a duck?"
   const noDuckWrapStyle = { background: "rgba(19,56,222,.06)", border: `2px dashed ${COBALT}`, borderRadius: "24px", padding: "40px 32px", marginTop: "60px", textAlign: "center", maxWidth: "780px", marginLeft: "auto", marginRight: "auto" };
   const noDuckTitleStyle = { fontFamily: "var(--disp)", fontSize: "1.6rem", margin: "0 0 12px", color: COBALT };
   const noDuckBodyStyle = { color: "rgba(10,11,20,.7)", fontSize: "1.05rem", lineHeight: 1.55, margin: "0 0 20px" };
 
-  // GALLERY
   const galleryGridStyle = { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "16px", marginTop: "48px" };
   const galleryCardStyle = { aspectRatio: "1/1", background: `linear-gradient(135deg, ${COBALT} 0%, ${INK} 100%)`, borderRadius: "16px", display: "flex", alignItems: "center", justifyContent: "center", color: "rgba(255,255,255,.5)", fontFamily: "var(--disp)", fontSize: ".85rem", letterSpacing: ".1em", textTransform: "uppercase", border: `2px solid ${ORANGE}` };
 
-  // WINNER SPOTLIGHT
   const winnerWrapStyle = { background: "#FFFFFF", border: `3px solid ${ORANGE}`, borderRadius: "32px", padding: "60px 40px", margin: "48px auto 0", maxWidth: "780px", textAlign: "center", position: "relative" };
   const winnerBadgeStyle = { display: "inline-block", padding: "8px 20px", background: ORANGE, color: "#FFFFFF", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: ".85rem", letterSpacing: ".12em", textTransform: "uppercase", marginBottom: "20px" };
   const winnerTitleStyle = { fontFamily: "var(--disp)", fontSize: "clamp(1.8rem, 4vw, 2.4rem)", margin: "0 0 16px", color: INK, lineHeight: 1.15 };
   const winnerCopyStyle = { color: "rgba(10,11,20,.65)", fontSize: "1.05rem", lineHeight: 1.55, maxWidth: "500px", margin: "0 auto" };
 
-  // SPONSOR
   const sponsorWrapStyle = { background: ORANGE, color: "#FFFFFF", padding: "80px 32px", borderRadius: "32px", margin: "60px auto", maxWidth: "1180px", textAlign: "center" };
   const sponsorKickerStyle = { color: "rgba(255,255,255,.85)", fontFamily: "var(--disp)", fontWeight: 700, letterSpacing: ".14em", textTransform: "uppercase", fontSize: ".85rem", marginBottom: "16px", display: "inline-block" };
   const sponsorTitleStyle = { fontFamily: "var(--disp)", fontSize: "clamp(2.2rem, 5.5vw, 3.6rem)", margin: "0 0 24px", lineHeight: 1.05, color: "#FFFFFF" };
   const sponsorCopyStyle = { maxWidth: "640px", margin: "0 auto 32px", fontSize: "1.2rem", lineHeight: 1.55, color: "rgba(255,255,255,.9)" };
 
-  // GARRETT
   const garrettWrapStyle = { textAlign: "center", maxWidth: "780px", margin: "0 auto" };
   const garrettSigStyle = { fontFamily: "var(--disp)", fontWeight: 600, color: COBALT, fontSize: "1.05rem", margin: "0 0 4px" };
   const garrettSubStyle = { color: "rgba(10,11,20,.55)", fontSize: ".95rem", margin: "0 0 32px" };
 
-  // Buttons
   const orangeBtnStyle = { display: "inline-flex", alignItems: "center", gap: "8px", padding: "16px 30px", background: ORANGE, color: "#FFFFFF", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 700, fontSize: "1rem", textDecoration: "none", border: "none", cursor: "pointer" };
   const ghostBtnStyle = { display: "inline-flex", alignItems: "center", gap: "8px", padding: "16px 30px", background: "transparent", color: INK, borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 700, fontSize: "1rem", textDecoration: "none", border: `2px solid ${INK}`, cursor: "pointer" };
   const whiteBtnStyle = { display: "inline-flex", alignItems: "center", gap: "8px", padding: "16px 30px", background: "#FFFFFF", color: ORANGE, borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: "1rem", textDecoration: "none", border: "none", cursor: "pointer" };
@@ -101,10 +89,8 @@ export default function DuckWichita() {
         @keyframes sparkle-float { 0%, 100% { transform: translateY(0) scale(1) rotate(0deg); opacity: .5; } 50% { transform: translateY(-18px) scale(1.2) rotate(20deg); opacity: 1; } }
         @keyframes duck-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
         @keyframes duck-bob { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-8px) rotate(3deg); } }
-        @keyframes arrow-pulse { 0%, 100% { opacity: .6; transform: translateY(-50%) translateX(0); } 50% { opacity: 1; transform: translateY(-50%) translateX(4px); } }
         .duck-hero-wrap { animation: duck-float 5s ease-in-out infinite; }
         .prize-duck { animation: duck-bob 4s ease-in-out infinite; transform-origin: center bottom; }
-        .flow-arrow { animation: arrow-pulse 1.8s ease-in-out infinite; }
         .dw-sparkle { position: absolute; z-index: 0; pointer-events: none; }
         .dw-sparkle.s1 { top: 8%; left: 6%; animation: sparkle-float 4s ease-in-out 0s infinite; }
         .dw-sparkle.s2 { top: 18%; right: 8%; animation: sparkle-float 4.5s ease-in-out .6s infinite; }
@@ -113,7 +99,6 @@ export default function DuckWichita() {
         @media (max-width: 900px) {
           .dw-sparkle { display: none; }
           .flow-grid { grid-template-columns: 1fr !important; }
-          .flow-arrow { display: none; }
         }
         @media (max-width: 700px) {
           .prize-duck { width: 140px !important; height: 140px !important; top: -70px !important; right: 20px !important; border-width: 4px !important; }
@@ -122,7 +107,6 @@ export default function DuckWichita() {
 
       <div style={topBarStyle}><Lockup /></div>
 
-      {/* HERO */}
       <section style={heroStyle}>
         <svg className="dw-sparkle s1" width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 0 L13.5 10.5 L24 12 L13.5 13.5 L12 24 L10.5 13.5 L0 12 L10.5 10.5 Z" fill={ORANGE}/></svg>
         <svg className="dw-sparkle s2" width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 0 L13.5 10.5 L24 12 L13.5 13.5 L12 24 L10.5 13.5 L0 12 L10.5 10.5 Z" fill={COBALT}/></svg>
@@ -131,7 +115,7 @@ export default function DuckWichita() {
 
         <Reveal><span style={heroKickerStyle}><Sparkles size={14} /> A Wichita Movement</span></Reveal>
         <Reveal as="h1" delay={80} style={heroTitleStyle}>Spreading <span style={orangeAccent}>smiles.</span><br/>One duck at a time.</Reveal>
-        <Reveal as="p" delay={140} style={heroSubStyle}>DuckWichita is the strangest, smallest movement in town — tiny patriotic eagle-ducks hidden across the city, each one a chance to win something local.</Reveal>
+        <Reveal as="p" delay={140} style={heroSubStyle}>DuckWichita is the strangest, smallest movement in town — tiny patriotic ducks hidden across the city, each one a chance to win something local.</Reveal>
         <Reveal delay={200}>
           <div style={heroCtasStyle}>
             <a href="#prize" style={orangeBtnStyle}>See This Month&apos;s Prize <ArrowUpRight size={20} /></a>
@@ -140,25 +124,23 @@ export default function DuckWichita() {
         </Reveal>
         <Reveal delay={260}>
           <div className="duck-hero-wrap" style={heroDuckWrapStyle}>
-            <img src="/images/duck.jpg" alt="A DuckWichita eagle-duck" style={heroDuckImgStyle} />
+            <img src="/images/duck.jpg" alt="A DuckWichita patriotic duck" style={heroDuckImgStyle} />
           </div>
         </Reveal>
       </section>
 
-      {/* MANIFESTO */}
       <section style={manifestoWrapStyle} id="story">
         <Reveal><span style={{ ...sectionKickerStyle, color: ORANGE }}>The Why</span></Reveal>
         <Reveal as="h2" delay={80} style={manifestoTitleStyle}>Wichita already has enough <span style={orangeAccent}>billboards.</span></Reveal>
         <Reveal as="p" delay={140} style={manifestoCopyStyle}>What it doesn&apos;t have is enough small, random, ridiculous moments of joy between strangers.</Reveal>
-        <Reveal as="p" delay={200} style={manifestoCopyStyle}>So we made some. A few hundred tiny patriotic eagle-ducks, hidden across the city. Find one, and you&apos;re part of something — including monthly drawings for real local prizes.</Reveal>
+        <Reveal as="p" delay={200} style={manifestoCopyStyle}>So we made some. A few hundred tiny patriotic ducks, hidden across the city. Find one, and you&apos;re part of something — including <strong style={{ color: "#fff" }}>twice-monthly drawings for Huge Local Prizes</strong>.</Reveal>
         <Reveal as="p" delay={260} style={{ ...manifestoCopyStyle, color: ORANGE, fontWeight: 600 }}>That&apos;s it. That&apos;s the whole thing.</Reveal>
       </section>
 
-      {/* HOW IT WORKS — flowchart */}
       <section style={sectionStyle} id="how">
         <Reveal><span style={sectionKickerStyle}>How It Works</span></Reveal>
         <Reveal as="h2" delay={60} style={sectionTitleStyle}>Four steps to <span style={orangeAccent}>the flock.</span></Reveal>
-        <Reveal as="p" delay={120} style={ledeStyle}>Each duck carries a QR code on a small hang tag. That code is the secret door — only people who find a duck can scan in.</Reveal>
+        <Reveal as="p" delay={120} style={ledeStyle}>Each duck carries a QR code on a small Duck Tag. That code is the secret door — only people who find a duck can scan in.</Reveal>
 
         <div style={flowchartWrapStyle}>
           <div className="flow-grid" style={flowGridStyle}>
@@ -176,7 +158,7 @@ export default function DuckWichita() {
                 <span style={flowStepNumStyle}>STEP 02</span>
                 <div style={flowIconWrapStyle}><QrCode size={32} /></div>
                 <h3 style={flowStepTitleStyle}>Scan the QR</h3>
-                <p style={flowStepBodyStyle}>Each duck has a small tag with a QR code. Scan it with your phone — that&apos;s your entry.</p>
+                <p style={flowStepBodyStyle}>Each duck has a Duck Tag with a QR code. Scan it with your phone — that&apos;s your entry.</p>
               </div>
             </Reveal>
 
@@ -194,13 +176,12 @@ export default function DuckWichita() {
                 <span style={flowStepNumStyle}>STEP 04</span>
                 <div style={flowIconWrapStyle}><Trophy size={32} /></div>
                 <h3 style={flowStepTitleStyle}>Win local prizes</h3>
-                <p style={flowStepBodyStyle}>Every month, one name from the whole flock wins something cool from a local business.</p>
+                <p style={flowStepBodyStyle}>Two drawings a month — the 1st and the 15th. One name from the whole flock wins each time.</p>
               </div>
             </Reveal>
           </div>
         </div>
 
-        {/* No-duck callout */}
         <Reveal delay={440}>
           <div style={noDuckWrapStyle}>
             <h3 style={noDuckTitleStyle}>Don&apos;t have a duck yet?</h3>
@@ -210,10 +191,9 @@ export default function DuckWichita() {
         </Reveal>
       </section>
 
-      {/* JUNE PRIZE */}
       <section style={prizeWrapStyle} id="prize">
         <div className="prize-button" style={prizeButtonStyle}>
-          <img className="prize-duck" src="/images/duck.jpg" alt="DuckWichita eagle-duck" style={prizeDuckStyle} />
+          <img className="prize-duck" src="/images/duck.jpg" alt="DuckWichita patriotic duck" style={prizeDuckStyle} />
           <div style={{ textAlign: "center" }}>
             <Reveal><span style={prizeBadgeStyle}>🦆 June Prize</span></Reveal>
             <Reveal as="h2" delay={80} style={prizeHeadlineStyle}>A night at the <span style={orangeAccent}>ballpark</span>.<br/>On the house.</Reveal>
@@ -240,13 +220,12 @@ export default function DuckWichita() {
           <Reveal delay={260}>
             <div style={prizeFooterStyle}>
               <p style={prizeValueLineStyle}>Total value: <span style={orangeAccent}>$200+</span></p>
-              <p style={prizeDrawingLineStyle}><Calendar size={16} style={{ display: "inline", marginRight: "6px", verticalAlign: "-3px" }} />Drawing: June 30 · Winner announced on @gvonflue</p>
+              <p style={prizeDrawingLineStyle}><Calendar size={16} style={{ display: "inline", marginRight: "6px", verticalAlign: "-3px" }} />Drawings: 1st &amp; 15th of every month · Winners announced on @gvonflue</p>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* FLOCK GALLERY */}
       <section style={sectionStyle}>
         <Reveal><span style={sectionKickerStyle}>The Flock In Action</span></Reveal>
         <Reveal as="h2" delay={60} style={sectionTitleStyle}>Recent <span style={orangeAccent}>finds.</span></Reveal>
@@ -268,22 +247,20 @@ export default function DuckWichita() {
         </Reveal>
       </section>
 
-      {/* WINNER SPOTLIGHT */}
       <section style={sectionStyle}>
-        <Reveal><span style={sectionKickerStyle}>Last Month&apos;s Spotlight</span></Reveal>
+        <Reveal><span style={sectionKickerStyle}>Last Drawing&apos;s Spotlight</span></Reveal>
         <Reveal as="h2" delay={60} style={sectionTitleStyle}>The flock <span style={orangeAccent}>gives back.</span></Reveal>
-        <Reveal as="p" delay={120} style={ledeStyle}>Every month, someone in the flock wins something cool — local prizes, experiences, gift cards, tickets. Past winners live here.</Reveal>
+        <Reveal as="p" delay={120} style={ledeStyle}>Twice a month, someone in the flock wins something cool — local prizes, experiences, gift cards, tickets. Past winners live here.</Reveal>
 
         <Reveal delay={180}>
           <div style={winnerWrapStyle}>
-            <span style={winnerBadgeStyle}>🦆 Coming June 30</span>
+            <span style={winnerBadgeStyle}>🦆 Next drawing soon</span>
             <h3 style={winnerTitleStyle}>Our first winner is on the way.</h3>
-            <p style={winnerCopyStyle}>The first DuckWichita drawing happens on June 30. We&apos;ll feature the winner — and their prize — right here. Follow along on Instagram to find out who.</p>
+            <p style={winnerCopyStyle}>Drawings happen on the 1st and 15th of every month. We&apos;ll feature each winner — and their prize — right here. Follow along on Instagram to find out who.</p>
           </div>
         </Reveal>
       </section>
 
-      {/* SPONSOR */}
       <section style={sponsorWrapStyle}>
         <Reveal><span style={sponsorKickerStyle}>For local businesses</span></Reveal>
         <Reveal as="h2" delay={60} style={sponsorTitleStyle}>Be part of <span style={{ color: INK }}>the flock.</span></Reveal>
@@ -293,7 +270,6 @@ export default function DuckWichita() {
         </Reveal>
       </section>
 
-      {/* GARRETT */}
       <section style={sectionStyle}>
         <div style={garrettWrapStyle}>
           <Reveal><span style={sectionKickerStyle}>Who&apos;s Behind It</span></Reveal>
