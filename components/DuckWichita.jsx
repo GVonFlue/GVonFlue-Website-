@@ -231,7 +231,7 @@ export default function DuckWichita() {
               Meet <span style={orangeAccent}>DuckWichita.</span>
             </Reveal>
             <Reveal as="p" delay={140} style={bodyStyle}>
-              I&apos;m hiding hundreds of tiny patriotic eagle-ducks across Wichita. Find one, scan the QR code, enter to win local prizes every single month. No catch, no sales pitch &mdash; just my way of giving back to the city.
+              I&apos;m hiding hundreds of tiny patriotic ducks across Wichita. Find one, scan the QR code, enter to win local prizes every single month. No catch, no sales pitch &mdash; just my way of giving back to the city.
             </Reveal>
             <Reveal as="p" delay={200} style={bodyStyle}>
               Restaurants, Wind Surge tickets, gift cards, cash. Real prizes from real local businesses. One winner the 1st and 15th of every month.
@@ -265,7 +265,7 @@ export default function DuckWichita() {
           <Reveal delay={200}>
             <div className="dw-visual-wrap" style={visualWrapStyle}>
               <div className="dw-visual" style={visualCardStyle}>
-                <img src="/images/duck.jpg" alt="The DuckWichita eagle-duck" style={visualImgStyle} />
+                <img src="/images/duck.jpg" alt="The DuckWichita duck" style={visualImgStyle} />
               </div>
               <div style={floatingBadgeStyle}>
                 <span style={floatingBadgeKickerStyle}>June Prize</span>
