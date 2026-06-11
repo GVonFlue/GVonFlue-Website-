@@ -63,12 +63,14 @@ export default function RulesPage() {
 
         <section style={sectionStyle}>
           <h2 style={h2Style}>4. How to enter</h2>
-          <p style={pStyle}>There are two equal ways to enter:</p>
+          <p style={pStyle}>There are two equal ways to get your <span style={strongStyle}>base entry</span>:</p>
           <ul style={ulStyle}>
             <li><span style={strongStyle}>Scan a DuckWichita duck:</span> Find a DuckWichita duck placed in or around Wichita, scan the QR code on its tag, and complete the entry form at duckwichita.com/jointheflock.</li>
             <li><span style={strongStyle}>Enter directly online:</span> Visit duckwichita.com/jointheflock and complete the entry form at any time. You do not need to find a duck to enter or win.</li>
           </ul>
-          <p style={pStyle}>One entry per person. Duplicate entries from the same person will be consolidated into a single eligible entry.</p>
+          <p style={pStyle}>Each person receives <span style={strongStyle}>one (1) base entry</span>. Duplicate sign-ups from the same person will be consolidated into a single base entry.</p>
+          <p style={pStyle}><span style={strongStyle}>Bonus entries — the &quot;5x&quot; bonus.</span> After you&apos;ve entered, you can increase your single base entry to a total of <span style={strongStyle}>five (5) entries</span> by posting a photo of yourself with your DuckWichita duck to a public Instagram or Facebook post using the hashtag <span style={strongStyle}>#DuckWichita</span>. The duck must be clearly visible in the photo. Once the Sponsor verifies the post, four (4) bonus entries are added to your existing entry, for five (5) total.</p>
+          <p style={pStyle}>Bonus entries are <span style={strongStyle}>completely free</span>. No purchase is ever required to earn them and they do not change the cost of entry. The bonus is limited to <span style={strongStyle}>one (1) award of four bonus entries per person, per drawing cycle</span>. The Sponsor verifies qualifying posts manually and reserves the right to withhold bonus entries for any post that does not clearly show the duck or that otherwise appears to be an attempt to game the system.</p>
         </section>
 
         <section style={sectionStyle}>
