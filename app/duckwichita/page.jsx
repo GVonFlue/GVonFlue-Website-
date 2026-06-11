@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Lockup from "@/components/Lockup";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
@@ -9,7 +10,7 @@ import { ArrowUpRight, Instagram, Sparkles, Ticket, DollarSign, Calendar, MapPin
 const FORM_KEY = "e87c5fc0-d3e8-47e8-a1ab-5be73241a042";
 
 export default function DuckWichita() {
-  const [submitted, setSubmitted] = useState(false);
+  const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -22,10 +23,13 @@ export default function DuckWichita() {
 
     try {
       const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
-      if (res.ok) setSubmitted(true);
+      if (res.ok) {
+        router.push("/duckwichita/thanks");
+      } else {
+        setSubmitting(false);
+      }
     } catch (err) {
       console.error(err);
-    } finally {
       setSubmitting(false);
     }
   };
@@ -54,8 +58,6 @@ export default function DuckWichita() {
   const flockReassureStyle = { marginTop: "16px", textAlign: "center", fontSize: ".9rem", color: "var(--muted)", lineHeight: 1.5 };
   const darkSectionStyle = { background: "var(--ink)", color: "#fff", padding: "80px 32px", borderRadius: "32px", margin: "60px auto", maxWidth: "1180px", textAlign: "center" };
   const faqItemStyle = { padding: "24px 0", borderBottom: "1px solid rgba(11,11,20,.1)" };
-  const successStyle = { textAlign: "center", padding: "32px 0" };
-  const successTitleStyle = { fontFamily: "var(--disp)", fontSize: "2rem", margin: "0 0 12px", color: "var(--ink)" };
   const flockBtnsStyle = { display: "flex", gap: "14px", marginTop: "32px", flexWrap: "wrap" };
   const sponsorKickerStyle = { color: "var(--gold)", fontFamily: "var(--disp)", fontWeight: 600, letterSpacing: ".08em", textTransform: "uppercase", fontSize: ".85rem" };
   const sponsorTitleStyle = { fontFamily: "var(--disp)", fontSize: "clamp(2rem, 5vw, 3.4rem)", margin: "20px 0 24px", lineHeight: 1.05, color: "#fff" };
@@ -65,7 +67,6 @@ export default function DuckWichita() {
   const faqQuestionStyle = { fontFamily: "var(--disp)", fontSize: "1.15rem", fontWeight: 600, color: "var(--ink)", margin: "0 0 8px" };
   const faqAnswerStyle = { color: "var(--muted)", margin: 0, lineHeight: 1.6 };
 
-  // Prize "giant button" styles
   const prizeWrapStyle = { position: "relative", padding: "60px 24px 120px", maxWidth: "1280px", margin: "0 auto" };
   const prizeButtonStyle = { position: "relative", padding: "70px 40px 70px", borderRadius: "40px", border: "5px solid var(--gold)", background: "linear-gradient(180deg, #FFFEFA 0%, #FFF6E0 100%)", boxShadow: "0 30px 80px rgba(231,181,60,.25), 0 0 0 1px rgba(231,181,60,.1), inset 0 1px 0 rgba(255,255,255,.9)", overflow: "hidden" };
   const prizeBadgeStyle = { display: "inline-flex", alignItems: "center", gap: "12px", padding: "18px 36px", background: "var(--gold)", color: "var(--ink)", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: "1.2rem", letterSpacing: ".15em", textTransform: "uppercase", marginBottom: "36px", boxShadow: "0 0 0 0 rgba(231,181,60,.7)", animation: "pulse-big 2.5s infinite" };
@@ -115,7 +116,7 @@ export default function DuckWichita() {
 
       <div style={topBarStyle}><Lockup /></div>
 
-      {/* HERO — grand version */}
+      {/* HERO */}
       <section style={heroStyle}>
         <svg className="hero-sparkle s1" width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 0 L13.5 10.5 L24 12 L13.5 13.5 L12 24 L10.5 13.5 L0 12 L10.5 10.5 Z" fill="var(--gold)"/></svg>
         <svg className="hero-sparkle s2" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 0 L13.5 10.5 L24 12 L13.5 13.5 L12 24 L10.5 13.5 L0 12 L10.5 10.5 Z" fill="var(--gold)"/></svg>
@@ -140,7 +141,7 @@ export default function DuckWichita() {
         </Reveal>
       </section>
 
-      {/* THIS MONTH'S PRIZE — GIANT BUTTON */}
+      {/* THIS MONTH'S PRIZE */}
       <section style={prizeWrapStyle}>
         <div className="prize-arrow-left">
           <svg width="90" height="90" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 40 L62 40 M45 22 L62 40 L45 58" stroke="var(--gold)" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -219,34 +220,26 @@ export default function DuckWichita() {
         <Reveal as="h2" delay={60} className="section-title">Enter the monthly <span style={goldAccent}>DuckWichita</span> giveaway.</Reveal>
         <Reveal as="p" delay={120} style={ledeStyle}>Every month, someone from the flock wins local prizes — gift cards, experiences, event tickets, food, coffee, and whatever other fun things we can get our hands on.</Reveal>
         <div style={formCardStyle}>
-          {submitted ? (
-            <div style={successStyle}>
-              <div style={{ fontSize: "4rem", marginBottom: "16px" }}>🦆</div>
-              <h3 style={successTitleStyle}>You&apos;re officially in the flock.</h3>
-              <p style={{ color: "var(--muted)", margin: 0 }}>We&apos;ll be in touch when you win. Until then — keep an eye out for more ducks.</p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit}>
-              <input type="hidden" name="botcheck" />
-              <label style={labelStyle} htmlFor="first_name">First Name</label>
-              <input style={inputStyle} type="text" id="first_name" name="first_name" required />
-              <label style={labelStyle} htmlFor="email">Email</label>
-              <input style={inputStyle} type="email" id="email" name="email" required />
-              <label style={labelStyle} htmlFor="phone">Phone Number</label>
-              <input style={inputStyle} type="tel" id="phone" name="phone" required />
-              <label style={labelStyle} htmlFor="status">I am a...</label>
-              <select style={inputStyle} id="status" name="status" required defaultValue="">
-                <option value="" disabled>Pick one</option>
-                <option>Homeowner</option>
-                <option>Renter</option>
-                <option>Thinking About Buying</option>
-                <option>Thinking About Selling</option>
-                <option>Just Here For The Duck</option>
-              </select>
-              <button type="submit" style={submitBtnStyle} disabled={submitting}>{submitting ? "Adding you..." : "Enter Me In The Flock"}</button>
-              <p style={flockReassureStyle}>Enter once, stay in the flock for <strong style={{ color: "var(--ink)" }}>2 full years</strong>. Every monthly drawing pulls from the whole flock — so your name has 24 shots, not 1.</p>
-            </form>
-          )}
+          <form onSubmit={handleSubmit}>
+            <input type="hidden" name="botcheck" />
+            <label style={labelStyle} htmlFor="first_name">First Name</label>
+            <input style={inputStyle} type="text" id="first_name" name="first_name" required />
+            <label style={labelStyle} htmlFor="email">Email</label>
+            <input style={inputStyle} type="email" id="email" name="email" required />
+            <label style={labelStyle} htmlFor="phone">Phone Number</label>
+            <input style={inputStyle} type="tel" id="phone" name="phone" required />
+            <label style={labelStyle} htmlFor="status">I am a...</label>
+            <select style={inputStyle} id="status" name="status" required defaultValue="">
+              <option value="" disabled>Pick one</option>
+              <option>Homeowner</option>
+              <option>Renter</option>
+              <option>Thinking About Buying</option>
+              <option>Thinking About Selling</option>
+              <option>Just Here For The Duck</option>
+            </select>
+            <button type="submit" style={submitBtnStyle} disabled={submitting}>{submitting ? "Adding you..." : "Enter Me In The Flock"}</button>
+            <p style={flockReassureStyle}>Enter once, stay in the flock for <strong style={{ color: "var(--ink)" }}>2 full years</strong>. Every monthly drawing pulls from the whole flock — so your name has 24 shots, not 1.</p>
+          </form>
         </div>
       </section>
 
