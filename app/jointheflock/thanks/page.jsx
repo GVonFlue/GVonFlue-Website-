@@ -57,7 +57,7 @@ export default function JoinTheFlockThanks() {
         <Reveal><span style={badgeStyle}><Sparkles size={16} /> You&apos;re in the flock</span></Reveal>
         <Reveal delay={60}><span className="duck-emoji-pop" style={duckEmojiStyle}>🦆</span></Reveal>
         <Reveal as="h1" delay={140} style={headlineStyle}>You&apos;re <span style={goldAccent}>officially</span> in the flock.</Reveal>
-        <Reveal as="p" delay={200} style={subStyle}>Your entry is locked in. Your name is in the bucket for <strong style={{ color: "var(--ink)" }}>every monthly drawing for the next 2 years</strong> — that&apos;s 24 chances to win something local.</Reveal>
+        <Reveal as="p" delay={200} style={subStyle}>Your entry is locked in. Your name is in the bucket for <strong style={{ color: "var(--ink)" }}>every monthly drawing for the next 12 Months</strong> — that&apos;s 24 chances to win something local.</Reveal>
 
         <Reveal delay={260}>
           <div style={followCardStyle}>
@@ -75,7 +75,7 @@ export default function JoinTheFlockThanks() {
           <div style={infoCardStyle}>
             <h3 style={infoTitleStyle}>What happens next</h3>
             <ul style={infoListStyle}>
-              <li style={infoItemStyle}><Calendar size={18} style={{ color: "var(--gold)", flexShrink: 0, marginTop: "2px" }} /><span><strong style={{ color: "var(--ink)" }}>Next drawing:</strong> June 30. If you win, I&apos;ll reach out via the email or phone you entered.</span></li>
+              <li style={infoItemStyle}><Calendar size={18} style={{ color: "var(--gold)", flexShrink: 0, marginTop: "2px" }} /><span><strong style={{ color: "var(--ink)" }}>Next drawing:</strong> July 1st. If you win, I&apos;ll reach out via the email or phone you entered.</span></li>
               <li style={infoItemStyle}><Sparkles size={18} style={{ color: "var(--gold)", flexShrink: 0, marginTop: "2px" }} /><span><strong style={{ color: "var(--ink)" }}>Got your duck?</strong> Snap a photo with it and post using <strong>#DuckWichita</strong> — tag me and I&apos;ll repost.</span></li>
               <li style={infoLastStyle}><ArrowUpRight size={18} style={{ color: "var(--gold)", flexShrink: 0, marginTop: "2px" }} /><span><strong style={{ color: "var(--ink)" }}>Spread the flock.</strong> Know someone who needs ducked? Tell them about it. The flock grows by word of mouth.</span></li>
             </ul>
