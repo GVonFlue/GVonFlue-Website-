@@ -9,7 +9,7 @@ import { Instagram, Facebook, ArrowUpRight, Sparkles, Calendar } from "lucide-re
 export default function DuckWichitaThanks() {
   const pageStyle = { background: "linear-gradient(180deg, #FFF9EC 0%, #FFFFFF 35%)", minHeight: "100vh", color: "var(--ink)" };
   const topBarStyle = { padding: "28px 24px", display: "flex", justifyContent: "center" };
-  const wrapStyle = { padding: "40px 24px 120px", textAlign: "center", maxWidth: "780px", margin: "0 auto", position: "relative" };
+  const wrapStyle = { padding: "40px 24px 80px", textAlign: "center", maxWidth: "780px", margin: "0 auto", position: "relative" };
   const badgeStyle = { display: "inline-flex", alignItems: "center", gap: "10px", padding: "12px 24px", background: "rgba(231,181,60,.18)", borderRadius: "999px", color: "var(--cobalt)", fontFamily: "var(--disp)", fontSize: ".95rem", fontWeight: 700, letterSpacing: ".12em", textTransform: "uppercase", marginBottom: "32px", border: "1.5px solid rgba(231,181,60,.45)" };
   const duckEmojiStyle = { fontSize: "5.5rem", margin: "0 0 20px", lineHeight: 1, display: "block" };
   const headlineStyle = { fontFamily: "var(--disp)", fontSize: "clamp(2.8rem, 7vw, 5.2rem)", lineHeight: 0.95, letterSpacing: "-.02em", margin: "0 0 24px", color: "var(--ink)" };
@@ -20,12 +20,18 @@ export default function DuckWichitaThanks() {
   const followTitleStyle = { fontFamily: "var(--disp)", fontSize: "clamp(1.8rem, 4vw, 2.6rem)", margin: "0 0 16px", color: "var(--ink)", lineHeight: 1.1 };
   const followBodyStyle = { color: "var(--muted)", fontSize: "1.1rem", lineHeight: 1.55, maxWidth: "500px", margin: "0 auto 32px" };
   const followBtnsStyle = { display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap" };
-  const infoCardStyle = { background: "#fff", border: "1px solid rgba(11,11,20,.08)", borderRadius: "20px", padding: "32px", margin: "0 auto", boxShadow: "0 12px 40px rgba(11,30,138,.06)", maxWidth: "560px", textAlign: "left" };
+  const infoCardStyle = { background: "#fff", border: "1px solid rgba(11,11,20,.08)", borderRadius: "20px", padding: "32px", margin: "0 auto 60px", boxShadow: "0 12px 40px rgba(11,30,138,.06)", maxWidth: "560px", textAlign: "left" };
   const infoTitleStyle = { fontFamily: "var(--disp)", fontSize: "1.2rem", margin: "0 0 16px", color: "var(--ink)" };
   const infoListStyle = { listStyle: "none", padding: 0, margin: 0 };
   const infoItemStyle = { display: "flex", alignItems: "flex-start", gap: "12px", padding: "12px 0", color: "var(--muted)", lineHeight: 1.5, borderBottom: "1px solid rgba(11,11,20,.06)" };
   const infoLastStyle = { ...infoItemStyle, borderBottom: "none" };
-  const homeLinkStyle = { display: "inline-block", marginTop: "32px", color: "var(--cobalt)", fontFamily: "var(--disp)", fontWeight: 600, textDecoration: "none", fontSize: "1rem" };
+
+  // "Meet Garrett" bridge section
+  const meetWrapStyle = { background: "var(--ink)", color: "#fff", borderRadius: "32px", padding: "60px 32px", margin: "0 auto", maxWidth: "780px", textAlign: "center", boxShadow: "0 24px 60px rgba(11,11,20,.2)" };
+  const meetKickerStyle = { fontFamily: "var(--disp)", fontSize: ".85rem", fontWeight: 700, color: "var(--gold)", letterSpacing: ".12em", textTransform: "uppercase", margin: "0 0 20px" };
+  const meetTitleStyle = { fontFamily: "var(--disp)", fontSize: "clamp(1.8rem, 4.5vw, 2.8rem)", margin: "0 0 20px", color: "#fff", lineHeight: 1.1 };
+  const meetBodyStyle = { color: "rgba(255,255,255,.78)", fontSize: "1.1rem", lineHeight: 1.6, maxWidth: "560px", margin: "0 auto 32px" };
+  const meetSigStyle = { fontFamily: "var(--disp)", fontStyle: "italic", color: "var(--gold)", fontSize: "1.05rem", marginBottom: "32px" };
 
   return (
     <main style={pageStyle}>
@@ -77,8 +83,16 @@ export default function DuckWichitaThanks() {
           </div>
         </Reveal>
 
+        {/* MEET GARRETT — bridge section */}
         <Reveal delay={380}>
-          <Link href="/duckwichita" style={homeLinkStyle}>← Back to DuckWichita</Link>
+          <div style={meetWrapStyle}>
+            <p style={meetKickerStyle}>Wait — who&apos;s behind this?</p>
+            <h2 style={meetTitleStyle}>Hi. I&apos;m <span style={goldAccent}>Garrett.</span></h2>
+            <p style={meetBodyStyle}>I&apos;m a Realtor here in Wichita who got tired of agents only showing up when they want something. DuckWichita is my way of doing the opposite — giving stuff away, spotlighting local people, and being part of the city instead of just selling to it.</p>
+            <p style={meetBodyStyle}>If you&apos;ve ever thought about buying or selling a home around here — or you just want to see what I&apos;m about — come hang out on my site for a minute.</p>
+            <p style={meetSigStyle}>— Garrett Von Flue</p>
+            <a href="https://gvonflue.vercel.app" className="btn btn-gold btn-lg">Meet the guy behind the ducks <ArrowUpRight size={20} /></a>
+          </div>
         </Reveal>
       </section>
 
