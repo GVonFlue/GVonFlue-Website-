@@ -89,7 +89,7 @@ export default function JoinTheFlock() {
   const headlineCardStyle = { background: `linear-gradient(160deg, ${RED} 0%, #8B1A1A 100%)`, color: "#fff", borderRadius: "28px", padding: "44px 36px", boxShadow: "0 30px 70px rgba(214,40,40,.35)", border: `2px solid ${GOLD}`, textAlign: "center", transform: "scale(1.02)" };
   const headlineIconStyle = { width: "64px", height: "64px", borderRadius: "18px", background: GOLD, color: INK, display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: "18px" };
   const headlineLogoWrapStyle = { display: "inline-flex", alignItems: "center", justifyContent: "center", background: "#FFFFFF", borderRadius: "16px", padding: "14px 22px", marginBottom: "18px", boxShadow: "0 8px 24px rgba(0,0,0,.18)" };
-  const headlineLogoStyle = { height: "54px", width: "auto", maxWidth: "220px", objectFit: "contain", display: "block" };
+  const headlineLogoStyle = { height: "108px", width: "auto", maxWidth: "440px", objectFit: "contain", display: "block" };
   const headlineTitleStyle = { fontFamily: "var(--disp)", fontSize: "1.9rem", margin: "0 0 10px", color: "#fff", lineHeight: 1.1 };
   const headlineSponsorStyle = { fontFamily: "var(--disp)", fontWeight: 700, color: GOLD, fontSize: ".95rem", letterSpacing: ".08em", textTransform: "uppercase", margin: "0 0 14px" };
   const headlineBodyStyle = { color: "rgba(255,255,255,.85)", margin: "0 0 18px", lineHeight: 1.55, fontSize: "1rem" };
