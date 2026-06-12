@@ -4,18 +4,18 @@ import { useState } from "react";
 import Lockup from "@/components/Lockup";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
-import { Sparkles, ArrowUpRight, Flame, Star, Trophy, Heart, Building2, Users, Camera, TrendingUp, MapPin, Mail, Phone, Check, Crown, Award, Handshake } from "lucide-react";
+import { ArrowUpRight, Crown, Star, Trophy, Heart, Camera, Building2, TrendingUp, MapPin, Mail, Phone, Check, Handshake, Megaphone, LayoutDashboard, UserPlus, PenTool, DollarSign, Lock } from "lucide-react";
 
 const FORM_KEY = "e87c5fc0-d3e8-47e8-a1ab-5be73241a042";
 
 export default function SponsorInquiry() {
-  const router = typeof window !== "undefined" ? null : null;
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [selectedTier, setSelectedTier] = useState("");
 
   const COBALT = "#1338DE";
   const ORANGE = "#FF6B35";
+  const GOLD = "#E7B53C";
   const RED = "#D62828";
   const INK = "#0A0B14";
 
@@ -49,48 +49,85 @@ export default function SponsorInquiry() {
   const pageStyle = { background: "#FFFFFF", minHeight: "100vh", color: INK };
   const topBarStyle = { padding: "28px 24px", display: "flex", justifyContent: "center" };
 
-  const heroStyle = { padding: "60px 24px 60px", textAlign: "center", maxWidth: "1100px", margin: "0 auto", position: "relative" };
+  const heroStyle = { padding: "60px 24px 50px", textAlign: "center", maxWidth: "1100px", margin: "0 auto", position: "relative" };
   const heroKickerStyle = { display: "inline-flex", alignItems: "center", gap: "10px", padding: "10px 22px", background: ORANGE, color: "#FFFFFF", borderRadius: "999px", fontFamily: "var(--disp)", fontSize: ".9rem", fontWeight: 800, letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "28px" };
   const heroTitleStyle = { fontFamily: "var(--disp)", fontSize: "clamp(2.8rem, 7.5vw, 5.6rem)", lineHeight: 0.95, letterSpacing: "-.025em", margin: "0 0 24px", color: INK };
   const orangeAccent = { color: ORANGE };
-  const cobaltAccent = { color: COBALT };
-  const heroSubStyle = { fontSize: "1.3rem", lineHeight: 1.55, color: "rgba(10,11,20,.72)", maxWidth: "720px", margin: "0 auto 40px" };
+  const heroSubStyle = { fontSize: "1.3rem", lineHeight: 1.55, color: "rgba(10,11,20,.72)", maxWidth: "720px", margin: "0 auto 36px" };
 
   const sectionStyle = { padding: "80px 24px", maxWidth: "1180px", margin: "0 auto" };
   const sectionKickerStyle = { display: "inline-block", fontFamily: "var(--disp)", fontSize: ".85rem", fontWeight: 800, color: ORANGE, letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "16px" };
   const sectionTitleStyle = { fontFamily: "var(--disp)", fontSize: "clamp(2.2rem, 5.5vw, 3.8rem)", lineHeight: 1, letterSpacing: "-.02em", margin: "0 0 24px", color: INK };
-  const ledeStyle = { fontSize: "1.2rem", color: "rgba(10,11,20,.72)", lineHeight: 1.6, maxWidth: "780px" };
+  const ledeStyle = { fontSize: "1.2rem", color: "rgba(10,11,20,.72)", lineHeight: 1.6, maxWidth: "820px" };
 
-  // VISION SECTION
-  const visionWrapStyle = { background: INK, color: "#fff", padding: "80px 40px", borderRadius: "32px", margin: "40px auto", maxWidth: "1180px", textAlign: "center" };
-  const visionTitleStyle = { fontFamily: "var(--disp)", fontSize: "clamp(2.2rem, 5vw, 3.6rem)", margin: "0 0 24px", lineHeight: 1.1, color: "#fff" };
-  const visionCopyStyle = { color: "rgba(255,255,255,.82)", fontSize: "1.2rem", lineHeight: 1.65, maxWidth: "720px", margin: "0 auto 20px" };
+  // SCARCITY STRIP
+  const scarcityWrapStyle = { display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "10px", maxWidth: "880px", margin: "0 auto" };
+  const scarcityPillStyle = { display: "inline-flex", alignItems: "center", gap: "8px", padding: "10px 18px", background: "rgba(10,11,20,.04)", border: "1.5px solid rgba(10,11,20,.1)", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 700, fontSize: ".92rem", color: INK };
+  const scarcityNumStyle = { color: ORANGE, fontWeight: 800 };
 
-  // PROJECTION CARDS
-  const projGridStyle = { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "16px", marginTop: "40px" };
-  const projCardStyle = { background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.15)", borderRadius: "20px", padding: "28px 24px", textAlign: "left" };
-  const projIconWrapStyle = { display: "inline-flex", alignItems: "center", justifyContent: "center", width: "48px", height: "48px", borderRadius: "12px", background: ORANGE, color: "#FFFFFF", marginBottom: "16px" };
-  const projLabelStyle = { fontSize: ".8rem", textTransform: "uppercase", letterSpacing: ".1em", color: "rgba(255,255,255,.6)", fontWeight: 800, fontFamily: "var(--disp)", margin: "0 0 8px" };
-  const projValueStyle = { fontFamily: "var(--disp)", fontSize: "1.7rem", fontWeight: 800, color: "#fff", margin: "0 0 8px", letterSpacing: "-.01em" };
-  const projSubStyle = { fontSize: ".95rem", color: "rgba(255,255,255,.7)", lineHeight: 1.5, margin: 0 };
+  // DUAL-DOLLAR SPLIT BAR
+  const splitWrapStyle = { background: "rgba(10,11,20,.03)", border: "1px solid rgba(10,11,20,.08)", borderRadius: "14px", padding: "14px 16px", margin: "0 0 20px" };
+  const splitTopLabelStyle = { fontFamily: "var(--disp)", fontWeight: 800, fontSize: ".72rem", letterSpacing: ".1em", textTransform: "uppercase", color: "rgba(10,11,20,.5)", margin: "0 0 10px" };
+  const splitBarStyle = { display: "flex", height: "12px", borderRadius: "999px", overflow: "hidden", marginBottom: "10px" };
+  const splitLabelsStyle = { display: "flex", justifyContent: "space-between", gap: "8px", fontSize: ".82rem", fontWeight: 700, color: "rgba(10,11,20,.75)" };
+  const splitDot = { display: "inline-block", width: "9px", height: "9px", borderRadius: "50%", marginRight: "6px", verticalAlign: "0px" };
+
+  const splitBar = (prize, growth, prizeLabel, growthLabel) => (
+    <div style={splitWrapStyle}>
+      <p style={splitTopLabelStyle}>Where your dollar goes</p>
+      <div style={splitBarStyle}>
+        <div style={{ flex: prize, background: GOLD }} />
+        <div style={{ flex: growth, background: COBALT }} />
+      </div>
+      <div style={splitLabelsStyle}>
+        <span><span style={{ ...splitDot, background: GOLD }} />{prizeLabel}</span>
+        <span><span style={{ ...splitDot, background: COBALT }} />{growthLabel}</span>
+      </div>
+    </div>
+  );
 
   // TIER CARDS
-  const tiersGridStyle = { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "24px", marginTop: "48px" };
-  const tierCardBaseStyle = { background: "#FFFFFF", borderRadius: "24px", padding: "40px 32px", position: "relative", display: "flex", flexDirection: "column", height: "100%", boxShadow: "0 12px 40px rgba(10,11,20,.08)" };
-  const tierIconWrapStyle = { display: "inline-flex", alignItems: "center", justifyContent: "center", width: "56px", height: "56px", borderRadius: "16px", marginBottom: "20px" };
-  const tierKickerStyle = { fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".12em", fontFamily: "var(--disp)", fontWeight: 800, margin: "0 0 6px" };
-  const tierTitleStyle = { fontFamily: "var(--disp)", fontSize: "1.6rem", fontWeight: 800, color: INK, margin: "0 0 12px", lineHeight: 1.1 };
-  const tierPriceStyle = { fontFamily: "var(--disp)", fontSize: "1.3rem", fontWeight: 800, margin: "0 0 20px", letterSpacing: "-.01em" };
-  const tierDescStyle = { color: "rgba(10,11,20,.7)", fontSize: ".98rem", lineHeight: 1.55, margin: "0 0 20px" };
+  const tiersGridStyle = { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "24px", marginTop: "20px" };
+  const tierCardBaseStyle = { background: "#FFFFFF", borderRadius: "24px", padding: "36px 30px", position: "relative", display: "flex", flexDirection: "column", height: "100%", boxShadow: "0 12px 40px rgba(10,11,20,.08)" };
+  const tierIconWrapStyle = { display: "inline-flex", alignItems: "center", justifyContent: "center", width: "56px", height: "56px", borderRadius: "16px", marginBottom: "18px" };
+  const tierKickerRowStyle = { display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap", marginBottom: "8px" };
+  const tierKickerStyle = { fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".12em", fontFamily: "var(--disp)", fontWeight: 800, margin: 0 };
+  const slotPillStyle = { fontSize: ".68rem", fontFamily: "var(--disp)", fontWeight: 800, letterSpacing: ".08em", textTransform: "uppercase", padding: "3px 10px", borderRadius: "999px", background: "rgba(10,11,20,.06)", color: "rgba(10,11,20,.6)" };
+  const tierTitleStyle = { fontFamily: "var(--disp)", fontSize: "1.6rem", fontWeight: 800, color: INK, margin: "0 0 6px", lineHeight: 1.1 };
+  const tierPriceStyle = { fontFamily: "var(--disp)", fontSize: "1.55rem", fontWeight: 800, margin: "0 0 4px", letterSpacing: "-.01em" };
+  const tierPriceSubStyle = { fontSize: ".82rem", color: "rgba(10,11,20,.55)", fontWeight: 600, margin: "0 0 18px" };
+  const tierDescStyle = { color: "rgba(10,11,20,.7)", fontSize: ".98rem", lineHeight: 1.55, margin: "0 0 18px" };
   const tierBenefitsListStyle = { listStyle: "none", padding: 0, margin: "0 0 24px", flex: 1 };
-  const tierBenefitItemStyle = { padding: "8px 0", color: "rgba(10,11,20,.78)", fontSize: ".95rem", lineHeight: 1.5, display: "flex", alignItems: "flex-start", gap: "10px" };
+  const tierBenefitItemStyle = { padding: "7px 0", color: "rgba(10,11,20,.78)", fontSize: ".94rem", lineHeight: 1.5, display: "flex", alignItems: "flex-start", gap: "10px" };
   const tierCtaStyle = { display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "14px 24px", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: "1rem", border: "none", cursor: "pointer", textDecoration: "none", width: "100%" };
+  const commitNoteStyle = { textAlign: "center", maxWidth: "720px", margin: "28px auto 0", fontSize: "1rem", color: "rgba(10,11,20,.6)", fontWeight: 600 };
+
+  const benefit = (color, text) => (
+    <li style={tierBenefitItemStyle}><Check size={18} style={{ color, flexShrink: 0, marginTop: "2px" }} /><span>{text}</span></li>
+  );
+
+  // GROWTH / TRANSPARENCY SECTION
+  const growthWrapStyle = { background: INK, color: "#fff", padding: "80px 40px", borderRadius: "32px", margin: "40px auto", maxWidth: "1180px" };
+  const growthHeadStyle = { textAlign: "center", maxWidth: "760px", margin: "0 auto 8px" };
+  const growthTitleStyle = { fontFamily: "var(--disp)", fontSize: "clamp(2.2rem, 5vw, 3.6rem)", margin: "0 0 20px", lineHeight: 1.1, color: "#fff" };
+  const growthCopyStyle = { color: "rgba(255,255,255,.82)", fontSize: "1.18rem", lineHeight: 1.65, margin: "0 auto 16px" };
+  const growthGridStyle = { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "16px", marginTop: "44px" };
+  const growthItemStyle = { background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.14)", borderRadius: "18px", padding: "26px 22px" };
+  const growthItemIconStyle = { display: "inline-flex", alignItems: "center", justifyContent: "center", width: "46px", height: "46px", borderRadius: "12px", background: ORANGE, color: "#fff", marginBottom: "14px" };
+  const growthItemTitleStyle = { fontFamily: "var(--disp)", fontSize: "1.12rem", fontWeight: 800, color: "#fff", margin: "0 0 8px" };
+  const growthItemBodyStyle = { fontSize: ".95rem", color: "rgba(255,255,255,.72)", lineHeight: 1.5, margin: 0 };
+
+  const statGridStyle = { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "16px", marginTop: "44px" };
+  const statCardStyle = { background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.16)", borderRadius: "20px", padding: "30px 24px", textAlign: "center" };
+  const statValueStyle = { fontFamily: "var(--disp)", fontSize: "2.4rem", fontWeight: 800, color: GOLD, margin: "0 0 6px", letterSpacing: "-.01em" };
+  const statLabelStyle = { fontSize: ".95rem", color: "rgba(255,255,255,.75)", lineHeight: 1.45, margin: 0 };
+  const transparencyLineStyle = { textAlign: "center", maxWidth: "720px", margin: "44px auto 0", fontSize: "1.15rem", color: ORANGE, fontWeight: 700, lineHeight: 1.5 };
 
   // FORM
   const formWrapStyle = { background: ORANGE, color: "#FFFFFF", padding: "80px 24px", borderRadius: "32px", margin: "60px auto", maxWidth: "1180px" };
   const formInnerStyle = { maxWidth: "640px", margin: "0 auto" };
   const formTitleStyle = { fontFamily: "var(--disp)", fontSize: "clamp(2.2rem, 5.5vw, 3.6rem)", lineHeight: 1.05, margin: "0 0 16px", color: "#FFFFFF", textAlign: "center" };
-  const formSubStyle = { fontSize: "1.15rem", color: "rgba(255,255,255,.92)", textAlign: "center", maxWidth: "560px", margin: "0 auto 40px", lineHeight: 1.5 };
+  const formSubStyle = { fontSize: "1.15rem", color: "rgba(255,255,255,.92)", textAlign: "center", maxWidth: "580px", margin: "0 auto 40px", lineHeight: 1.5 };
   const formCardStyle = { background: "#FFFFFF", borderRadius: "24px", padding: "40px", boxShadow: "0 20px 60px rgba(10,11,20,.15)" };
   const labelStyle = { display: "block", fontSize: ".85rem", fontWeight: 700, color: INK, marginBottom: "6px", fontFamily: "var(--disp)" };
   const inputStyle = { width: "100%", padding: "16px 18px", border: `1.5px solid rgba(10,11,20,.12)`, borderRadius: "12px", fontSize: "1rem", fontFamily: "var(--body)", marginBottom: "16px", background: "#fff", color: INK, outline: "none", boxSizing: "border-box" };
@@ -99,8 +136,6 @@ export default function SponsorInquiry() {
   const successWrapStyle = { background: "#FFFFFF", borderRadius: "24px", padding: "60px 40px", textAlign: "center" };
   const successTitleStyle = { fontFamily: "var(--disp)", fontSize: "2.2rem", color: INK, margin: "0 0 16px" };
   const successCopyStyle = { color: "rgba(10,11,20,.7)", fontSize: "1.1rem", lineHeight: 1.55, margin: "0 0 24px" };
-
-  // DIRECT CONTACT
   const directContactStyle = { textAlign: "center", marginTop: "32px", color: "rgba(255,255,255,.92)" };
   const directLinkStyle = { color: "#FFFFFF", fontWeight: 800, textDecoration: "underline" };
 
@@ -113,9 +148,7 @@ export default function SponsorInquiry() {
         .sp-sparkle.s2 { top: 22%; right: 8%; animation: sparkle-float 4.5s ease-in-out .6s infinite; }
         .sp-sparkle.s3 { top: 60%; left: 4%; animation: sparkle-float 3.8s ease-in-out 1.2s infinite; }
         .sp-sparkle.s4 { top: 70%; right: 6%; animation: sparkle-float 4.2s ease-in-out 1.8s infinite; }
-        @media (max-width: 700px) {
-          .sp-sparkle { display: none; }
-        }
+        @media (max-width: 700px) { .sp-sparkle { display: none; } }
       `}</style>
 
       <div style={topBarStyle}><Lockup /></div>
@@ -126,169 +159,240 @@ export default function SponsorInquiry() {
         <svg className="sp-sparkle s2" width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 0 L13.5 10.5 L24 12 L13.5 13.5 L12 24 L10.5 13.5 L0 12 L10.5 10.5 Z" fill={COBALT}/></svg>
 
         <Reveal><span style={heroKickerStyle}><Handshake size={14} /> Sponsor DuckWichita</span></Reveal>
-        <Reveal as="h1" delay={80} style={heroTitleStyle}>Be part of the <span style={orangeAccent}>most talked-about</span><br/>thing in Wichita.</Reveal>
-        <Reveal as="p" delay={140} style={heroSubStyle}>DuckWichita is a viral local marketing movement built for one purpose: spotlight Wichita businesses while making the city smile. We&apos;re building tiers for everyone — from one-duck hosts to founding-month anchors. Pick your fit below.</Reveal>
-      </section>
-
-      {/* VISION */}
-      <section style={visionWrapStyle}>
-        <Reveal><span style={{ ...sectionKickerStyle, color: ORANGE }}>The vision</span></Reveal>
-        <Reveal as="h2" delay={80} style={visionTitleStyle}>This isn&apos;t a side hustle. <br/>It&apos;s built to <span style={orangeAccent}>scale.</span></Reveal>
-        <Reveal as="p" delay={140} style={visionCopyStyle}>DuckWichita launches in June with hundreds of patriotic ducks hidden across the city. Each duck carries a QR code, each scan creates an entry, and twice a month someone wins a real local prize package funded by sponsors like you.</Reveal>
-        <Reveal as="p" delay={200} style={visionCopyStyle}>By Year 1, the goal is 5,000+ entries, 100+ sponsor partnerships, and a recognized local brand that becomes part of Wichita&apos;s identity. By Year 2, expansion into Kansas City, Tulsa, and Oklahoma City — with founding Wichita sponsors getting first dibs in every new market.</Reveal>
-        <Reveal as="p" delay={260} style={{ ...visionCopyStyle, color: ORANGE, fontWeight: 700 }}>Get in now, and your brand grows with the campaign.</Reveal>
-
-        <div style={projGridStyle}>
-          <Reveal delay={320}>
-            <div style={projCardStyle}>
-              <div style={projIconWrapStyle}><MapPin size={22} /></div>
-              <p style={projLabelStyle}>Year 1 distribution</p>
-              <p style={projValueStyle}>1,000+ ducks</p>
-              <p style={projSubStyle}>Placed across Wichita over 12 months.</p>
-            </div>
-          </Reveal>
-          <Reveal delay={380}>
-            <div style={projCardStyle}>
-              <div style={projIconWrapStyle}><Users size={22} /></div>
-              <p style={projLabelStyle}>Projected entries</p>
-              <p style={projValueStyle}>5,000+</p>
-              <p style={projSubStyle}>1-year retention. Each entrant joins our email + SMS audience.</p>
-            </div>
-          </Reveal>
-          <Reveal delay={440}>
-            <div style={projCardStyle}>
-              <div style={projIconWrapStyle}><Camera size={22} /></div>
-              <p style={projLabelStyle}>Social UGC</p>
-              <p style={projValueStyle}>500+ posts</p>
-              <p style={projSubStyle}>Finders share #DuckWichita content. Every repost tags active sponsors.</p>
-            </div>
-          </Reveal>
-          <Reveal delay={500}>
-            <div style={projCardStyle}>
-              <div style={projIconWrapStyle}><TrendingUp size={22} /></div>
-              <p style={projLabelStyle}>Press potential</p>
-              <p style={projValueStyle}>10+ outlets</p>
-              <p style={projSubStyle}>Local news, podcasts, regional features. Sponsor brands included in every hit.</p>
-            </div>
-          </Reveal>
-        </div>
+        <Reveal as="h1" delay={80} style={heroTitleStyle}>One sponsorship. <span style={orangeAccent}>Two jobs</span> for every dollar.</Reveal>
+        <Reveal as="p" delay={140} style={heroSubStyle}>Every dollar you put in splits two ways: part becomes a real prize the whole city competes for with your name on it, and part funds the growth that puts your brand in front of more people every single month. No black box. Here is exactly where it all goes.</Reveal>
+        <Reveal delay={200}>
+          <div style={scarcityWrapStyle}>
+            <span style={scarcityPillStyle}><Lock size={14} /> Only <span style={scarcityNumStyle}>5</span> businesses back each drawing</span>
+            <span style={scarcityPillStyle}><span style={scarcityNumStyle}>1</span> Headline</span>
+            <span style={scarcityPillStyle}><span style={scarcityNumStyle}>2</span> Featured</span>
+            <span style={scarcityPillStyle}><span style={scarcityNumStyle}>1</span> Supporting</span>
+            <span style={scarcityPillStyle}><span style={scarcityNumStyle}>1</span> Prize Pool Booster</span>
+          </div>
+        </Reveal>
       </section>
 
       {/* TIERS */}
       <section style={sectionStyle} id="tiers">
         <Reveal><span style={sectionKickerStyle}>Sponsorship tiers</span></Reveal>
-        <Reveal as="h2" delay={60} style={sectionTitleStyle}>Pick the tier that <span style={orangeAccent}>fits your vision.</span></Reveal>
-        <Reveal as="p" delay={120} style={ledeStyle}>Six ways to plug in — from full-month brand takeovers to simply hosting a duck at your business. There&apos;s a slot for every kind of partner.</Reveal>
+        <Reveal as="h2" delay={60} style={sectionTitleStyle}>Five slots. <span style={orangeAccent}>That is the whole field.</span></Reveal>
+        <Reveal as="p" delay={120} style={ledeStyle}>When a drawing&apos;s slots are claimed, the next opening is two weeks out. Each paid slot is yours for a single drawing, or lock a full month and take both. Pick where your brand lands.</Reveal>
 
         <div style={tiersGridStyle}>
-          {/* HEADLINE SPONSOR */}
-          <Reveal delay={180}>
+          {/* HEADLINE */}
+          <Reveal delay={160}>
             <div style={{ ...tierCardBaseStyle, border: `3px solid ${RED}`, boxShadow: `0 24px 60px rgba(214,40,40,.18)` }}>
-              <div style={{ position: "absolute", top: "-12px", right: "20px", background: RED, color: "#FFFFFF", padding: "6px 14px", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: ".75rem", letterSpacing: ".1em" }}>MOST IMPACT</div>
+              <div style={{ position: "absolute", top: "-12px", right: "20px", background: RED, color: "#FFFFFF", padding: "6px 14px", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: ".72rem", letterSpacing: ".1em" }}>THE MARQUEE</div>
               <div style={{ ...tierIconWrapStyle, background: RED, color: "#FFFFFF" }}><Crown size={28} /></div>
-              <p style={{ ...tierKickerStyle, color: RED }}>Tier 1</p>
+              <div style={tierKickerRowStyle}><p style={{ ...tierKickerStyle, color: RED }}>Tier 1</p><span style={slotPillStyle}>1 slot / drawing</span></div>
               <h3 style={tierTitleStyle}>Headline Sponsor</h3>
-              <p style={{ ...tierPriceStyle, color: RED }}>$500–1,000 / month</p>
-              <p style={tierDescStyle}>Own a month. Your brand is the centerpiece of the entire prize package and every piece of content built around it.</p>
+              <p style={{ ...tierPriceStyle, color: RED }}>$1,000</p>
+              <p style={tierPriceSubStyle}>per drawing · one drawing or full month</p>
+              {splitBar(600, 400, "$600 to the prize", "$400 to growth")}
+              <p style={tierDescStyle}>Own the drawing. Your brand is the face of the headline prize the whole city is chasing &mdash; and you are the only headline that cycle.</p>
               <ul style={tierBenefitsListStyle}>
-                <li style={tierBenefitItemStyle}><Check size={18} style={{ color: RED, flexShrink: 0, marginTop: "2px" }} /><span>Headline prize card on duckwichita.com</span></li>
-                <li style={tierBenefitItemStyle}><Check size={18} style={{ color: RED, flexShrink: 0, marginTop: "2px" }} /><span>Exclusive month — no competing headline</span></li>
-                <li style={tierBenefitItemStyle}><Check size={18} style={{ color: RED, flexShrink: 0, marginTop: "2px" }} /><span>Dedicated launch post (IG + FB)</span></li>
-                <li style={tierBenefitItemStyle}><Check size={18} style={{ color: RED, flexShrink: 0, marginTop: "2px" }} /><span>Featured in winner announcement video</span></li>
-                <li style={tierBenefitItemStyle}><Check size={18} style={{ color: RED, flexShrink: 0, marginTop: "2px" }} /><span>Brand mention in every press hit that month</span></li>
-                <li style={tierBenefitItemStyle}><Check size={18} style={{ color: RED, flexShrink: 0, marginTop: "2px" }} /><span>Co-branded duck batch option</span></li>
+                {benefit(RED, "Your logo on the headline prize card at duckwichita.com")}
+                {benefit(RED, "A $600 marquee prize presented in your name")}
+                {benefit(RED, "Dedicated headline launch post (Instagram + Facebook)")}
+                {benefit(RED, "Named in the winner announcement the whole flock sees")}
+                {benefit(RED, "Total exclusivity — only one headline, ever, per drawing")}
               </ul>
-              <button onClick={() => handleTierClick("Headline Sponsor ($500-1,000/mo)")} style={{ ...tierCtaStyle, background: RED, color: "#FFFFFF" }}>I&apos;m interested <ArrowUpRight size={18} /></button>
+              <button onClick={() => handleTierClick("Headline Sponsor — $1,000/drawing")} style={{ ...tierCtaStyle, background: RED, color: "#FFFFFF" }}>Claim the headline <ArrowUpRight size={18} /></button>
             </div>
           </Reveal>
 
-          {/* FEATURED SPONSOR */}
-          <Reveal delay={240}>
-            <div style={{ ...tierCardBaseStyle, border: `3px solid ${ORANGE}`, boxShadow: `0 24px 60px rgba(255,107,53,.15)` }}>
-              <div style={{ ...tierIconWrapStyle, background: ORANGE, color: "#FFFFFF" }}><Award size={28} /></div>
-              <p style={{ ...tierKickerStyle, color: ORANGE }}>Tier 2</p>
+          {/* FEATURED */}
+          <Reveal delay={220}>
+            <div style={{ ...tierCardBaseStyle, border: `3px solid ${ORANGE}`, boxShadow: `0 24px 60px rgba(255,107,53,.16)` }}>
+              <div style={{ ...tierIconWrapStyle, background: ORANGE, color: "#FFFFFF" }}><Star size={28} /></div>
+              <div style={tierKickerRowStyle}><p style={{ ...tierKickerStyle, color: ORANGE }}>Tier 2</p><span style={slotPillStyle}>2 slots / drawing</span></div>
               <h3 style={tierTitleStyle}>Featured Sponsor</h3>
-              <p style={{ ...tierPriceStyle, color: ORANGE }}>$250–500 / month</p>
-              <p style={tierDescStyle}>One of four supporting prize slots. Your brand shows up next to the headline, gets tagged in every winner post, and stays in rotation.</p>
+              <p style={{ ...tierPriceStyle, color: ORANGE }}>$500</p>
+              <p style={tierPriceSubStyle}>per drawing · one drawing or full month</p>
+              {splitBar(250, 250, "$250 to the prize", "$250 to growth")}
+              <p style={tierDescStyle}>Premium placement at half the headline. Only two featured slots exist per drawing &mdash; when both are taken, that is it.</p>
               <ul style={tierBenefitsListStyle}>
-                <li style={tierBenefitItemStyle}><Check size={18} style={{ color: ORANGE, flexShrink: 0, marginTop: "2px" }} /><span>Featured prize card on duckwichita.com</span></li>
-                <li style={tierBenefitItemStyle}><Check size={18} style={{ color: ORANGE, flexShrink: 0, marginTop: "2px" }} /><span>Logo + link on the prize section</span></li>
-                <li style={tierBenefitItemStyle}><Check size={18} style={{ color: ORANGE, flexShrink: 0, marginTop: "2px" }} /><span>Tagged in every winner announcement</span></li>
-                <li style={tierBenefitItemStyle}><Check size={18} style={{ color: ORANGE, flexShrink: 0, marginTop: "2px" }} /><span>Sponsor highlight post (1x per month)</span></li>
-                <li style={tierBenefitItemStyle}><Check size={18} style={{ color: ORANGE, flexShrink: 0, marginTop: "2px" }} /><span>Press inclusion when applicable</span></li>
+                {benefit(ORANGE, "Featured logo on the prize lineup at duckwichita.com")}
+                {benefit(ORANGE, "A $250 prize presented in your name")}
+                {benefit(ORANGE, "Featured in the drawing's social posts (IG + FB)")}
+                {benefit(ORANGE, "Named in the winner announcement")}
+                {benefit(ORANGE, "Only two featured slots per drawing")}
               </ul>
-              <button onClick={() => handleTierClick("Featured Sponsor ($250-500/mo)")} style={{ ...tierCtaStyle, background: ORANGE, color: "#FFFFFF" }}>I&apos;m interested <ArrowUpRight size={18} /></button>
+              <button onClick={() => handleTierClick("Featured Sponsor — $500/drawing")} style={{ ...tierCtaStyle, background: ORANGE, color: "#FFFFFF" }}>Grab a featured slot <ArrowUpRight size={18} /></button>
             </div>
           </Reveal>
 
-          {/* SUPPORTING SPONSOR */}
-          <Reveal delay={300}>
+          {/* SUPPORTING */}
+          <Reveal delay={280}>
             <div style={{ ...tierCardBaseStyle, border: `3px solid ${COBALT}`, boxShadow: `0 24px 60px rgba(19,56,222,.15)` }}>
-              <div style={{ ...tierIconWrapStyle, background: COBALT, color: "#FFFFFF" }}><Star size={28} /></div>
-              <p style={{ ...tierKickerStyle, color: COBALT }}>Tier 3</p>
+              <div style={{ ...tierIconWrapStyle, background: COBALT, color: "#FFFFFF" }}><Trophy size={28} /></div>
+              <div style={tierKickerRowStyle}><p style={{ ...tierKickerStyle, color: COBALT }}>Tier 3</p><span style={slotPillStyle}>1 slot / drawing</span></div>
               <h3 style={tierTitleStyle}>Supporting Sponsor</h3>
-              <p style={{ ...tierPriceStyle, color: COBALT }}>$100–250 / month</p>
-              <p style={tierDescStyle}>The easiest way to get in the door. Logo on the sponsor wall, social tag every drawing, and full eligibility for tier upgrades later.</p>
+              <p style={{ ...tierPriceStyle, color: COBALT }}>$300</p>
+              <p style={tierPriceSubStyle}>per drawing · one drawing or full month</p>
+              {splitBar(150, 150, "$150 to the prize", "$150 to growth")}
+              <p style={tierDescStyle}>A clean, affordable way to put your name on a real prize the city is competing for, with room to upgrade later.</p>
               <ul style={tierBenefitsListStyle}>
-                <li style={tierBenefitItemStyle}><Check size={18} style={{ color: COBALT, flexShrink: 0, marginTop: "2px" }} /><span>Logo on the duckwichita.com sponsor wall</span></li>
-                <li style={tierBenefitItemStyle}><Check size={18} style={{ color: COBALT, flexShrink: 0, marginTop: "2px" }} /><span>Tag in winner announcement posts</span></li>
-                <li style={tierBenefitItemStyle}><Check size={18} style={{ color: COBALT, flexShrink: 0, marginTop: "2px" }} /><span>Eligible to provide secondary prizes</span></li>
-                <li style={tierBenefitItemStyle}><Check size={18} style={{ color: COBALT, flexShrink: 0, marginTop: "2px" }} /><span>First-look at tier upgrades</span></li>
+                {benefit(COBALT, "Logo on the sponsor lineup at duckwichita.com")}
+                {benefit(COBALT, "A $150 prize presented in your name")}
+                {benefit(COBALT, "Tagged in the drawing's social posts")}
+                {benefit(COBALT, "First-look access to upgrade into bigger slots")}
               </ul>
-              <button onClick={() => handleTierClick("Supporting Sponsor ($100-250/mo)")} style={{ ...tierCtaStyle, background: COBALT, color: "#FFFFFF" }}>I&apos;m interested <ArrowUpRight size={18} /></button>
+              <button onClick={() => handleTierClick("Supporting Sponsor — $300/drawing")} style={{ ...tierCtaStyle, background: COBALT, color: "#FFFFFF" }}>Get in the lineup <ArrowUpRight size={18} /></button>
             </div>
           </Reveal>
 
-          {/* PRIZE SPONSOR (one-time) */}
-          <Reveal delay={360}>
-            <div style={{ ...tierCardBaseStyle, border: `3px solid ${INK}` }}>
-              <div style={{ ...tierIconWrapStyle, background: INK, color: "#FFFFFF" }}><Trophy size={28} /></div>
-              <p style={{ ...tierKickerStyle, color: INK }}>Tier 4</p>
-              <h3 style={tierTitleStyle}>Prize Sponsor</h3>
-              <p style={{ ...tierPriceStyle, color: INK }}>One-time, $100+ value</p>
-              <p style={tierDescStyle}>Just want to donate a prize? Pizza, gift card, dinner, an experience — perfect for businesses dipping their toe in.</p>
+          {/* PRIZE POOL BOOSTER */}
+          <Reveal delay={340}>
+            <div style={{ ...tierCardBaseStyle, border: `3px solid ${GOLD}`, boxShadow: `0 24px 60px rgba(231,181,60,.18)` }}>
+              <div style={{ ...tierIconWrapStyle, background: GOLD, color: INK }}><DollarSign size={28} /></div>
+              <div style={tierKickerRowStyle}><p style={{ ...tierKickerStyle, color: "#B98A1E" }}>Tier 4</p><span style={slotPillStyle}>1 slot / drawing</span></div>
+              <h3 style={tierTitleStyle}>Prize Pool Booster</h3>
+              <p style={{ ...tierPriceStyle, color: "#B98A1E" }}>$150</p>
+              <p style={tierPriceSubStyle}>per drawing · one drawing or full month</p>
+              {splitBar(100, 50, "$100 to the pool", "$50 to growth")}
+              <p style={tierDescStyle}>The simplest way in. You add $100 cash straight to the drawing&apos;s pool &mdash; and get the spotlight for making the prize bigger.</p>
               <ul style={tierBenefitsListStyle}>
-                <li style={tierBenefitItemStyle}><Check size={18} style={{ color: INK, flexShrink: 0, marginTop: "2px" }} /><span>Inclusion in that month&apos;s prize package</span></li>
-                <li style={tierBenefitItemStyle}><Check size={18} style={{ color: INK, flexShrink: 0, marginTop: "2px" }} /><span>Tag in announcement + winner post</span></li>
-                <li style={tierBenefitItemStyle}><Check size={18} style={{ color: INK, flexShrink: 0, marginTop: "2px" }} /><span>Logo featured on the prize card</span></li>
+                {benefit("#B98A1E", "Live callout: \u201C[Your business] boosted this drawing's pool by $100\u201D")}
+                {benefit("#B98A1E", "Your $100 goes straight to the winner's cash")}
+                {benefit("#B98A1E", "Tagged in the drawing's social posts")}
+                {benefit("#B98A1E", "Only one booster per drawing")}
               </ul>
-              <button onClick={() => handleTierClick("Prize Sponsor (one-time, $100+)")} style={{ ...tierCtaStyle, background: INK, color: "#FFFFFF" }}>I&apos;m interested <ArrowUpRight size={18} /></button>
+              <button onClick={() => handleTierClick("Prize Pool Booster — $150/drawing")} style={{ ...tierCtaStyle, background: GOLD, color: INK }}>Boost the pool <ArrowUpRight size={18} /></button>
             </div>
           </Reveal>
 
           {/* DUCK HOST */}
-          <Reveal delay={420}>
-            <div style={{ ...tierCardBaseStyle, border: `3px solid rgba(10,11,20,.15)` }}>
-              <div style={{ ...tierIconWrapStyle, background: "rgba(10,11,20,.08)", color: INK }}><MapPin size={28} /></div>
-              <p style={{ ...tierKickerStyle, color: "rgba(10,11,20,.55)" }}>Tier 5 · Free</p>
+          <Reveal delay={400}>
+            <div style={{ ...tierCardBaseStyle, border: `3px solid rgba(10,11,20,.14)` }}>
+              <div style={{ ...tierIconWrapStyle, background: "rgba(10,11,20,.07)", color: INK }}><MapPin size={28} /></div>
+              <div style={tierKickerRowStyle}><p style={{ ...tierKickerStyle, color: "rgba(10,11,20,.55)" }}>Tier 5</p><span style={{ ...slotPillStyle, background: "rgba(255,107,53,.12)", color: ORANGE }}>Free for launch</span></div>
               <h3 style={tierTitleStyle}>Duck Host</h3>
-              <p style={{ ...tierPriceStyle, color: INK }}>No cost</p>
-              <p style={tierDescStyle}>Host a duck at your business. Customers find it, scan it, post it, and tag your location. Free brand exposure with zero spend.</p>
+              <p style={{ ...tierPriceStyle, color: INK }}>Free now</p>
+              <p style={tierPriceSubStyle}>$50 starting month 2 · 100% reinvested into growth</p>
+              <p style={tierDescStyle}>Host a duck at your business and turn finders into foot traffic. The reward you offer is your own product, so your only real cost is goodwill.</p>
               <ul style={tierBenefitsListStyle}>
-                <li style={tierBenefitItemStyle}><Check size={18} style={{ color: INK, flexShrink: 0, marginTop: "2px" }} /><span>Duck placed at your location</span></li>
-                <li style={tierBenefitItemStyle}><Check size={18} style={{ color: INK, flexShrink: 0, marginTop: "2px" }} /><span>Location tagged in announcement post</span></li>
-                <li style={tierBenefitItemStyle}><Check size={18} style={{ color: INK, flexShrink: 0, marginTop: "2px" }} /><span>Foot traffic + IG tagging when found</span></li>
-                <li style={tierBenefitItemStyle}><Check size={18} style={{ color: INK, flexShrink: 0, marginTop: "2px" }} /><span>Path to bigger sponsor tiers</span></li>
+                {benefit(INK, "A duck lives at your business — finders come to you")}
+                {benefit(INK, "First 3 people to show up and mention DuckWichita get a small perk you choose (a free coffee, a $10 card — your product, your call)")}
+                {benefit(INK, "Your location tagged when the duck is found")}
+                {benefit(INK, "From month 2: $50, reinvested 100% into growth")}
+                {benefit(INK, "The no-brainer path into bigger tiers")}
               </ul>
-              <button onClick={() => handleTierClick("Duck Host (free)")} style={{ ...tierCtaStyle, background: "rgba(10,11,20,.08)", color: INK }}>I&apos;m interested <ArrowUpRight size={18} /></button>
+              <button onClick={() => handleTierClick("Duck Host (free now)")} style={{ ...tierCtaStyle, background: "rgba(10,11,20,.08)", color: INK }}>Host a duck <ArrowUpRight size={18} /></button>
             </div>
           </Reveal>
+        </div>
 
-          {/* CUSTOM */}
-          <Reveal delay={480}>
-            <div style={{ ...tierCardBaseStyle, background: `linear-gradient(160deg, ${COBALT} 0%, ${INK} 100%)`, color: "#FFFFFF", border: "none" }}>
-              <div style={{ ...tierIconWrapStyle, background: ORANGE, color: "#FFFFFF" }}><Flame size={28} /></div>
-              <p style={{ ...tierKickerStyle, color: ORANGE }}>Custom · Big vision</p>
-              <h3 style={{ ...tierTitleStyle, color: "#FFFFFF" }}>Let&apos;s Build Something</h3>
-              <p style={{ ...tierPriceStyle, color: ORANGE }}>Custom pricing</p>
-              <p style={{ ...tierDescStyle, color: "rgba(255,255,255,.78)" }}>Multi-month commitments, branded duck batches, full-month takeovers, regional expansion partnerships, or a vision we haven&apos;t thought of yet — let&apos;s talk.</p>
-              <ul style={tierBenefitsListStyle}>
-                <li style={{ ...tierBenefitItemStyle, color: "rgba(255,255,255,.85)" }}><Check size={18} style={{ color: ORANGE, flexShrink: 0, marginTop: "2px" }} /><span>Branded duck batch (your colors / logo)</span></li>
-                <li style={{ ...tierBenefitItemStyle, color: "rgba(255,255,255,.85)" }}><Check size={18} style={{ color: ORANGE, flexShrink: 0, marginTop: "2px" }} /><span>Year-long brand alignment</span></li>
-                <li style={{ ...tierBenefitItemStyle, color: "rgba(255,255,255,.85)" }}><Check size={18} style={{ color: ORANGE, flexShrink: 0, marginTop: "2px" }} /><span>First market in regional expansion</span></li>
-                <li style={{ ...tierBenefitItemStyle, color: "rgba(255,255,255,.85)" }}><Check size={18} style={{ color: ORANGE, flexShrink: 0, marginTop: "2px" }} /><span>Custom press / content angles</span></li>
-              </ul>
-              <button onClick={() => handleTierClick("Custom / Big Vision")} style={{ ...tierCtaStyle, background: ORANGE, color: "#FFFFFF" }}>Let&apos;s talk <ArrowUpRight size={18} /></button>
+        <Reveal delay={460}>
+          <p style={commitNoteStyle}>Every paid slot is available for a single drawing or a full month (both drawings) &mdash; whichever fits your budget. Not sure which tier? Reach out below and we will figure it out together.</p>
+        </Reveal>
+      </section>
+
+      {/* WHERE EVERY DOLLAR GOES */}
+      <section style={growthWrapStyle}>
+        <div style={growthHeadStyle}>
+          <Reveal><span style={{ ...sectionKickerStyle, color: ORANGE }}>Total transparency</span></Reveal>
+          <Reveal as="h2" delay={80} style={growthTitleStyle}>Where every dollar <span style={orangeAccent}>actually goes.</span></Reveal>
+          <Reveal as="p" delay={140} style={growthCopyStyle}>Half of your sponsorship becomes a real prize a real Wichitan wins &mdash; with your name on it. The other half gets reinvested into making your brand travel further every month. Here is that growth half, itemized.</Reveal>
+        </div>
+
+        <div style={growthGridStyle}>
+          <Reveal delay={180}>
+            <div style={growthItemStyle}>
+              <div style={growthItemIconStyle}><Megaphone size={22} /></div>
+              <h3 style={growthItemTitleStyle}>Paid ads + boosted posts</h3>
+              <p style={growthItemBodyStyle}>Real ad spend behind the campaign and boosted social posts &mdash; more eyes on the prize you funded, and your name riding along.</p>
+            </div>
+          </Reveal>
+          <Reveal delay={230}>
+            <div style={growthItemStyle}>
+              <div style={growthItemIconStyle}><MapPin size={22} /></div>
+              <h3 style={growthItemTitleStyle}>More ducks, more reach</h3>
+              <p style={growthItemBodyStyle}>More ducks, more tags, more drop locations across Wichita &mdash; a bigger hunt means a bigger audience finding your sponsorship.</p>
+            </div>
+          </Reveal>
+          <Reveal delay={280}>
+            <div style={growthItemStyle}>
+              <div style={growthItemIconStyle}><UserPlus size={22} /></div>
+              <h3 style={growthItemTitleStyle}>A dedicated team (as we grow)</h3>
+              <p style={growthItemBodyStyle}>The plan: a full-time team member running duck drops, social, and sponsor care &mdash; so the whole machine runs harder for you. Targeted as we scale.</p>
+            </div>
+          </Reveal>
+          <Reveal delay={330}>
+            <div style={growthItemStyle}>
+              <div style={growthItemIconStyle}><LayoutDashboard size={22} /></div>
+              <h3 style={growthItemTitleStyle}>Your sponsor dashboard</h3>
+              <p style={growthItemBodyStyle}>Coming soon: a live login where you watch everything your sponsorship is doing &mdash; posts, reach, and the on-the-ground promo we run for you, in one place.</p>
+            </div>
+          </Reveal>
+          <Reveal delay={380}>
+            <div style={growthItemStyle}>
+              <div style={growthItemIconStyle}><PenTool size={22} /></div>
+              <h3 style={growthItemTitleStyle}>Content that grows the audience</h3>
+              <p style={growthItemBodyStyle}>Photos, video, and posts that grow the following your logo gets shown to &mdash; the bigger it gets, the more your sponsorship is worth.</p>
+            </div>
+          </Reveal>
+        </div>
+
+        <div style={statGridStyle}>
+          <Reveal delay={420}>
+            <div style={statCardStyle}>
+              <p style={statValueStyle}>$1,350</p>
+              <p style={statLabelStyle}>in prizes per fully-backed drawing &mdash; funded entirely by local businesses</p>
+            </div>
+          </Reveal>
+          <Reveal delay={470}>
+            <div style={statCardStyle}>
+              <p style={statValueStyle}>$1,100</p>
+              <p style={statLabelStyle}>reinvested into growth per drawing &mdash; building the audience your name reaches</p>
+            </div>
+          </Reveal>
+          <Reveal delay={520}>
+            <div style={statCardStyle}>
+              <p style={statValueStyle}>5</p>
+              <p style={statLabelStyle}>businesses per drawing. That is the entire field. Scarcity is real, not a sales tactic.</p>
+            </div>
+          </Reveal>
+        </div>
+
+        <Reveal delay={560}>
+          <p style={transparencyLineStyle}>That is the whole model. The more this grows, the more your sponsorship is worth &mdash; which is exactly why I am showing you where every cent goes.</p>
+        </Reveal>
+      </section>
+
+      {/* WHY SPONSOR */}
+      <section style={sectionStyle}>
+        <Reveal><span style={sectionKickerStyle}>Why sponsor</span></Reveal>
+        <Reveal as="h2" delay={60} style={sectionTitleStyle}>This is not a billboard. <span style={orangeAccent}>It is better.</span></Reveal>
+        <Reveal as="p" delay={120} style={ledeStyle}>A billboard takes your money and just sits there. A DuckWichita slot puts your money into a prize the whole city watches, and funds a machine that makes your name travel further every month. It is the rare ad spend that compounds.</Reveal>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "20px", marginTop: "48px" }}>
+          <Reveal delay={180}>
+            <div style={{ background: "#FFFFFF", border: `2px solid ${INK}`, borderRadius: "20px", padding: "32px" }}>
+              <div style={{ display: "inline-flex", width: "48px", height: "48px", borderRadius: "12px", background: ORANGE, color: "#FFFFFF", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}><Heart size={22} /></div>
+              <h3 style={{ fontFamily: "var(--disp)", fontSize: "1.3rem", margin: "0 0 12px", color: INK }}>Earned attention</h3>
+              <p style={{ color: "rgba(10,11,20,.7)", lineHeight: 1.6, margin: 0 }}>Finders are excited when they scan. Your brand lands in a positive moment, not a skip-the-ad moment.</p>
+            </div>
+          </Reveal>
+          <Reveal delay={240}>
+            <div style={{ background: "#FFFFFF", border: `2px solid ${INK}`, borderRadius: "20px", padding: "32px" }}>
+              <div style={{ display: "inline-flex", width: "48px", height: "48px", borderRadius: "12px", background: ORANGE, color: "#FFFFFF", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}><Camera size={22} /></div>
+              <h3 style={{ fontFamily: "var(--disp)", fontSize: "1.3rem", margin: "0 0 12px", color: INK }}>Built-in sharing</h3>
+              <p style={{ color: "rgba(10,11,20,.7)", lineHeight: 1.6, margin: 0 }}>Every finder posts. Every winner posts. The drawing&apos;s sponsors ride along on all of it &mdash; compounding exposure for no extra spend.</p>
+            </div>
+          </Reveal>
+          <Reveal delay={300}>
+            <div style={{ background: "#FFFFFF", border: `2px solid ${INK}`, borderRadius: "20px", padding: "32px" }}>
+              <div style={{ display: "inline-flex", width: "48px", height: "48px", borderRadius: "12px", background: ORANGE, color: "#FFFFFF", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}><TrendingUp size={22} /></div>
+              <h3 style={{ fontFamily: "var(--disp)", fontSize: "1.3rem", margin: "0 0 12px", color: INK }}>A story worth telling</h3>
+              <p style={{ color: "rgba(10,11,20,.7)", lineHeight: 1.6, margin: 0 }}>&quot;We back DuckWichita&quot; is a better brand story than &quot;we run ads.&quot; Customers remember the story.</p>
+            </div>
+          </Reveal>
+          <Reveal delay={360}>
+            <div style={{ background: "#FFFFFF", border: `2px solid ${INK}`, borderRadius: "20px", padding: "32px" }}>
+              <div style={{ display: "inline-flex", width: "48px", height: "48px", borderRadius: "12px", background: ORANGE, color: "#FFFFFF", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}><Building2 size={22} /></div>
+              <h3 style={{ fontFamily: "var(--disp)", fontSize: "1.3rem", margin: "0 0 12px", color: INK }}>Pure local</h3>
+              <p style={{ color: "rgba(10,11,20,.7)", lineHeight: 1.6, margin: 0 }}>Every entry, finder, and post is a real Wichita person. No bot traffic, no out-of-market waste &mdash; exactly the audience you want.</p>
             </div>
           </Reveal>
         </div>
@@ -300,15 +404,15 @@ export default function SponsorInquiry() {
         <svg className="sp-sparkle s4" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 0 L13.5 10.5 L24 12 L13.5 13.5 L12 24 L10.5 13.5 L0 12 L10.5 10.5 Z" fill="#FFFFFF"/></svg>
 
         <div style={formInnerStyle}>
-          <Reveal as="h2" style={formTitleStyle}>Let&apos;s do this.</Reveal>
-          <Reveal as="p" delay={80} style={formSubStyle}>Drop your info below and I&apos;ll reach out within 24 hours to talk through your sponsorship. No pressure, no contracts on this form — just a real conversation.</Reveal>
+          <Reveal as="h2" style={formTitleStyle}>Claim your slot.</Reveal>
+          <Reveal as="p" delay={80} style={formSubStyle}>Every drawing you sit out is a prize pool with someone else&apos;s logo on it, in front of a city that is only getting bigger. Drop your info and I will reach out within 24 hours &mdash; a real conversation, no contracts on this form.</Reveal>
 
           {submitted ? (
             <Reveal delay={140}>
               <div style={successWrapStyle}>
                 <div style={{ fontSize: "4rem", marginBottom: "16px" }}>🦆</div>
-                <h3 style={successTitleStyle}>Got it. Welcome to the flock.</h3>
-                <p style={successCopyStyle}>I just got your inquiry. I&apos;ll reach out within 24 hours to talk through the next steps. In the meantime, follow <strong>@gvonflue</strong> on Instagram to see DuckWichita in action.</p>
+                <h3 style={successTitleStyle}>Got it. Let&apos;s talk.</h3>
+                <p style={successCopyStyle}>I just got your inquiry and I&apos;ll reach out within 24 hours to walk through the slot and where every dollar goes. In the meantime, follow <strong>@gvonflue</strong> on Instagram to see DuckWichita in action.</p>
                 <a href="https://instagram.com/gvonflue" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "14px 26px", background: ORANGE, color: "#FFFFFF", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 800, textDecoration: "none" }}>Follow @gvonflue <ArrowUpRight size={18} /></a>
               </div>
             </Reveal>
@@ -330,27 +434,24 @@ export default function SponsorInquiry() {
                   <label style={labelStyle} htmlFor="phone">Phone Number</label>
                   <input style={inputStyle} type="tel" id="phone" name="phone" required />
 
-                  <label style={labelStyle} htmlFor="tier">Sponsorship Tier You&apos;re Interested In</label>
+                  <label style={labelStyle} htmlFor="tier">Slot You&apos;re Interested In</label>
                   <select style={inputStyle} id="tier" name="tier" required value={selectedTier} onChange={(e) => setSelectedTier(e.target.value)}>
-                    <option value="" disabled>Pick the tier that fits</option>
-                    <option>Headline Sponsor ($500-1,000/mo)</option>
-                    <option>Featured Sponsor ($250-500/mo)</option>
-                    <option>Supporting Sponsor ($100-250/mo)</option>
-                    <option>Prize Sponsor (one-time, $100+)</option>
-                    <option>Duck Host (free)</option>
-                    <option>Custom / Big Vision</option>
+                    <option value="" disabled>Pick the slot that fits</option>
+                    <option>Headline Sponsor — $1,000/drawing</option>
+                    <option>Featured Sponsor — $500/drawing</option>
+                    <option>Supporting Sponsor — $300/drawing</option>
+                    <option>Prize Pool Booster — $150/drawing</option>
+                    <option>Duck Host (free now)</option>
                     <option>Not sure yet — let&apos;s talk</option>
                   </select>
 
-                  <label style={labelStyle} htmlFor="budget">Budget Range (optional)</label>
-                  <select style={inputStyle} id="budget" name="budget" defaultValue="">
-                    <option value="">Skip if not sure</option>
-                    <option>Under $100/mo</option>
-                    <option>$100–250/mo</option>
-                    <option>$250–500/mo</option>
-                    <option>$500–1,000/mo</option>
-                    <option>$1,000+/mo</option>
-                    <option>One-time prize donation only</option>
+                  <label style={labelStyle} htmlFor="commitment">Commitment</label>
+                  <select style={inputStyle} id="commitment" name="commitment" defaultValue="">
+                    <option value="" disabled>How often?</option>
+                    <option>One drawing</option>
+                    <option>A full month (both drawings)</option>
+                    <option>Multiple months</option>
+                    <option>Not sure yet</option>
                   </select>
 
                   <label style={labelStyle} htmlFor="message">Tell me about your business + what you&apos;re hoping for</label>
@@ -367,44 +468,6 @@ export default function SponsorInquiry() {
             <p style={{ margin: "4px 0", fontSize: "1.05rem" }}><Mail size={16} style={{ display: "inline", marginRight: "6px", verticalAlign: "-2px" }} /><a href="mailto:gvonflue@gmail.com?subject=DuckWichita Sponsor Inquiry" style={directLinkStyle}>gvonflue@gmail.com</a></p>
             <p style={{ margin: "4px 0", fontSize: "1.05rem" }}><Phone size={16} style={{ display: "inline", marginRight: "6px", verticalAlign: "-2px" }} /><a href="tel:9013353905" style={directLinkStyle}>901-335-3905</a></p>
           </div>
-        </div>
-      </section>
-
-      {/* WHY SPONSOR */}
-      <section style={sectionStyle}>
-        <Reveal><span style={sectionKickerStyle}>Why sponsor</span></Reveal>
-        <Reveal as="h2" delay={60} style={sectionTitleStyle}>This isn&apos;t a billboard. <span style={orangeAccent}>It&apos;s better.</span></Reveal>
-        <Reveal as="p" delay={120} style={ledeStyle}>Traditional local advertising is interruption-based, broad, and forgettable. DuckWichita is the opposite — finders WANT to scan, share, and post. Your brand shows up in their feel-good moment, not their ad-blindness moment.</Reveal>
-
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "20px", marginTop: "48px" }}>
-          <Reveal delay={180}>
-            <div style={{ background: "#FFFFFF", border: `2px solid ${INK}`, borderRadius: "20px", padding: "32px" }}>
-              <div style={{ display: "inline-flex", width: "48px", height: "48px", borderRadius: "12px", background: ORANGE, color: "#FFFFFF", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}><Heart size={22} /></div>
-              <h3 style={{ fontFamily: "var(--disp)", fontSize: "1.3rem", margin: "0 0 12px", color: INK }}>Earned attention</h3>
-              <p style={{ color: "rgba(10,11,20,.7)", lineHeight: 1.6, margin: 0 }}>Finders are excited when they scan. Your brand lands in a positive emotional moment, not a skip-the-ad moment.</p>
-            </div>
-          </Reveal>
-          <Reveal delay={240}>
-            <div style={{ background: "#FFFFFF", border: `2px solid ${INK}`, borderRadius: "20px", padding: "32px" }}>
-              <div style={{ display: "inline-flex", width: "48px", height: "48px", borderRadius: "12px", background: ORANGE, color: "#FFFFFF", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}><Camera size={22} /></div>
-              <h3 style={{ fontFamily: "var(--disp)", fontSize: "1.3rem", margin: "0 0 12px", color: INK }}>Built-in UGC</h3>
-              <p style={{ color: "rgba(10,11,20,.7)", lineHeight: 1.6, margin: 0 }}>Every finder posts. Every winner posts. Every post tags active sponsors. Compounding social exposure for zero extra spend.</p>
-            </div>
-          </Reveal>
-          <Reveal delay={300}>
-            <div style={{ background: "#FFFFFF", border: `2px solid ${INK}`, borderRadius: "20px", padding: "32px" }}>
-              <div style={{ display: "inline-flex", width: "48px", height: "48px", borderRadius: "12px", background: ORANGE, color: "#FFFFFF", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}><TrendingUp size={22} /></div>
-              <h3 style={{ fontFamily: "var(--disp)", fontSize: "1.3rem", margin: "0 0 12px", color: INK }}>Story you can tell</h3>
-              <p style={{ color: "rgba(10,11,20,.7)", lineHeight: 1.6, margin: 0 }}>&quot;We sponsor DuckWichita&quot; is a more interesting brand story than &quot;we run Facebook ads.&quot; Customers remember the story.</p>
-            </div>
-          </Reveal>
-          <Reveal delay={360}>
-            <div style={{ background: "#FFFFFF", border: `2px solid ${INK}`, borderRadius: "20px", padding: "32px" }}>
-              <div style={{ display: "inline-flex", width: "48px", height: "48px", borderRadius: "12px", background: ORANGE, color: "#FFFFFF", alignItems: "center", justifyContent: "center", marginBottom: "16px" }}><Building2 size={22} /></div>
-              <h3 style={{ fontFamily: "var(--disp)", fontSize: "1.3rem", margin: "0 0 12px", color: INK }}>Local-first</h3>
-              <p style={{ color: "rgba(10,11,20,.7)", lineHeight: 1.6, margin: 0 }}>Every entry, every finder, every post is a real Wichita person. No bot traffic, no out-of-market waste — every impression is exactly the audience you want.</p>
-            </div>
-          </Reveal>
         </div>
       </section>
 
