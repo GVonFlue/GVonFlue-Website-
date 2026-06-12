@@ -268,7 +268,7 @@ export default function DuckWichita() {
                 <img src="/images/duck.jpg" alt="The DuckWichita duck" style={visualImgStyle} />
               </div>
               <div style={floatingBadgeStyle}>
-                <span style={floatingBadgeKickerStyle}>June Prize</span>
+                <span style={floatingBadgeKickerStyle}>July 1st Prize</span>
                 <span style={floatingBadgeAmountStyle}>$840+</span>
                 <span style={floatingBadgeSubStyle}>VALUE</span>
               </div>
