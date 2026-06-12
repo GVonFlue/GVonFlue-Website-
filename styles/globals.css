@@ -7,6 +7,7 @@
   --disp:'Clash Display',sans-serif; --body:'Satoshi',sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
+html{overflow-x:clip}
 .gvf{font-family:var(--body);color:var(--txt);background:var(--white);
   -webkit-font-smoothing:antialiased;overflow-x:clip}
 .gvf h1,.gvf h2,.gvf h3,.gvf h4{font-family:var(--disp);font-weight:600;line-height:1.02;letter-spacing:-.02em}
