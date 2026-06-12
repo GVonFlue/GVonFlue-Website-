@@ -15,6 +15,8 @@ export default function DuckWichita() {
 
   const pageStyle = { background: "#FFFFFF", minHeight: "100vh", color: INK };
   const topBarStyle = { padding: "28px 24px", display: "flex", justifyContent: "center" };
+  const bannerStyle = { background: INK, color: "#fff", padding: "11px 20px", display: "flex", justifyContent: "center", alignItems: "center", gap: "12px", flexWrap: "wrap", textAlign: "center", fontFamily: "var(--disp)", fontWeight: 700, fontSize: "clamp(.8rem, 2.4vw, 1rem)", letterSpacing: ".09em", textTransform: "uppercase" };
+  const bannerDateStyle = { background: GOLD, color: INK, padding: "3px 13px", borderRadius: "999px", fontWeight: 800, letterSpacing: ".12em" };
 
   const heroStyle = { padding: "60px 24px 80px", textAlign: "center", maxWidth: "1180px", margin: "0 auto", position: "relative" };
   const heroKickerStyle = { display: "inline-flex", alignItems: "center", gap: "10px", padding: "10px 22px", background: "rgba(255,107,53,.12)", borderRadius: "999px", color: ORANGE, fontFamily: "var(--disp)", fontSize: ".9rem", fontWeight: 700, letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "32px", border: `1.5px solid rgba(255,107,53,.4)` };
@@ -129,6 +131,11 @@ export default function DuckWichita() {
           .prize-arrow-left, .prize-arrow-right { display: none; }
         }
       `}</style>
+
+      <div style={bannerStyle}>
+        <span>🦆 Coming to Wichita</span>
+        <span style={bannerDateStyle}>6/17</span>
+      </div>
 
       <div style={topBarStyle}><Lockup /></div>
 
