@@ -122,6 +122,7 @@ export default function SponsorInquiry() {
   const statValueStyle = { fontFamily: "var(--disp)", fontSize: "2.4rem", fontWeight: 800, color: GOLD, margin: "0 0 6px", letterSpacing: "-.01em" };
   const statLabelStyle = { fontSize: ".95rem", color: "rgba(255,255,255,.75)", lineHeight: 1.45, margin: 0 };
   const transparencyLineStyle = { textAlign: "center", maxWidth: "720px", margin: "44px auto 0", fontSize: "1.15rem", color: ORANGE, fontWeight: 700, lineHeight: 1.5 };
+  const dashBtnStyle = { display: "inline-flex", alignItems: "center", gap: "10px", padding: "16px 30px", background: "#FFFFFF", color: INK, borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: "1.05rem", textDecoration: "none", cursor: "pointer" };
 
   // FORM
   const formWrapStyle = { background: ORANGE, color: "#FFFFFF", padding: "80px 24px", borderRadius: "32px", margin: "60px auto", maxWidth: "1180px" };
@@ -357,6 +358,12 @@ export default function SponsorInquiry() {
 
         <Reveal delay={560}>
           <p style={transparencyLineStyle}>That is the whole model. The more this grows, the more your sponsorship is worth &mdash; which is exactly why I am showing you where every cent goes.</p>
+        </Reveal>
+
+        <Reveal delay={600}>
+          <div style={{ textAlign: "center", marginTop: "30px" }}>
+            <a href="/dashboard" target="_blank" rel="noopener noreferrer" style={dashBtnStyle}><LayoutDashboard size={20} /> See a sample sponsor dashboard <ArrowUpRight size={18} /></a>
+          </div>
         </Reveal>
       </section>
 
