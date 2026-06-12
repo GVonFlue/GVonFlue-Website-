@@ -8,6 +8,7 @@ import Reveal from "@/components/Reveal";
 import { ArrowUpRight, Instagram, Sparkles, Ticket, DollarSign, Calendar, MapPin, Flame, UtensilsCrossed, Shirt, ShieldCheck } from "lucide-react";
 
 const FORM_KEY = "e87c5fc0-d3e8-47e8-a1ab-5be73241a042";
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxUouOJJvN_7pIAAfHX4DSdskQKNjYUebZ5bb1yH5Rxdsac_IWytyBB-d-vlcaFHXCJ/exec";
 
 export default function JoinTheFlock() {
   const router = useRouter();
@@ -20,6 +21,21 @@ export default function JoinTheFlock() {
     formData.append("access_key", FORM_KEY);
     formData.append("subject", "🦆 New DuckWichita Giveaway Entry");
     formData.append("from_name", "DuckWichita Site");
+
+    // Log the entry to Google Sheets — fire-and-forget, independent of the email
+    const form = e.target;
+    try {
+      const sheetParams = new URLSearchParams({
+        first_name: form.first_name.value,
+        email: form.email.value,
+        phone: form.phone.value,
+        status: form.status.value,
+        instagram: form.instagram ? form.instagram.value : "",
+      });
+      fetch(SHEET_ENDPOINT, { method: "POST", mode: "no-cors", body: sheetParams });
+    } catch (err) {
+      console.error("Sheet log failed", err);
+    }
 
     try {
       const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
@@ -294,6 +310,8 @@ export default function JoinTheFlock() {
               <option>Thinking About Selling</option>
               <option>Just Here For The Duck</option>
             </select>
+            <label style={labelStyle} htmlFor="instagram">Instagram Handle <span style={{ fontWeight: 400, color: "var(--muted)" }}>(optional)</span></label>
+            <input style={inputStyle} type="text" id="instagram" name="instagram" placeholder="@yourhandle" />
             <button type="submit" style={submitBtnStyle} disabled={submitting}>{submitting ? "Adding you..." : "Enter Me In The Flock"}</button>
             <p style={flockReassureStyle}>Enter once, stay in the flock for <strong style={{ color: "var(--ink)" }}>1 full year</strong>. Drawings the 1st and 15th of every month — your name has 24 shots, not 1. By entering, you agree to the <a href="/rules" style={{ color: "var(--cobalt)", textDecoration: "underline" }}>official rules</a>.</p>
           </form>
