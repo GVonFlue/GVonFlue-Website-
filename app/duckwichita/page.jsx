@@ -75,6 +75,14 @@ export default function DuckWichita() {
   const prizeCardBodyStyle = { color: "rgba(255,255,255,.78)", margin: "0 0 14px", lineHeight: 1.5, fontSize: ".95rem" };
   const prizeCardMetaStyle = { display: "flex", alignItems: "center", gap: "8px", fontSize: ".8rem", color: "var(--gold)", fontFamily: "var(--disp)", fontWeight: 600, textTransform: "uppercase", letterSpacing: ".05em" };
 
+  // Tier boxes — nested inside the gold prize panel
+  const tierBoxStyle = (accent) => ({ border: `2.5px solid ${accent}`, borderRadius: "28px", padding: "28px 22px 32px", margin: "0 auto 26px", maxWidth: "1120px", background: "rgba(255,255,255,.55)" });
+  const tierBoxLabelWrapStyle = { textAlign: "center" };
+  const tierBoxLabelStyle = (accent) => ({ display: "inline-flex", alignItems: "center", gap: "8px", padding: "9px 24px", background: accent, color: "#fff", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: ".82rem", letterSpacing: ".12em", textTransform: "uppercase", marginBottom: "26px" });
+  const sponsorChip = (text, open) => (
+    <span style={{ display: "inline-block", fontFamily: "var(--disp)", fontWeight: 800, fontSize: ".7rem", letterSpacing: ".06em", textTransform: "uppercase", color: open ? "#fff" : INK, background: open ? ORANGE : GOLD, borderRadius: "999px", padding: "5px 13px", marginBottom: "14px" }}>{text}</span>
+  );
+
   const noDuckWrapStyle = { background: "rgba(19,56,222,.06)", border: `2px dashed ${COBALT}`, borderRadius: "24px", padding: "40px 32px", marginTop: "60px", textAlign: "center", maxWidth: "780px", marginLeft: "auto", marginRight: "auto" };
   const noDuckTitleStyle = { fontFamily: "var(--disp)", fontSize: "1.6rem", margin: "0 0 12px", color: COBALT };
   const noDuckBodyStyle = { color: "rgba(10,11,20,.7)", fontSize: "1.05rem", lineHeight: 1.55, margin: "0 0 20px" };
@@ -247,48 +255,66 @@ export default function DuckWichita() {
             <Reveal as="p" delay={140} style={prizeSubStyle}>Five prizes. Over $840 in total value. One Wichita winner. This is what we&apos;re launching with — and we&apos;re only getting bigger.</Reveal>
           </div>
 
-          {/* Headline Sponsor — Joe Dirt */}
+          {/* TIER BOX 1 — Headline Sponsor */}
           <Reveal delay={180}>
-            <div style={headlineCardWrapStyle}>
-              <div style={headlineRibbonStyle}>★ HEADLINE SPONSOR ★</div>
-              <div style={headlineCardStyle}>
-                <div style={headlineLogoWrapStyle}>
-                  <img src="/images/joedirt.png" alt="Joe Dirt Fireworks" style={headlineLogoStyle} />
+            <div style={tierBoxStyle(RED)}>
+              <div style={tierBoxLabelWrapStyle}><span style={tierBoxLabelStyle(RED)}>★ Headline Sponsor</span></div>
+              <div style={headlineCardWrapStyle}>
+                <div style={headlineCardStyle}>
+                  <div style={headlineLogoWrapStyle}>
+                    <img src="/images/joedirt.png" alt="Joe Dirt Fireworks" style={headlineLogoStyle} />
+                  </div>
+                  <p style={headlineSponsorStyle}>Sponsored by Joe Dirt Fireworks</p>
+                  <h3 style={headlineTitleStyle}>$300 Fireworks Bundle</h3>
+                  <p style={headlineBodyStyle}>The headline prize. Joe Dirt Fireworks is loading up a premium $300 bundle of the loudest, brightest fireworks Wichita has to offer. Light up your 4th of July.</p>
+                  <span style={headlineValueStyle}>$300 value</span>
                 </div>
-                <p style={headlineSponsorStyle}>Sponsored by Joe Dirt Fireworks</p>
-                <h3 style={headlineTitleStyle}>$300 Fireworks Bundle</h3>
-                <p style={headlineBodyStyle}>The headline prize. Joe Dirt Fireworks is loading up a premium $300 bundle of the loudest, brightest fireworks Wichita has to offer. Light up your 4th of July.</p>
-                <span style={headlineValueStyle}>$300 value</span>
               </div>
             </div>
           </Reveal>
 
-          {/* 4 supporting prizes */}
+          {/* TIER BOX 2 — Featured Sponsors (2 slots) */}
           <Reveal delay={240}>
-            <div style={prizeCardsStyle}>
-              <div style={prizeCardStyle}>
-                <div style={prizeIconWrapStyle}><Ticket size={24} /></div>
-                <h3 style={prizeCardTitleStyle}>4 Wind Surge Tickets</h3>
-                <p style={prizeCardBodyStyle}>Section A, directly behind home plate. Bring the family, a date, your crew. Good for any home game this season.</p>
-                <div style={prizeCardMetaStyle}><MapPin size={14} /> Equity Bank Park</div>
+            <div style={tierBoxStyle(ORANGE)}>
+              <div style={tierBoxLabelWrapStyle}><span style={tierBoxLabelStyle(ORANGE)}>★ Featured Sponsors · 2 Slots</span></div>
+              <div style={prizeCardsStyle}>
+                <div style={prizeCardStyle}>
+                  {sponsorChip("GVonFlue Real Estate", false)}
+                  <div style={prizeIconWrapStyle}><Ticket size={24} /></div>
+                  <h3 style={prizeCardTitleStyle}>4 Wind Surge Tickets</h3>
+                  <p style={prizeCardBodyStyle}>Section A, directly behind home plate. Bring the family, a date, your crew. Good for any home game this season.</p>
+                  <div style={prizeCardMetaStyle}><MapPin size={14} /> Equity Bank Park</div>
+                </div>
+                <div style={prizeCardStyle}>
+                  {sponsorChip("GVonFlue Real Estate", false)}
+                  <div style={prizeIconWrapStyle}><DollarSign size={24} /></div>
+                  <h3 style={prizeCardTitleStyle}>$200 Cash</h3>
+                  <p style={prizeCardBodyStyle}>No strings, no restrictions. Spend it on whatever the rest of this package doesn&apos;t cover.</p>
+                  <div style={prizeCardMetaStyle}><Sparkles size={14} /> Spend it however</div>
+                </div>
               </div>
-              <div style={prizeCardStyle}>
-                <div style={prizeIconWrapStyle}><UtensilsCrossed size={24} /></div>
-                <h3 style={prizeCardTitleStyle}>$200 Dinner Gift Card</h3>
-                <p style={prizeCardBodyStyle}>A full dinner on the house at a top Wichita restaurant. Bring whoever you want. Restaurant sponsor announcement coming soon.</p>
-                <div style={prizeCardMetaStyle}><Sparkles size={14} /> Local restaurant</div>
-              </div>
-              <div style={prizeCardStyle}>
-                <div style={prizeIconWrapStyle}><Shirt size={24} /></div>
-                <h3 style={prizeCardTitleStyle}>DuckWichita Merch Bundle</h3>
-                <p style={prizeCardBodyStyle}>Two official DuckWichita tees and a sticker pack. Collector&apos;s edition — only the first winners get these.</p>
-                <div style={prizeCardMetaStyle}><Sparkles size={14} /> Limited drop</div>
-              </div>
-              <div style={prizeCardStyle}>
-                <div style={prizeIconWrapStyle}><DollarSign size={24} /></div>
-                <h3 style={prizeCardTitleStyle}>$200 Cash</h3>
-                <p style={prizeCardBodyStyle}>No strings, no restrictions. Spend it on whatever the rest of this package doesn&apos;t cover.</p>
-                <div style={prizeCardMetaStyle}><Sparkles size={14} /> Spend it however</div>
+            </div>
+          </Reveal>
+
+          {/* TIER BOX 3 — Supporting Sponsor + Prize Pool Booster */}
+          <Reveal delay={300}>
+            <div style={tierBoxStyle(COBALT)}>
+              <div style={tierBoxLabelWrapStyle}><span style={tierBoxLabelStyle(COBALT)}>Supporting + Prize Pool Booster</span></div>
+              <div style={prizeCardsStyle}>
+                <div style={prizeCardStyle}>
+                  {sponsorChip("Supporting · Slot Open", true)}
+                  <div style={prizeIconWrapStyle}><UtensilsCrossed size={24} /></div>
+                  <h3 style={prizeCardTitleStyle}>$200 Dinner Gift Card</h3>
+                  <p style={prizeCardBodyStyle}>A full dinner on the house at a top Wichita restaurant. This supporting slot is still open — your business could be the name on this prize.</p>
+                  <div style={prizeCardMetaStyle}><Sparkles size={14} /> Local restaurant</div>
+                </div>
+                <div style={prizeCardStyle}>
+                  {sponsorChip("Prize Pool Booster · GVonFlue", false)}
+                  <div style={prizeIconWrapStyle}><Shirt size={24} /></div>
+                  <h3 style={prizeCardTitleStyle}>DuckWichita Merch Bundle</h3>
+                  <p style={prizeCardBodyStyle}>Two official DuckWichita tees and a sticker pack. Collector&apos;s edition — only the first winners get these.</p>
+                  <div style={prizeCardMetaStyle}><Sparkles size={14} /> Limited drop</div>
+                </div>
               </div>
             </div>
           </Reveal>
