@@ -207,7 +207,7 @@ export default function DuckWichita() {
                 <span style={flowStepNumStyle}>STEP 03</span>
                 <div style={flowIconWrapStyle}><Sparkles size={32} /></div>
                 <h3 style={flowStepTitleStyle}>Join the flock</h3>
-                <p style={flowStepBodyStyle}>You&apos;ll land on a secret page. Drop your name, you&apos;re in the bucket for 1 full year.</p>
+                <p style={flowStepBodyStyle}>You&apos;ll land on a secret page. Drop your name, and you&apos;re in for the next 2 drawings.</p>
               </div>
             </Reveal>
 
