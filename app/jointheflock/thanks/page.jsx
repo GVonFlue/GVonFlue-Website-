@@ -57,7 +57,7 @@ export default function JoinTheFlockThanks() {
         <Reveal><span style={badgeStyle}><Sparkles size={16} /> You&apos;re in the flock</span></Reveal>
         <Reveal delay={60}><span className="duck-emoji-pop" style={duckEmojiStyle}>🦆</span></Reveal>
         <Reveal as="h1" delay={140} style={headlineStyle}>You&apos;re <span style={goldAccent}>officially</span> in the flock.</Reveal>
-        <Reveal as="p" delay={200} style={subStyle}>Your entry is locked in. Your name is in the bucket for <strong style={{ color: "var(--ink)" }}>every drawing for the next 12 Months</strong> — that&apos;s 24 chances to win something local.</Reveal>
+        <Reveal as="p" delay={200} style={subStyle}>Your entry is locked in. You&apos;re in for the <strong style={{ color: "var(--ink)" }}>next 2 drawings</strong> — and you can find another duck any time to keep your streak going.</Reveal>
 
         <Reveal delay={260}>
           <div style={followCardStyle}>
