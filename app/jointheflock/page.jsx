@@ -128,7 +128,7 @@ export default function JoinTheFlock() {
 
   const faqs = [
     { q: "Is this a real giveaway?", a: "100% real. One person from the flock wins a local prize every drawing. No tricks, no purchase, no kidding. Read the official rules for the full breakdown." },
-    { q: "What if I don't win the first drawing?", a: "You're still in. Once you enter, your name stays in the flock for 1 full year — that's 24 drawings (1st and 15th of every month). Every drawing pulls from everyone who's currently active. Best move: follow @gvonflue on Instagram so you'll see the second your name comes up." },
+    { q: "What if I don't win the first drawing?", a: "You're still in for the next drawing too. Each duck you scan keeps you in the next 2 drawings — we draw on the 1st and 15th of every month. Want to stay in past that? Find another duck and scan it. Best move: follow @gvonflue on Instagram so you'll see the second your name comes up." },
     { q: "How do I get bonus entries?", a: "Post a photo of you with your duck on Instagram or Facebook using #DuckWichita. Once we see the post, you get 4 extra entries on top of your original — 5 total. One bonus per person per cycle. Make sure the duck is in the photo." },
     { q: "Do I need to buy or sell a home?", a: "Nope. You can be 'just here for the duck' on the form and still win. The real estate stuff is just what I do for a living." },
     { q: "Can I duck someone else?", a: "Absolutely. If you want to pass yours along, do it. The duck moves how it wants to move." },
