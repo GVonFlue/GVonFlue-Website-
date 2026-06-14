@@ -10,6 +10,7 @@ const LINKS = [
   { label: "The Prize", href: "/duckwichita#prize" },
   { label: "Sponsor", href: "/sponsor" },
   { label: "Rules", href: "/rules" },
+  { label: "GVonFlue Realty Group", href: "/", external: true },
 ];
 
 const ORANGE = "#FF6B35";
