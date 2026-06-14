@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Lockup from "@/components/Lockup";
+import DuckNav from "@/components/DuckNav";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import { ArrowUpRight, Crown, Star, Trophy, Heart, Camera, Building2, TrendingUp, MapPin, Mail, Phone, Check, Handshake, Megaphone, LayoutDashboard, UserPlus, PenTool, DollarSign, Lock } from "lucide-react";
@@ -152,7 +152,7 @@ export default function SponsorInquiry() {
         @media (max-width: 700px) { .sp-sparkle { display: none; } }
       `}</style>
 
-      <div style={topBarStyle}><Lockup /></div>
+      <DuckNav />
 
       {/* HERO */}
       <section style={heroStyle}>
