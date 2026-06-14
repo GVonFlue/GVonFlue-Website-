@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Lockup from "@/components/Lockup";
+import DuckNav from "@/components/DuckNav";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import { ArrowUpRight, ShieldCheck } from "lucide-react";
@@ -29,7 +29,7 @@ export default function RulesPage() {
 
   return (
     <main style={pageStyle}>
-      <div style={topBarStyle}><Lockup /></div>
+      <DuckNav />
 
       <section style={heroStyle}>
         <Reveal><span style={kickerStyle}><ShieldCheck size={14} /> Official Rules</span></Reveal>
