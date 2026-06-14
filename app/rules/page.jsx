@@ -35,7 +35,7 @@ export default function RulesPage() {
         <Reveal><span style={kickerStyle}><ShieldCheck size={14} /> Official Rules</span></Reveal>
         <Reveal as="h1" delay={80} style={titleStyle}>The <span style={goldAccent}>fine print.</span></Reveal>
         <Reveal as="p" delay={140} style={subStyle}>Real giveaway. Real rules. Here&apos;s how DuckWichita works, who&apos;s eligible, and how winners get picked. No tricks, no surprises.</Reveal>
-        <Reveal delay={200}><span style={updatedStyle}>Last updated: June 12, 2026</span></Reveal>
+        <Reveal delay={200}><span style={updatedStyle}>Last updated: June 14, 2026</span></Reveal>
       </section>
 
       <div style={contentWrapStyle}>
@@ -70,12 +70,12 @@ export default function RulesPage() {
           </ul>
           <p style={pStyle}>Each person receives <span style={strongStyle}>one (1) base entry</span>. Duplicate sign-ups from the same person will be consolidated into a single base entry.</p>
           <p style={pStyle}><span style={strongStyle}>Bonus entries — the &quot;5x&quot; bonus.</span> After you&apos;ve entered, you can increase your single base entry to a total of <span style={strongStyle}>five (5) entries</span> by posting a photo of yourself with your DuckWichita duck to a public Instagram or Facebook post using the hashtag <span style={strongStyle}>#DuckWichita</span>. The duck must be clearly visible in the photo. Once the Sponsor verifies the post, four (4) bonus entries are added to your existing entry, for five (5) total.</p>
-          <p style={pStyle}>Bonus entries are <span style={strongStyle}>completely free</span>. No purchase is ever required to earn them and they do not change the cost of entry. The bonus is limited to <span style={strongStyle}>one (1) award of four bonus entries per person, per drawing cycle</span>. The Sponsor verifies qualifying posts manually and reserves the right to withhold bonus entries for any post that does not clearly show the duck or that otherwise appears to be an attempt to game the system.</p>
+          <p style={pStyle}>Bonus entries are <span style={strongStyle}>completely free</span>. No purchase is ever required to earn them and they do not change the cost of entry. The bonus is limited to <span style={strongStyle}>one (1) award of four bonus entries per entry</span>. The Sponsor verifies qualifying posts manually and reserves the right to withhold bonus entries for any post that does not clearly show the duck or that otherwise appears to be an attempt to game the system.</p>
         </section>
 
         <section style={sectionStyle}>
           <h2 style={h2Style}>5. Entry period &amp; how long you stay in</h2>
-          <p style={pStyle}>Each entry remains active in the giveaway pool for <span style={strongStyle}>one (1) full year from the date of submission</span>. During that time, your entry will be included in every monthly drawing — that&apos;s up to 24 chances to win, with no requirement to re-enter.</p>
+          <p style={pStyle}>Each entry remains active for the <span style={strongStyle}>next two (2) drawings after the date of submission</span>, after which it expires. Because drawings are held twice a month, each entry stays active for roughly one month. There is no limit on how often you can enter — find another duck and scan it (or enter online) any time to put a fresh entry back into the pool.</p>
           <p style={pStyle}>Drawings are held on the <span style={strongStyle}>1st and 15th of each month</span>, beginning July 1st, 2026.</p>
         </section>
 
