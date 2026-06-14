@@ -290,6 +290,10 @@ export default function SponsorInquiry() {
         <Reveal delay={460}>
           <p style={commitNoteStyle}>Every paid slot is available for a single drawing or a full month (both drawings) &mdash; whichever fits your budget. Not sure which tier? Reach out below and we will figure it out together.</p>
         </Reveal>
+
+        <Reveal delay={500}>
+          <p style={commitNoteStyle}>No storefront? No problem &mdash; for tiers that include a duck display, we&apos;ll find your duck a home (your office, a partner spot, even a Wind Surge game). Just mention it when you reach out.</p>
+        </Reveal>
       </section>
 
       {/* WHERE EVERY DOLLAR GOES */}
