@@ -48,7 +48,6 @@ export default function DuckNav() {
           {LINKS.map((l) => (
             <Link key={l.label} href={l.href} className="ducknav-link">{l.label}</Link>
           ))}
-          <Link href="/jointheflock" className="ducknav-cta">Join the Flock <ArrowUpRight size={16} /></Link>
         </nav>
 
         <button className="ducknav-toggle" aria-label="Menu" onClick={() => setOpen((v) => !v)}>
