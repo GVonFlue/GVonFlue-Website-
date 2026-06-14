@@ -10,8 +10,9 @@ const LINKS = [
   { label: "The Prize", href: "/duckwichita#prize" },
   { label: "Sponsor", href: "/sponsor" },
   { label: "Rules", href: "/rules" },
-  { label: "GVonFlue Realty Group", href: "/", external: true },
 ];
+
+const REALTY_URL = "https://gvonflue.vercel.app";
 
 const ORANGE = "#FF6B35";
 const COBALT = "#1338DE";
