@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Lockup from "@/components/Lockup";
+import DuckNav from "@/components/DuckNav";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import { Instagram, Facebook, ArrowUpRight, Sparkles, Calendar } from "lucide-react";
