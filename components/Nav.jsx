@@ -58,9 +58,9 @@ export default function Nav() {
             {LINKS.map((l) => (
               <Link key={l.label} href={l.href}>{l.label}</Link>
             ))}
-            <Link href="/duckwichita" style={duckLinkStyle}>
+            <a href="https://duckwichita.com" style={duckLinkStyle}>
               <span style={duckDotStyle}></span>DuckWichita
-            </Link>
+            </a>
             <Link href="/#guide" className="btn btn-gold btn-sm">Get the Free Guide</Link>
           </nav>
           <button className="nav-toggle" aria-label="Menu" onClick={() => setOpen(true)}>
@@ -78,9 +78,9 @@ export default function Nav() {
             {LINKS.map((l) => (
               <Link key={l.label} href={l.href} onClick={() => setOpen(false)}>{l.label}</Link>
             ))}
-            <Link href="/duckwichita" style={{ ...duckLinkStyle, fontSize: "1.1rem" }} onClick={() => setOpen(false)}>
+            <a href="https://duckwichita.com" style={{ ...duckLinkStyle, fontSize: "1.1rem" }} onClick={() => setOpen(false)}>
               <span style={duckDotStyle}></span>DuckWichita
-            </Link>
+            </a>
             <Link href="/#guide" className="btn btn-gold btn-lg" onClick={() => setOpen(false)}>Get the Free Guide</Link>
           </div>
         </div>
