@@ -252,9 +252,9 @@ export default function DuckWichita() {
 
             <Reveal delay={320}>
               <div style={ctaWrapStyle}>
-                <Link href="/duckwichita" style={primaryCtaStyle}>
-                  Check out DuckWichita <ArrowUpRight size={18} />
-                </Link>
+                <a href="https://duckwichita.com" style={primaryCtaStyle}>
+                Check out DuckWichita <ArrowUpRight size={18} />
+              </a>
                 <a href="https://instagram.com/gvonflue" target="_blank" rel="noopener noreferrer" style={ghostCtaStyle}>
                   Follow @gvonflue
                 </a>
