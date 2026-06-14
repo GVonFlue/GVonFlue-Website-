@@ -194,6 +194,8 @@ export default function SponsorInquiry() {
               <ul style={tierBenefitsListStyle}>
                 {benefit(RED, "Your logo on the headline prize card at duckwichita.com")}
                 {benefit(RED, "A $600 marquee prize presented in your name")}
+                {benefit(RED, "A premium spotlight video — professionally filmed and edited by Grand Frame Media ($300 value) — blasting your business and thanking you for backing the drawing. Yours to keep and reshare.")}
+                {benefit(RED, "Founding Duck Host placement included — a branded duck display at your business with twice-weekly \u201Cgo scan\u201D spotlight posts")}
                 {benefit(RED, "Dedicated headline launch post (Instagram + Facebook)")}
                 {benefit(RED, "Named in the winner announcement the whole flock sees")}
                 {benefit(RED, "Total exclusivity — only one headline, ever, per drawing")}
@@ -263,23 +265,24 @@ export default function SponsorInquiry() {
             </div>
           </Reveal>
 
-          {/* DUCK HOST */}
+          {/* DUCK HOST — FOUNDING */}
           <Reveal delay={400}>
-            <div style={{ ...tierCardBaseStyle, border: `3px solid rgba(10,11,20,.14)` }}>
-              <div style={{ ...tierIconWrapStyle, background: "rgba(10,11,20,.07)", color: INK }}><MapPin size={28} /></div>
-              <div style={tierKickerRowStyle}><p style={{ ...tierKickerStyle, color: "rgba(10,11,20,.55)" }}>Tier 5</p><span style={{ ...slotPillStyle, background: "rgba(255,107,53,.12)", color: ORANGE }}>Free for launch</span></div>
-              <h3 style={tierTitleStyle}>Duck Host</h3>
-              <p style={{ ...tierPriceStyle, color: INK }}>Free now</p>
-              <p style={tierPriceSubStyle}>$50 starting month 2 · 100% reinvested into growth</p>
-              <p style={tierDescStyle}>Host a duck at your business and turn finders into foot traffic. The reward you offer is your own product, so your only real cost is goodwill.</p>
+            <div style={{ ...tierCardBaseStyle, border: `3px solid ${ORANGE}`, boxShadow: `0 24px 60px rgba(255,107,53,.16)` }}>
+              <div style={{ position: "absolute", top: "-12px", right: "20px", background: ORANGE, color: "#FFFFFF", padding: "6px 14px", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: ".72rem", letterSpacing: ".1em" }}>FOUNDING · FREE</div>
+              <div style={{ ...tierIconWrapStyle, background: ORANGE, color: "#FFFFFF" }}><MapPin size={28} /></div>
+              <div style={tierKickerRowStyle}><p style={{ ...tierKickerStyle, color: ORANGE }}>Duck Host</p><span style={{ ...slotPillStyle, background: "rgba(255,107,53,.12)", color: ORANGE }}>Free for launch</span></div>
+              <h3 style={tierTitleStyle}>Founding Duck Host</h3>
+              <p style={{ ...tierPriceStyle, color: ORANGE }}>Free this month</p>
+              <p style={tierPriceSubStyle}>Becomes a premium paid placement next month — founding hosts lock in first</p>
+              <p style={tierDescStyle}>Host a branded DuckWichita display at your business and turn finders into foot traffic through your door. Free for our launch month &mdash; get in now and you&apos;re grandfathered in as a founding host before placement goes paid.</p>
               <ul style={tierBenefitsListStyle}>
-                {benefit(INK, "A duck lives at your business — finders come to you")}
-                {benefit(INK, "First 3 people to show up and mention DuckWichita get a small perk you choose (a free coffee, a $10 card — your product, your call)")}
-                {benefit(INK, "Your location tagged when the duck is found")}
-                {benefit(INK, "From month 2: $50, reinvested 100% into growth")}
-                {benefit(INK, "The no-brainer path into bigger tiers")}
+                {benefit(ORANGE, "A premium DuckWichita display case lives at your business all month — branded, eye-catching, and nobody can pocket the duck")}
+                {benefit(ORANGE, "About twice a week I post \u201Cthe duck is at [your business] today and tomorrow — go scan!\u201D driving people to your door")}
+                {benefit(ORANGE, "Your business named and tagged in every one of those posts")}
+                {benefit(ORANGE, "Your own tracked QR code — see exactly how many finders your spot drove")}
+                {benefit(ORANGE, "Founding hosts lock in priority placement and a founding rate before paid pricing starts")}
               </ul>
-              <button onClick={() => handleTierClick("Duck Host (free now)")} style={{ ...tierCtaStyle, background: "rgba(10,11,20,.08)", color: INK }}>Host a duck <ArrowUpRight size={18} /></button>
+              <button onClick={() => handleTierClick("Founding Duck Host — free for launch")} style={{ ...tierCtaStyle, background: ORANGE, color: "#FFFFFF" }}>Become a founding host <ArrowUpRight size={18} /></button>
             </div>
           </Reveal>
         </div>
@@ -448,7 +451,7 @@ export default function SponsorInquiry() {
                     <option>Featured Sponsor — $500/drawing</option>
                     <option>Supporting Sponsor — $300/drawing</option>
                     <option>Prize Pool Booster — $150/drawing</option>
-                    <option>Duck Host (free now)</option>
+                    <option>Founding Duck Host — free for launch</option>
                     <option>Not sure yet — let&apos;s talk</option>
                   </select>
 
