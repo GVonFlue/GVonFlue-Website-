@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Lockup from "@/components/Lockup";
+import DuckNav from "@/components/DuckNav";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import { Instagram, Facebook, Sparkles, ArrowUpRight, Heart, MapPin, Share2, QrCode, Search, Trophy, Ticket, DollarSign, Calendar, Flame, UtensilsCrossed, Shirt } from "lucide-react";
@@ -145,7 +145,7 @@ export default function DuckWichita() {
         <span style={bannerDateStyle}>6/17</span>
       </div>
 
-      <div style={topBarStyle}><Lockup /></div>
+      <DuckNav />
 
       <section style={heroStyle}>
         <svg className="dw-sparkle s1" width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 0 L13.5 10.5 L24 12 L13.5 13.5 L12 24 L10.5 13.5 L0 12 L10.5 10.5 Z" fill={ORANGE}/></svg>
