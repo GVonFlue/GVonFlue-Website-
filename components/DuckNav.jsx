@@ -30,6 +30,7 @@ export default function DuckNav() {
         .ducknav-links a.ducknav-link { font-family: var(--disp); font-weight: 600; font-size: .95rem; color: ${INK}; text-decoration: none; transition: color .2s; }
         .ducknav-links a.ducknav-link:hover { color: ${COBALT}; }
         .ducknav-cta { display: inline-flex; align-items: center; gap: 6px; padding: 11px 20px; background: ${ORANGE}; color: #fff !important; border-radius: 999px; font-family: var(--disp); font-weight: 800; font-size: .92rem; text-decoration: none; white-space: nowrap; }
+        .ducknav-realty { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; background: ${COBALT}; color: #fff !important; border: 2px solid ${ORANGE}; border-radius: 999px; font-family: var(--disp); font-weight: 800; font-size: .92rem; text-decoration: none; white-space: nowrap; }
         .ducknav-toggle { display: none; background: none; border: none; color: ${INK}; cursor: pointer; padding: 6px; }
         .ducknav-sheet { display: none; }
         @media (max-width: 860px) {
@@ -50,6 +51,7 @@ export default function DuckNav() {
           {LINKS.map((l) => (
             <Link key={l.label} href={l.href} className="ducknav-link">{l.label}</Link>
           ))}
+          <a href={REALTY_URL} className="ducknav-realty">GVonFlue Realty Group</a>
         </nav>
 
         <button className="ducknav-toggle" aria-label="Menu" onClick={() => setOpen((v) => !v)}>
@@ -62,6 +64,7 @@ export default function DuckNav() {
           {LINKS.map((l) => (
             <Link key={l.label} href={l.href} className="ducknav-link" onClick={() => setOpen(false)}>{l.label}</Link>
           ))}
+          <a href={REALTY_URL} className="ducknav-realty" onClick={() => setOpen(false)}>GVonFlue Realty Group</a>
           <Link href="/jointheflock" className="ducknav-cta" onClick={() => setOpen(false)}>Join the Flock <ArrowUpRight size={16} /></Link>
         </div>
       )}
