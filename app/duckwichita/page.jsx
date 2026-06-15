@@ -142,7 +142,7 @@ export default function DuckWichita() {
 
       <div style={bannerStyle}>
         <span>🦆 Coming to Wichita</span>
-        <span style={bannerDateStyle}>6/17</span>
+        <span style={bannerDateStyle}>6/19</span>
       </div>
 
       <DuckNav />
