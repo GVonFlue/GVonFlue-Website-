@@ -19,14 +19,13 @@ export default function DuckWichita() {
   const bannerDateStyle = { background: GOLD, color: INK, padding: "3px 13px", borderRadius: "999px", fontWeight: 800, letterSpacing: ".12em" };
 
   const heroStyle = { padding: "60px 24px 80px", textAlign: "center", maxWidth: "1180px", margin: "0 auto", position: "relative" };
+  const heroLogoStyle = { display: "block", width: "100%", maxWidth: "560px", height: "auto", margin: "0 auto 36px" };
   const heroKickerStyle = { display: "inline-flex", alignItems: "center", gap: "10px", padding: "10px 22px", background: "rgba(255,107,53,.12)", borderRadius: "999px", color: ORANGE, fontFamily: "var(--disp)", fontSize: ".9rem", fontWeight: 700, letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "32px", border: `1.5px solid rgba(255,107,53,.4)` };
   const heroTitleStyle = { fontFamily: "var(--disp)", fontSize: "clamp(3rem, 9vw, 7rem)", lineHeight: 0.92, letterSpacing: "-.025em", margin: "0 0 28px", color: INK };
   const orangeAccent = { color: ORANGE };
   const goldAccent = { color: "var(--gold)" };
   const heroSubStyle = { fontSize: "1.35rem", lineHeight: 1.5, color: "rgba(10,11,20,.7)", maxWidth: "640px", margin: "0 auto 44px" };
   const heroCtasStyle = { display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap", marginBottom: "60px" };
-  const heroDuckWrapStyle = { maxWidth: "420px", margin: "0 auto", aspectRatio: "1/1", borderRadius: "32px", background: `linear-gradient(135deg, ${COBALT} 0%, ${INK} 100%)`, overflow: "hidden", boxShadow: `0 30px 80px rgba(19,56,222,.3), 0 0 70px rgba(255,107,53,.2)`, position: "relative" };
-  const heroDuckImgStyle = { width: "100%", height: "100%", objectFit: "cover", display: "block" };
 
   const sectionStyle = { padding: "100px 24px", maxWidth: "1180px", margin: "0 auto" };
   const sectionKickerStyle = { display: "inline-block", fontFamily: "var(--disp)", fontSize: ".85rem", fontWeight: 700, color: ORANGE, letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "16px" };
@@ -153,18 +152,14 @@ export default function DuckWichita() {
         <svg className="dw-sparkle s3" width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M12 0 L13.5 10.5 L24 12 L13.5 13.5 L12 24 L10.5 13.5 L0 12 L10.5 10.5 Z" fill={ORANGE}/></svg>
         <svg className="dw-sparkle s4" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 0 L13.5 10.5 L24 12 L13.5 13.5 L12 24 L10.5 13.5 L0 12 L10.5 10.5 Z" fill={COBALT}/></svg>
 
-        <Reveal><span style={heroKickerStyle}><Sparkles size={14} /> A Wichita Movement</span></Reveal>
+        <Reveal><img src="/logos/duckwichita-logo.png" alt="DuckWichita.com" style={heroLogoStyle} /></Reveal>
+        <Reveal delay={60}><span style={heroKickerStyle}><Sparkles size={14} /> A Wichita Movement</span></Reveal>
         <Reveal as="h1" delay={80} style={heroTitleStyle}>Spreading <span style={orangeAccent}>smiles.</span><br/>One duck at a time.</Reveal>
         <Reveal as="p" delay={140} style={heroSubStyle}>DuckWichita is the strangest, smallest movement in town — tiny patriotic ducks hidden across the city, each one a chance to win something local.</Reveal>
         <Reveal delay={200}>
           <div style={heroCtasStyle}>
             <a href="#prize" style={orangeBtnStyle}>See This Month&apos;s Prize <ArrowUpRight size={20} /></a>
             <a href="#how" style={ghostBtnStyle}>How It Works</a>
-          </div>
-        </Reveal>
-        <Reveal delay={260}>
-          <div className="duck-hero-wrap" style={heroDuckWrapStyle}>
-            <img src="/images/duck.jpg" alt="A DuckWichita patriotic duck" style={heroDuckImgStyle} />
           </div>
         </Reveal>
       </section>
