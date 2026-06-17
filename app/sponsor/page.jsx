@@ -4,7 +4,7 @@ import { useState } from "react";
 import DuckNav from "@/components/DuckNav";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
-import { ArrowUpRight, Crown, Star, Trophy, Heart, Camera, Building2, TrendingUp, MapPin, Mail, Phone, Check, Handshake, Megaphone, LayoutDashboard, UserPlus, PenTool, DollarSign, Lock } from "lucide-react";
+import { ArrowUpRight, Crown, Star, Trophy, Heart, Camera, Building2, TrendingUp, MapPin, Mail, Phone, Check, Handshake, Megaphone, LayoutDashboard, UserPlus, PenTool, DollarSign, Lock, Rocket } from "lucide-react";
 
 const FORM_KEY = "e87c5fc0-d3e8-47e8-a1ab-5be73241a042";
 
@@ -106,6 +106,25 @@ export default function SponsorInquiry() {
     <li style={tierBenefitItemStyle}><Check size={18} style={{ color, flexShrink: 0, marginTop: "2px" }} /><span>{text}</span></li>
   );
 
+  // FOUNDING SPONSOR BANNER (annual anchor — sits above the per-drawing field)
+  const foundingWrapStyle = { background: INK, color: "#FFFFFF", borderRadius: "32px", padding: "clamp(32px, 5vw, 56px)", margin: "0 auto 56px", maxWidth: "1180px", position: "relative", overflow: "hidden", boxShadow: "0 30px 80px rgba(10,11,20,.22)", border: `2px solid ${ORANGE}` };
+  const foundingBadgeStyle = { display: "inline-flex", alignItems: "center", gap: "8px", padding: "8px 18px", background: ORANGE, color: "#FFFFFF", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: ".78rem", letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "20px" };
+  const foundingTitleStyle = { fontFamily: "var(--disp)", fontSize: "clamp(2.1rem, 5vw, 3.4rem)", lineHeight: 1.04, letterSpacing: "-.02em", margin: "0 0 16px", color: "#FFFFFF" };
+  const foundingSubStyle = { fontSize: "1.15rem", lineHeight: 1.6, color: "rgba(255,255,255,.82)", maxWidth: "660px", margin: "0 0 28px" };
+  const foundingPriceRowStyle = { display: "flex", flexWrap: "wrap", gap: "16px", marginBottom: "32px" };
+  const foundingPriceCardStyle = { background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.16)", borderRadius: "18px", padding: "22px 26px", flex: "1 1 240px" };
+  const foundingPriceBigStyle = { fontFamily: "var(--disp)", fontSize: "2.2rem", fontWeight: 800, color: "#FFFFFF", margin: "0 0 4px", letterSpacing: "-.01em" };
+  const foundingPriceUnitStyle = { fontSize: "1rem", fontWeight: 700, color: "rgba(255,255,255,.6)" };
+  const foundingPriceSubStyle = { fontSize: ".9rem", color: "rgba(255,255,255,.7)", fontWeight: 600, margin: 0 };
+  const foundingSaveTagStyle = { display: "inline-block", marginTop: "12px", padding: "4px 12px", background: ORANGE, color: "#FFFFFF", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: ".72rem", letterSpacing: ".06em" };
+  const foundingBenefitsGridStyle = { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "4px 28px", margin: "0 0 32px" };
+  const foundingBenefitItemStyle = { padding: "8px 0", color: "rgba(255,255,255,.88)", fontSize: ".98rem", lineHeight: 1.5, display: "flex", alignItems: "flex-start", gap: "10px" };
+  const foundingCtaStyle = { display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "16px 32px", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: "1.05rem", border: "none", cursor: "pointer", background: ORANGE, color: "#FFFFFF" };
+
+  const foundingBenefit = (text) => (
+    <div style={foundingBenefitItemStyle}><Check size={18} style={{ color: ORANGE, flexShrink: 0, marginTop: "2px" }} /><span>{text}</span></div>
+  );
+
   // GROWTH / TRANSPARENCY SECTION
   const growthWrapStyle = { background: INK, color: "#fff", padding: "80px 40px", borderRadius: "32px", margin: "40px auto", maxWidth: "1180px" };
   const growthHeadStyle = { textAlign: "center", maxWidth: "760px", margin: "0 auto 8px" };
@@ -169,6 +188,42 @@ export default function SponsorInquiry() {
             <span style={scarcityPillStyle}><span style={scarcityNumStyle}>2</span> Featured</span>
             <span style={scarcityPillStyle}><span style={scarcityNumStyle}>1</span> Supporting</span>
             <span style={scarcityPillStyle}><span style={scarcityNumStyle}>1</span> Prize Pool Booster</span>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* FOUNDING SPONSOR — annual anchor, above the field */}
+      <section style={{ ...sectionStyle, paddingBottom: "0" }} id="founding">
+        <Reveal>
+          <div style={foundingWrapStyle}>
+            <span style={foundingBadgeStyle}><Rocket size={14} /> Founding Sponsor · Only 2 slots</span>
+            <h2 style={foundingTitleStyle}>Two companies get DuckWichita off the ground. <span style={orangeAccent}>Their names are on all of it.</span></h2>
+            <p style={foundingSubStyle}>This is the apex partnership, and it sits above the whole field. Two businesses underwrite the launch for a full year and become the names behind DuckWichita from day one &mdash; on every post, every drop, every drawing. There are only two founding slots, and once they&apos;re claimed, that is it.</p>
+
+            <div style={foundingPriceRowStyle}>
+              <div style={foundingPriceCardStyle}>
+                <p style={foundingPriceBigStyle}>$1,500<span style={foundingPriceUnitStyle}>/mo</span></p>
+                <p style={foundingPriceSubStyle}>per slot &middot; 12-month commitment, billed monthly</p>
+              </div>
+              <div style={{ ...foundingPriceCardStyle, border: `1px solid ${ORANGE}` }}>
+                <p style={foundingPriceBigStyle}>$15,000<span style={foundingPriceUnitStyle}>/yr</span></p>
+                <p style={foundingPriceSubStyle}>per slot &middot; paid up front, one year locked in</p>
+                <span style={foundingSaveTagStyle}>Save $3,000 vs. monthly</span>
+              </div>
+            </div>
+
+            <div style={foundingBenefitsGridStyle}>
+              {foundingBenefit("A Founding Sponsor of DuckWichita \u2014 a permanent founding title, only two slots exist, locked in for the launch year")}
+              {foundingBenefit("Your logo on every DuckWichita post, all year \u2014 every drawing, every duck drop, every winner announcement")}
+              {foundingBenefit("Your name locked into the DuckWichita site for the full 12 months")}
+              {foundingBenefit("One scroll-stopping branded video a month (12 a year), scripted and produced by Grand Frame Media \u2014 built to entertain, not advertise. Yours to keep and reshare. ($3,600 production value)")}
+              {foundingBenefit("Featured alongside the headline across every drawing's social posts")}
+              {foundingBenefit("Founding Duck Host placement included \u2014 a branded duck display with twice-weekly \u201Cgo scan\u201D spotlight posts")}
+              {foundingBenefit("Everything the drawing sponsors get \u2014 at the all-year, every-post level \u2014 minus a single named prize (those belong to the rotating slots)")}
+              {foundingBenefit("First right to renew as Founding Sponsor, at your founding rate, before anyone else gets the chance")}
+            </div>
+
+            <button onClick={() => handleTierClick("Founding Sponsor — $1,500/mo or $15,000/yr")} style={foundingCtaStyle}>Claim a founding slot <ArrowUpRight size={18} /></button>
           </div>
         </Reveal>
       </section>
@@ -451,6 +506,7 @@ export default function SponsorInquiry() {
                   <label style={labelStyle} htmlFor="tier">Slot You&apos;re Interested In</label>
                   <select style={inputStyle} id="tier" name="tier" required value={selectedTier} onChange={(e) => setSelectedTier(e.target.value)}>
                     <option value="" disabled>Pick the slot that fits</option>
+                    <option>Founding Sponsor — $1,500/mo or $15,000/yr</option>
                     <option>Headline Sponsor — $1,000/drawing</option>
                     <option>Featured Sponsor — $500/drawing</option>
                     <option>Supporting Sponsor — $300/drawing</option>
@@ -462,6 +518,7 @@ export default function SponsorInquiry() {
                   <label style={labelStyle} htmlFor="commitment">Commitment</label>
                   <select style={inputStyle} id="commitment" name="commitment" defaultValue="">
                     <option value="" disabled>How often?</option>
+                    <option>12-month Founding Sponsor commitment</option>
                     <option>One drawing</option>
                     <option>A full month (both drawings)</option>
                     <option>Multiple months</option>
