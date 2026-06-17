@@ -1,4 +1,6 @@
 import "@/styles/globals.css";
+import Script from "next/script";
+import { headers } from "next/headers";
 
 export const metadata = {
   metadataBase: new URL("https://gvonflue.com"),
@@ -41,9 +43,30 @@ export const viewport = {
 };
 
 export default function RootLayout({ children }) {
+  // One app serves both gvonflue.com and duckwichita.com (see next.config.js
+  // host rewrites). Only load Plausible on duckwichita.com so real-estate
+  // traffic never pollutes the DuckWichita stats. headers() is synchronous
+  // in Next 14.
+  const host = headers().get("host") || "";
+  const isDuckWichita = host.includes("duckwichita.com");
+
   return (
     <html lang="en">
-      <body className="gvf">{children}</body>
+      <body className="gvf">
+        {children}
+        {isDuckWichita && (
+          <>
+            <Script
+              defer
+              src="https://plausible.io/js/pa-nRuk62WnHY1uabnN-kt7c.js"
+              strategy="afterInteractive"
+            />
+            <Script id="plausible-init" strategy="afterInteractive">
+              {`window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()`}
+            </Script>
+          </>
+        )}
+      </body>
     </html>
   );
 }
