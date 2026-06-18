@@ -357,6 +357,7 @@ export default function SponsorInquiry() {
               {foundingBenefit("A Founding Sponsor of DuckWichita \u2014 a permanent founding title, only two slots exist, locked in for the launch year")}
               {foundingBenefit("Your logo on every DuckWichita post, all year \u2014 every drawing, every duck drop, every winner announcement")}
               {foundingBenefit("Your name locked into the DuckWichita site for the full 12 months")}
+              {foundingBenefit("Your own landing page on duckwichita.com, designed by our in-house team \u2014 with clickable links placed across the site that drive traffic to it, plus a direct call-to-action for visitors to connect with you")}
               {foundingBenefit("One scroll-stopping branded video a month (12 a year), scripted and produced by Grand Frame Media \u2014 built to entertain, not advertise. Yours to keep and reshare. ($4,800 production value)")}
               {foundingBenefit("Featured alongside the headline across every drawing's social posts")}
               {foundingBenefit("Founding Duck Host placement included \u2014 a branded duck display with twice-weekly \u201Cgo scan\u201D spotlight posts")}
