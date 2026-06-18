@@ -227,7 +227,7 @@ export default function SponsorInquiry() {
               {foundingBenefit("Part of your founding investment funds a dedicated DuckWichita assistant \u2014 leading sponsor care, social media, and duck placement \u2014 so the whole operation runs smoothly behind your name")}
             </div>
 
-            <button onClick={() => handleTierClick("Founding Sponsor — $1,500/mo or $15,000/yr")} style={foundingCtaStyle}>Claim a founding slot <ArrowUpRight size={18} /></button>
+            <button onClick={() => handleTierClick("Founding Sponsor — $1,776/mo or $18,000/yr")} style={foundingCtaStyle}>Claim a founding slot <ArrowUpRight size={18} /></button>
           </div>
         </Reveal>
       </section>
@@ -510,7 +510,7 @@ export default function SponsorInquiry() {
                   <label style={labelStyle} htmlFor="tier">Slot You&apos;re Interested In</label>
                   <select style={inputStyle} id="tier" name="tier" required value={selectedTier} onChange={(e) => setSelectedTier(e.target.value)}>
                     <option value="" disabled>Pick the slot that fits</option>
-                    <option>Founding Sponsor — $1,500/mo or $15,000/yr</option>
+                    <option>Founding Sponsor — $1,776/mo or $18,000/yr</option>
                     <option>Headline Sponsor — $1,000/drawing</option>
                     <option>Featured Sponsor — $500/drawing</option>
                     <option>Supporting Sponsor — $300/drawing</option>
