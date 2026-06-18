@@ -107,7 +107,7 @@ export default function SponsorInquiry() {
   );
 
   // FOUNDING SPONSOR BANNER (annual anchor — sits above the per-drawing field)
-  const foundingWrapStyle = { background: INK, color: "#FFFFFF", borderRadius: "32px", padding: "clamp(32px, 5vw, 56px)", margin: "0 auto 56px", maxWidth: "1180px", position: "relative", overflow: "hidden", boxShadow: "0 30px 80px rgba(10,11,20,.22)", border: `2px solid ${ORANGE}` };
+  const foundingWrapStyle = { color: "#FFFFFF", borderRadius: "32px", padding: "clamp(32px, 5vw, 56px)", margin: "0 auto 56px", maxWidth: "1180px", position: "relative", overflow: "hidden", boxShadow: "0 30px 80px rgba(10,11,20,.22)", border: `2px solid ${ORANGE}` };
   const foundingBadgeStyle = { display: "inline-flex", alignItems: "center", gap: "8px", padding: "8px 18px", background: ORANGE, color: "#FFFFFF", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: ".78rem", letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "20px" };
   const foundingTitleStyle = { fontFamily: "var(--disp)", fontSize: "clamp(2.1rem, 5vw, 3.4rem)", lineHeight: 1.04, letterSpacing: "-.02em", margin: "0 0 16px", color: "#FFFFFF" };
   const foundingSubStyle = { fontSize: "1.15rem", lineHeight: 1.6, color: "rgba(255,255,255,.82)", maxWidth: "660px", margin: "0 0 28px" };
@@ -172,6 +172,9 @@ export default function SponsorInquiry() {
         @keyframes cobalt-shimmer { 0% { background-position: 0% 0%; } 50% { background-position: 100% 100%; } 100% { background-position: 0% 0%; } }
         .dollar-shimmer { background: linear-gradient(135deg, #060B3A 0%, #0E2299 22%, #1338DE 42%, #3E60FF 50%, #1338DE 58%, #0E2299 78%, #060B3A 100%); background-size: 280% 280%; animation: cobalt-shimmer 9s ease-in-out infinite; }
         @media (prefers-reduced-motion: reduce) { .dollar-shimmer { animation: none; background-position: 30% 30%; } }
+        @keyframes ink-shimmer { 0% { background-position: 100% 100%; } 50% { background-position: 0% 0%; } 100% { background-position: 100% 100%; } }
+        .founding-shimmer { background: linear-gradient(315deg, #05060C 0%, #0A0B14 20%, #16131C 38%, #271A1E 50%, #16131C 62%, #0A0B14 80%, #05060C 100%); background-size: 280% 280%; animation: ink-shimmer 11s ease-in-out infinite; }
+        @media (prefers-reduced-motion: reduce) { .founding-shimmer { animation: none; background-position: 70% 70%; } }
       `}</style>
 
       <DuckNav />
@@ -322,7 +325,7 @@ export default function SponsorInquiry() {
        {/* FOUNDING SPONSOR — annual anchor, above the field */}
       <section style={{ ...sectionStyle, paddingBottom: "0" }} id="founding">
         <Reveal>
-          <div style={foundingWrapStyle}>
+          <div className="founding-shimmer" style={foundingWrapStyle}>
             <span style={foundingBadgeStyle}><Rocket size={14} /> Founding Sponsor · Only 2 slots</span>
             <h2 style={foundingTitleStyle}>Two companies get DuckWichita off the ground. <span style={orangeAccent}>Their names are on all of it.</span></h2>
             <p style={foundingSubStyle}>This is the apex partnership, and it sits above the whole field. Two businesses underwrite the launch for a full year and become the names behind DuckWichita from day one &mdash; on every post, every drop, every drawing. There are only two founding slots, and once they&apos;re claimed, that is it.</p>
