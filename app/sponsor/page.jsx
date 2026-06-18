@@ -202,13 +202,16 @@ export default function SponsorInquiry() {
 
             <div style={foundingPriceRowStyle}>
               <div style={foundingPriceCardStyle}>
-                <p style={foundingPriceBigStyle}>$1,500<span style={foundingPriceUnitStyle}>/mo</span></p>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "4px" }}>
+                  <img src="/images/DuckWichita Patriotic Duck Logo.png" alt="DuckWichita patriotic duck" style={{ width: "40px", height: "40px", objectFit: "contain", flexShrink: 0 }} />
+                  <p style={{ ...foundingPriceBigStyle, margin: 0 }}>$1,776<span style={foundingPriceUnitStyle}>/mo</span></p>
+                </div>
                 <p style={foundingPriceSubStyle}>per slot &middot; 12-month commitment, billed monthly</p>
               </div>
               <div style={{ ...foundingPriceCardStyle, border: `1px solid ${ORANGE}` }}>
-                <p style={foundingPriceBigStyle}>$15,000<span style={foundingPriceUnitStyle}>/yr</span></p>
+                <p style={foundingPriceBigStyle}>$18,000<span style={foundingPriceUnitStyle}>/yr</span></p>
                 <p style={foundingPriceSubStyle}>per slot &middot; paid up front, one year locked in</p>
-                <span style={foundingSaveTagStyle}>Save $3,000 vs. monthly</span>
+                <span style={foundingSaveTagStyle}>Save $3,312 vs. monthly</span>
               </div>
             </div>
 
