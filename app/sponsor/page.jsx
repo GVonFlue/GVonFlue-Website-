@@ -117,8 +117,8 @@ export default function SponsorInquiry() {
   const foundingPriceUnitStyle = { fontSize: "1rem", fontWeight: 700, color: "rgba(255,255,255,.6)" };
   const foundingPriceSubStyle = { fontSize: ".9rem", color: "rgba(255,255,255,.7)", fontWeight: 600, margin: 0 };
   const foundingSaveTagStyle = { display: "inline-block", marginTop: "12px", padding: "4px 12px", background: ORANGE, color: "#FFFFFF", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: ".72rem", letterSpacing: ".06em" };
-  const foundingBenefitsGridStyle = { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "4px 28px", margin: "0 0 32px" };
-  const foundingBenefitItemStyle = { padding: "8px 0", color: "rgba(255,255,255,.88)", fontSize: ".98rem", lineHeight: 1.5, display: "flex", alignItems: "flex-start", gap: "10px" };
+  const foundingBenefitsGridStyle = { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "12px", margin: "0 0 32px" };
+  const foundingBenefitItemStyle = { background: "rgba(255,255,255,.045)", border: "1px solid rgba(255,255,255,.14)", borderRadius: "14px", padding: "14px 16px", color: "rgba(255,255,255,.9)", fontSize: ".96rem", lineHeight: 1.5, display: "flex", alignItems: "flex-start", gap: "10px" };
   const foundingCtaStyle = { display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "16px 32px", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: "1.05rem", border: "none", cursor: "pointer", background: ORANGE, color: "#FFFFFF" };
   const foundingBubbleStyle = { display: "flex", alignItems: "flex-start", gap: "14px", background: "rgba(255,107,53,.13)", border: `1.5px solid rgba(255,107,53,.55)`, borderRadius: "20px", padding: "20px 22px", margin: "4px 0 28px", cursor: "pointer" };
   const foundingBubbleIconStyle = { display: "inline-flex", alignItems: "center", justifyContent: "center", width: "44px", height: "44px", borderRadius: "12px", background: ORANGE, color: "#FFFFFF", flexShrink: 0 };
