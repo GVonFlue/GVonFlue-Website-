@@ -38,19 +38,21 @@ export default function DuckWichita() {
   const bannerStyle = { background: INK, color: "#fff", padding: "11px 20px", display: "flex", justifyContent: "center", alignItems: "center", gap: "12px", flexWrap: "wrap", textAlign: "center", fontFamily: "var(--disp)", fontWeight: 700, fontSize: "clamp(.8rem, 2.4vw, 1rem)", letterSpacing: ".09em", textTransform: "uppercase" };
   const bannerDateStyle = { background: GOLD, color: INK, padding: "3px 13px", borderRadius: "999px", fontWeight: 800, letterSpacing: ".12em" };
 
-  const heroStyle = { padding: "60px 24px 80px", textAlign: "center", maxWidth: "1180px", margin: "0 auto", position: "relative" };
+  const heroStyle = { position: "relative", overflow: "hidden", padding: "70px 24px 90px", textAlign: "center", background: "linear-gradient(170deg, #0A0B14 0%, #0B1E8A 45%, #1338DE 74%, #0A0B14 100%)", backgroundSize: "100% 220%", animation: "hero-bg-pan 18s ease-in-out infinite" };
+  const heroInnerStyle = { position: "relative", zIndex: 2, maxWidth: "1180px", margin: "0 auto" };
   const heroLogoStyle = { display: "block", width: "100%", maxWidth: "560px", height: "auto", margin: "0 auto 36px" };
-  const heroKickerStyle = { display: "inline-flex", alignItems: "center", gap: "10px", padding: "10px 22px", background: "rgba(255,107,53,.12)", borderRadius: "999px", color: ORANGE, fontFamily: "var(--disp)", fontSize: ".9rem", fontWeight: 700, letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "32px", border: `1.5px solid rgba(255,107,53,.4)` };
-  const heroTitleStyle = { fontFamily: "var(--disp)", fontSize: "clamp(3rem, 9vw, 7rem)", lineHeight: 0.92, letterSpacing: "-.025em", margin: "0 0 28px", color: INK };
+  const heroKickerStyle = { display: "inline-flex", alignItems: "center", gap: "10px", padding: "10px 22px", background: "rgba(255,107,53,.18)", borderRadius: "999px", color: "#FFC9B6", fontFamily: "var(--disp)", fontSize: ".9rem", fontWeight: 700, letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "32px", border: `1.5px solid rgba(255,107,53,.6)` };
+  const heroTitleStyle = { fontFamily: "var(--disp)", fontSize: "clamp(3rem, 9vw, 7rem)", lineHeight: 0.92, letterSpacing: "-.025em", margin: "0 0 28px", color: "#FFFFFF", textShadow: "0 6px 40px rgba(0,0,0,.4)" };
   const orangeAccent = { color: ORANGE };
   const goldAccent = { color: "var(--gold)" };
-  const heroSubStyle = { fontSize: "1.35rem", lineHeight: 1.5, color: "rgba(10,11,20,.7)", maxWidth: "640px", margin: "0 auto 44px" };
-  const heroCtasStyle = { display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap", marginBottom: "60px" };
+  const heroSubStyle = { fontSize: "1.35rem", lineHeight: 1.5, color: "rgba(255,255,255,.82)", maxWidth: "640px", margin: "0 auto 44px" };
+  const heroCtasStyle = { display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap", marginBottom: "10px" };
+  const heroGhostBtnStyle = { display: "inline-flex", alignItems: "center", gap: "8px", padding: "16px 30px", background: "rgba(255,255,255,.06)", color: "#FFFFFF", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 700, fontSize: "1rem", textDecoration: "none", border: "2px solid rgba(255,255,255,.45)", cursor: "pointer" };
   const cdWrapStyle = { display: "flex", flexDirection: "column", alignItems: "center", gap: "14px", margin: "0 0 44px" };
-  const cdLabelStyle = { display: "inline-flex", alignItems: "center", gap: "8px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: ".92rem", letterSpacing: ".18em", textTransform: "uppercase", color: ORANGE };
+  const cdLabelStyle = { display: "inline-flex", alignItems: "center", gap: "8px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: ".92rem", letterSpacing: ".18em", textTransform: "uppercase", color: GOLD };
   const cdRowStyle = { display: "flex", gap: "10px", justifyContent: "center", flexWrap: "nowrap" };
-  const cdCellStyle = { minWidth: "70px", padding: "16px 10px", borderRadius: "18px", background: `linear-gradient(160deg, ${COBALT} 0%, ${INK} 100%)`, border: `1.5px solid rgba(255,107,53,.45)`, boxShadow: "0 16px 40px rgba(19,56,222,.28)", textAlign: "center" };
-  const cdNumStyle = { fontFamily: "var(--disp)", fontSize: "clamp(1.8rem, 6vw, 2.8rem)", fontWeight: 800, color: "#FFFFFF", lineHeight: 1, letterSpacing: "-.02em" };
+  const cdCellStyle = { minWidth: "72px", padding: "16px 10px", borderRadius: "18px", background: "rgba(255,255,255,.07)", border: `1.5px solid rgba(255,107,53,.6)`, boxShadow: "0 16px 44px rgba(19,56,222,.45), inset 0 1px 0 rgba(255,255,255,.2)", textAlign: "center" };
+  const cdNumStyle = { fontFamily: "var(--disp)", fontSize: "clamp(1.8rem, 6vw, 2.8rem)", fontWeight: 800, color: "#FFFFFF", lineHeight: 1, letterSpacing: "-.02em", textShadow: "0 0 18px rgba(255,107,53,.55)" };
   const cdUnitStyle = { fontFamily: "var(--disp)", fontSize: ".62rem", fontWeight: 700, letterSpacing: ".14em", textTransform: "uppercase", color: GOLD, marginTop: "7px" };
 
   const sectionStyle = { padding: "100px 24px", maxWidth: "1180px", margin: "0 auto" };
@@ -148,7 +150,7 @@ export default function DuckWichita() {
         @keyframes sparkle-float { 0%, 100% { transform: translateY(0) scale(1) rotate(0deg); opacity: .5; } 50% { transform: translateY(-18px) scale(1.2) rotate(20deg); opacity: 1; } }
         @keyframes duck-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
         @keyframes duck-bob { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-8px) rotate(3deg); } }
-        .duck-hero-wrap { animation: duck-float 5s ease-in-out infinite; filter: drop-shadow(0 22px 40px rgba(19,56,222,.28)); }
+        .duck-hero-wrap { position: relative; z-index: 1; animation: duck-float 5s ease-in-out infinite; filter: drop-shadow(0 18px 44px rgba(255,107,53,.4)); }
         .prize-button { transition: transform .35s ease, box-shadow .35s ease; }
         .prize-button:hover { transform: translateY(-6px); box-shadow: 0 40px 100px rgba(231,181,60,.4), 0 0 0 1px rgba(231,181,60,.2), inset 0 1px 0 rgba(255,255,255,.9); }
         .prize-arrow-left { position: absolute; left: -10px; top: 50%; transform: translateY(-50%); animation: arrow-bob-left 1.8s ease-in-out infinite; z-index: 2; }
@@ -158,9 +160,23 @@ export default function DuckWichita() {
         .dw-sparkle.s2 { top: 18%; right: 8%; animation: sparkle-float 4.5s ease-in-out .6s infinite; }
         .dw-sparkle.s3 { top: 55%; left: 3%; animation: sparkle-float 3.8s ease-in-out 1.2s infinite; }
         .dw-sparkle.s4 { top: 62%; right: 5%; animation: sparkle-float 4.2s ease-in-out 1.8s infinite; }
-        @keyframes aurora-drift { 0%, 100% { transform: translate3d(-50%,0,0) scale(1); } 50% { transform: translate3d(-50%,-16px,0) scale(1.06); } }
-        .hero-aurora { position: absolute; left: 50%; top: -40px; width: min(900px, 120%); height: 560px; transform: translate3d(-50%,0,0); z-index: 0; pointer-events: none; background: radial-gradient(420px 300px at 32% 32%, rgba(19,56,222,.20), transparent 62%), radial-gradient(380px 300px at 70% 42%, rgba(255,107,53,.18), transparent 64%); filter: blur(10px); animation: aurora-drift 14s ease-in-out infinite; }
-        @media (prefers-reduced-motion: reduce) { .hero-aurora, .duck-hero-wrap { animation: none; } }
+        @keyframes hero-bg-pan { 0%, 100% { background-position: 50% 0%; } 50% { background-position: 50% 100%; } }
+        @keyframes blob-drift-1 { 0%, 100% { transform: translate(0,0) scale(1); } 50% { transform: translate(60px,40px) scale(1.15); } }
+        @keyframes blob-drift-2 { 0%, 100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-70px,30px) scale(1.2); } }
+        @keyframes blob-drift-3 { 0%, 100% { transform: translate(0,0) scale(1.05); } 50% { transform: translate(40px,-50px) scale(1); } }
+        @keyframes halo-spin { to { transform: translate(-50%,-50%) rotate(360deg); } }
+        @keyframes duck-rise { 0% { transform: translateY(40px) rotate(-8deg); opacity: 0; } 12% { opacity: .9; } 88% { opacity: .9; } 100% { transform: translateY(-420px) rotate(12deg); opacity: 0; } }
+        .hero-blob { position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; z-index: 0; }
+        .hero-blob.b1 { width: 460px; height: 460px; top: -120px; left: -80px; background: radial-gradient(circle, rgba(255,107,53,.55), transparent 70%); animation: blob-drift-1 16s ease-in-out infinite; }
+        .hero-blob.b2 { width: 520px; height: 520px; bottom: -160px; right: -100px; background: radial-gradient(circle, rgba(62,96,255,.6), transparent 70%); animation: blob-drift-2 19s ease-in-out infinite; }
+        .hero-blob.b3 { width: 380px; height: 380px; top: 28%; left: 52%; background: radial-gradient(circle, rgba(231,181,60,.4), transparent 70%); animation: blob-drift-3 22s ease-in-out infinite; }
+        .logo-halo-wrap { position: relative; display: inline-block; }
+        .logo-halo { position: absolute; top: 44%; left: 50%; width: 520px; height: 520px; max-width: 92vw; max-height: 92vw; transform: translate(-50%,-50%); border-radius: 50%; background: conic-gradient(from 0deg, rgba(255,107,53,0), rgba(255,107,53,.4), rgba(62,96,255,.4), rgba(231,181,60,.35), rgba(255,107,53,0)); filter: blur(42px); z-index: 0; pointer-events: none; animation: halo-spin 14s linear infinite; }
+        .float-duck { position: absolute; z-index: 1; font-size: 30px; bottom: 0; pointer-events: none; opacity: 0; }
+        .float-duck.fd1 { left: 12%; animation: duck-rise 9s ease-in-out 0s infinite; }
+        .float-duck.fd2 { left: 80%; font-size: 22px; animation: duck-rise 11s ease-in-out 2.5s infinite; }
+        .float-duck.fd3 { left: 46%; font-size: 26px; animation: duck-rise 10s ease-in-out 5s infinite; }
+        @media (prefers-reduced-motion: reduce) { .hero-blob, .logo-halo, .duck-hero-wrap, .float-duck { animation: none; } .float-duck { display: none; } }
         @media (max-width: 900px) {
           .dw-sparkle { display: none; }
           .flow-grid { grid-template-columns: 1fr !important; }
@@ -176,14 +192,19 @@ export default function DuckWichita() {
       <DuckNav />
 
       <section style={heroStyle}>
-        <div className="hero-aurora" aria-hidden="true" />
+        <div className="hero-blob b1" aria-hidden="true" />
+        <div className="hero-blob b2" aria-hidden="true" />
+        <div className="hero-blob b3" aria-hidden="true" />
+        <span className="float-duck fd1" aria-hidden="true">🦆</span>
+        <span className="float-duck fd2" aria-hidden="true">🦆</span>
+        <span className="float-duck fd3" aria-hidden="true">🦆</span>
         <svg className="dw-sparkle s1" width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 0 L13.5 10.5 L24 12 L13.5 13.5 L12 24 L10.5 13.5 L0 12 L10.5 10.5 Z" fill={ORANGE}/></svg>
         <svg className="dw-sparkle s2" width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 0 L13.5 10.5 L24 12 L13.5 13.5 L12 24 L10.5 13.5 L0 12 L10.5 10.5 Z" fill={COBALT}/></svg>
         <svg className="dw-sparkle s3" width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M12 0 L13.5 10.5 L24 12 L13.5 13.5 L12 24 L10.5 13.5 L0 12 L10.5 10.5 Z" fill={ORANGE}/></svg>
         <svg className="dw-sparkle s4" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 0 L13.5 10.5 L24 12 L13.5 13.5 L12 24 L10.5 13.5 L0 12 L10.5 10.5 Z" fill={COBALT}/></svg>
 
-        <div style={{ position: "relative", zIndex: 1 }}>
-          <Reveal><div className="duck-hero-wrap"><img src="/logos/duckwichita-logo.png" alt="DuckWichita.com" style={heroLogoStyle} /></div></Reveal>
+        <div style={heroInnerStyle}>
+          <Reveal><div className="logo-halo-wrap"><div className="logo-halo" aria-hidden="true" /><div className="duck-hero-wrap"><img src="/logos/duckwichita-logo.png" alt="DuckWichita.com" style={heroLogoStyle} /></div></div></Reveal>
           <Reveal delay={60}><span style={heroKickerStyle}><Sparkles size={14} /> A Wichita Movement</span></Reveal>
           <Reveal as="h1" delay={80} style={heroTitleStyle}>Spreading <span style={orangeAccent}>smiles.</span><br/>One duck at a time.</Reveal>
           <Reveal as="p" delay={140} style={heroSubStyle}>DuckWichita is the strangest, smallest movement in town — tiny patriotic ducks hidden across the city, each one a chance to win something local.</Reveal>
@@ -203,7 +224,7 @@ export default function DuckWichita() {
           <Reveal delay={200}>
             <div style={heroCtasStyle}>
               <a href="#prize" style={orangeBtnStyle}>See This Month&apos;s Prize <ArrowUpRight size={20} /></a>
-              <a href="#how" style={ghostBtnStyle}>How It Works</a>
+              <a href="#how" style={heroGhostBtnStyle}>How It Works</a>
             </div>
           </Reveal>
         </div>
