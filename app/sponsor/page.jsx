@@ -126,18 +126,18 @@ export default function SponsorInquiry() {
   );
 
   // GROWTH / TRANSPARENCY SECTION
-  const growthWrapStyle = { background: INK, color: "#fff", padding: "80px 40px", borderRadius: "32px", margin: "40px auto", maxWidth: "1180px" };
+  const growthWrapStyle = { color: "#fff", padding: "80px 40px", borderRadius: "32px", margin: "40px auto", maxWidth: "1180px", position: "relative", overflow: "hidden", boxShadow: "0 30px 80px rgba(19,56,222,.28)" };
   const growthHeadStyle = { textAlign: "center", maxWidth: "760px", margin: "0 auto 8px" };
   const growthTitleStyle = { fontFamily: "var(--disp)", fontSize: "clamp(2.2rem, 5vw, 3.6rem)", margin: "0 0 20px", lineHeight: 1.1, color: "#fff" };
-  const growthCopyStyle = { color: "rgba(255,255,255,.82)", fontSize: "1.18rem", lineHeight: 1.65, margin: "0 auto 16px" };
+  const growthCopyStyle = { color: "rgba(255,255,255,.92)", fontSize: "1.18rem", lineHeight: 1.65, margin: "0 auto 16px" };
   const growthGridStyle = { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "16px", marginTop: "44px" };
-  const growthItemStyle = { background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.14)", borderRadius: "18px", padding: "26px 22px" };
+  const growthItemStyle = { background: "rgba(255,255,255,.09)", border: "1px solid rgba(255,255,255,.22)", borderRadius: "18px", padding: "26px 22px" };
   const growthItemIconStyle = { display: "inline-flex", alignItems: "center", justifyContent: "center", width: "46px", height: "46px", borderRadius: "12px", background: ORANGE, color: "#fff", marginBottom: "14px" };
   const growthItemTitleStyle = { fontFamily: "var(--disp)", fontSize: "1.12rem", fontWeight: 800, color: "#fff", margin: "0 0 8px" };
-  const growthItemBodyStyle = { fontSize: ".95rem", color: "rgba(255,255,255,.72)", lineHeight: 1.5, margin: 0 };
+  const growthItemBodyStyle = { fontSize: ".95rem", color: "rgba(255,255,255,.82)", lineHeight: 1.5, margin: 0 };
 
   const statGridStyle = { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "16px", marginTop: "44px" };
-  const statCardStyle = { background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.16)", borderRadius: "20px", padding: "30px 24px", textAlign: "center" };
+  const statCardStyle = { background: "rgba(255,255,255,.1)", border: "1px solid rgba(255,255,255,.26)", borderRadius: "20px", padding: "30px 24px", textAlign: "center" };
   const statValueStyle = { fontFamily: "var(--disp)", fontSize: "2.4rem", fontWeight: 800, color: GOLD, margin: "0 0 6px", letterSpacing: "-.01em" };
   const statLabelStyle = { fontSize: ".95rem", color: "rgba(255,255,255,.75)", lineHeight: 1.45, margin: 0 };
   const transparencyLineStyle = { textAlign: "center", maxWidth: "720px", margin: "44px auto 0", fontSize: "1.15rem", color: ORANGE, fontWeight: 700, lineHeight: 1.5 };
@@ -169,6 +169,9 @@ export default function SponsorInquiry() {
         .sp-sparkle.s3 { top: 60%; left: 4%; animation: sparkle-float 3.8s ease-in-out 1.2s infinite; }
         .sp-sparkle.s4 { top: 70%; right: 6%; animation: sparkle-float 4.2s ease-in-out 1.8s infinite; }
         @media (max-width: 700px) { .sp-sparkle { display: none; } }
+        @keyframes cobalt-shimmer { 0% { background-position: 0% 0%; } 50% { background-position: 100% 100%; } 100% { background-position: 0% 0%; } }
+        .dollar-shimmer { background: linear-gradient(135deg, #060B3A 0%, #0E2299 22%, #1338DE 42%, #3E60FF 50%, #1338DE 58%, #0E2299 78%, #060B3A 100%); background-size: 280% 280%; animation: cobalt-shimmer 9s ease-in-out infinite; }
+        @media (prefers-reduced-motion: reduce) { .dollar-shimmer { animation: none; background-position: 30% 30%; } }
       `}</style>
 
       <DuckNav />
@@ -357,7 +360,7 @@ export default function SponsorInquiry() {
       </section>
 
       {/* WHERE EVERY DOLLAR GOES */}
-      <section style={growthWrapStyle}>
+      <section className="dollar-shimmer" style={growthWrapStyle}>
         <div style={growthHeadStyle}>
           <Reveal><span style={{ ...sectionKickerStyle, color: ORANGE }}>Total transparency</span></Reveal>
           <Reveal as="h2" delay={80} style={growthTitleStyle}>Where every dollar <span style={orangeAccent}>actually goes.</span></Reveal>
