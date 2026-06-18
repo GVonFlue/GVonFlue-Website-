@@ -120,6 +120,10 @@ export default function SponsorInquiry() {
   const foundingBenefitsGridStyle = { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "4px 28px", margin: "0 0 32px" };
   const foundingBenefitItemStyle = { padding: "8px 0", color: "rgba(255,255,255,.88)", fontSize: ".98rem", lineHeight: 1.5, display: "flex", alignItems: "flex-start", gap: "10px" };
   const foundingCtaStyle = { display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "16px 32px", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: "1.05rem", border: "none", cursor: "pointer", background: ORANGE, color: "#FFFFFF" };
+  const foundingBubbleStyle = { display: "flex", alignItems: "flex-start", gap: "14px", background: "rgba(255,107,53,.13)", border: `1.5px solid rgba(255,107,53,.55)`, borderRadius: "20px", padding: "20px 22px", margin: "4px 0 28px", cursor: "pointer" };
+  const foundingBubbleIconStyle = { display: "inline-flex", alignItems: "center", justifyContent: "center", width: "44px", height: "44px", borderRadius: "12px", background: ORANGE, color: "#FFFFFF", flexShrink: 0 };
+  const foundingBubbleTitleStyle = { fontFamily: "var(--disp)", fontSize: "1.12rem", fontWeight: 800, color: "#FFFFFF", margin: "0 0 4px" };
+  const foundingBubbleBodyStyle = { fontSize: ".97rem", lineHeight: 1.55, color: "rgba(255,255,255,.86)", margin: 0 };
 
   const foundingBenefit = (text) => (
     <div style={foundingBenefitItemStyle}><Check size={18} style={{ color: ORANGE, flexShrink: 0, marginTop: "2px" }} /><span>{text}</span></div>
@@ -175,6 +179,10 @@ export default function SponsorInquiry() {
         @keyframes ink-shimmer { 0% { background-position: 100% 100%; } 50% { background-position: 0% 0%; } 100% { background-position: 100% 100%; } }
         .founding-shimmer { background: linear-gradient(315deg, #05060C 0%, #0A0B14 20%, #16131C 38%, #271A1E 50%, #16131C 62%, #0A0B14 80%, #05060C 100%); background-size: 280% 280%; animation: ink-shimmer 11s ease-in-out infinite; }
         @media (prefers-reduced-motion: reduce) { .founding-shimmer { animation: none; background-position: 70% 70%; } }
+        @keyframes bubble-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(255,107,53,0); } 50% { box-shadow: 0 0 0 7px rgba(255,107,53,.12); } }
+        .founding-bubble { animation: bubble-pulse 3.2s ease-in-out infinite; }
+        .founding-bubble:hover { background: rgba(255,107,53,.2); }
+        @media (prefers-reduced-motion: reduce) { .founding-bubble { animation: none; box-shadow: 0 0 0 4px rgba(255,107,53,.08); } }
       `}</style>
 
       <DuckNav />
@@ -355,6 +363,14 @@ export default function SponsorInquiry() {
               {foundingBenefit("Everything the drawing sponsors get \u2014 at the all-year, every-post level \u2014 minus a single named prize (those belong to the rotating slots)")}
               {foundingBenefit("First right to renew as Founding Sponsor, before anyone else gets the chance")}
               {foundingBenefit("Part of your founding investment funds a dedicated DuckWichita assistant \u2014 leading sponsor care, social media, and duck placement \u2014 so the whole operation runs smoothly behind your name")}
+            </div>
+
+            <div className="founding-bubble" onClick={() => handleTierClick("Founding Sponsor — $1,776/mo or $18,000/yr")} style={foundingBubbleStyle}>
+              <span style={foundingBubbleIconStyle}><Lock size={22} /></span>
+              <div>
+                <p style={foundingBubbleTitleStyle}>There&apos;s more &mdash; I&apos;ll only share it in person.</p>
+                <p style={foundingBubbleBodyStyle}>Serious founding partners get the full picture: live performance data, what&apos;s coming with merch and new revenue lines, and several perks I keep off this page on purpose. If this is you, <span style={{ color: ORANGE, fontWeight: 800 }}>reach out and let&apos;s talk &rarr;</span></p>
+              </div>
             </div>
 
             <button onClick={() => handleTierClick("Founding Sponsor — $1,776/mo or $18,000/yr")} style={foundingCtaStyle}>Claim a founding slot <ArrowUpRight size={18} /></button>
