@@ -216,11 +216,12 @@ export default function SponsorInquiry() {
               {foundingBenefit("A Founding Sponsor of DuckWichita \u2014 a permanent founding title, only two slots exist, locked in for the launch year")}
               {foundingBenefit("Your logo on every DuckWichita post, all year \u2014 every drawing, every duck drop, every winner announcement")}
               {foundingBenefit("Your name locked into the DuckWichita site for the full 12 months")}
-              {foundingBenefit("One scroll-stopping branded video a month (12 a year), scripted and produced by Grand Frame Media \u2014 built to entertain, not advertise. Yours to keep and reshare. ($3,600 production value)")}
+              {foundingBenefit("One scroll-stopping branded video a month (12 a year), scripted and produced by Grand Frame Media \u2014 built to entertain, not advertise. Yours to keep and reshare. ($4,800 production value)")}
               {foundingBenefit("Featured alongside the headline across every drawing's social posts")}
               {foundingBenefit("Founding Duck Host placement included \u2014 a branded duck display with twice-weekly \u201Cgo scan\u201D spotlight posts")}
               {foundingBenefit("Everything the drawing sponsors get \u2014 at the all-year, every-post level \u2014 minus a single named prize (those belong to the rotating slots)")}
-              {foundingBenefit("First right to renew as Founding Sponsor, at your founding rate, before anyone else gets the chance")}
+              {foundingBenefit("First right to renew as Founding Sponsor, before anyone else gets the chance")}
+              {foundingBenefit("Part of your founding investment funds a dedicated DuckWichita assistant \u2014 leading sponsor care, social media, and duck placement \u2014 so the whole operation runs smoothly behind your name")}
             </div>
 
             <button onClick={() => handleTierClick("Founding Sponsor — $1,500/mo or $15,000/yr")} style={foundingCtaStyle}>Claim a founding slot <ArrowUpRight size={18} /></button>
