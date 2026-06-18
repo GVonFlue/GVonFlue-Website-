@@ -191,46 +191,7 @@ export default function SponsorInquiry() {
           </div>
         </Reveal>
       </section>
-
-      {/* FOUNDING SPONSOR — annual anchor, above the field */}
-      <section style={{ ...sectionStyle, paddingBottom: "0" }} id="founding">
-        <Reveal>
-          <div style={foundingWrapStyle}>
-            <span style={foundingBadgeStyle}><Rocket size={14} /> Founding Sponsor · Only 2 slots</span>
-            <h2 style={foundingTitleStyle}>Two companies get DuckWichita off the ground. <span style={orangeAccent}>Their names are on all of it.</span></h2>
-            <p style={foundingSubStyle}>This is the apex partnership, and it sits above the whole field. Two businesses underwrite the launch for a full year and become the names behind DuckWichita from day one &mdash; on every post, every drop, every drawing. There are only two founding slots, and once they&apos;re claimed, that is it.</p>
-
-            <div style={foundingPriceRowStyle}>
-              <div style={foundingPriceCardStyle}>
-                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "4px" }}>
-                  <img src="/images/DuckWichita Patriotic Duck Logo.png" alt="DuckWichita patriotic duck" style={{ width: "40px", height: "40px", objectFit: "contain", flexShrink: 0 }} />
-                  <p style={{ ...foundingPriceBigStyle, margin: 0 }}>$1,776<span style={foundingPriceUnitStyle}>/mo</span></p>
-                </div>
-                <p style={foundingPriceSubStyle}>per slot &middot; 12-month commitment, billed monthly</p>
-              </div>
-              <div style={{ ...foundingPriceCardStyle, border: `1px solid ${ORANGE}` }}>
-                <p style={foundingPriceBigStyle}>$18,000<span style={foundingPriceUnitStyle}>/yr</span></p>
-                <p style={foundingPriceSubStyle}>per slot &middot; paid up front, one year locked in</p>
-                <span style={foundingSaveTagStyle}>Save $3,312 vs. monthly</span>
-              </div>
-            </div>
-
-            <div style={foundingBenefitsGridStyle}>
-              {foundingBenefit("A Founding Sponsor of DuckWichita \u2014 a permanent founding title, only two slots exist, locked in for the launch year")}
-              {foundingBenefit("Your logo on every DuckWichita post, all year \u2014 every drawing, every duck drop, every winner announcement")}
-              {foundingBenefit("Your name locked into the DuckWichita site for the full 12 months")}
-              {foundingBenefit("One scroll-stopping branded video a month (12 a year), scripted and produced by Grand Frame Media \u2014 built to entertain, not advertise. Yours to keep and reshare. ($4,800 production value)")}
-              {foundingBenefit("Featured alongside the headline across every drawing's social posts")}
-              {foundingBenefit("Founding Duck Host placement included \u2014 a branded duck display with twice-weekly \u201Cgo scan\u201D spotlight posts")}
-              {foundingBenefit("Everything the drawing sponsors get \u2014 at the all-year, every-post level \u2014 minus a single named prize (those belong to the rotating slots)")}
-              {foundingBenefit("First right to renew as Founding Sponsor, before anyone else gets the chance")}
-              {foundingBenefit("Part of your founding investment funds a dedicated DuckWichita assistant \u2014 leading sponsor care, social media, and duck placement \u2014 so the whole operation runs smoothly behind your name")}
-            </div>
-
-            <button onClick={() => handleTierClick("Founding Sponsor — $1,776/mo or $18,000/yr")} style={foundingCtaStyle}>Claim a founding slot <ArrowUpRight size={18} /></button>
-          </div>
-        </Reveal>
-      </section>
+      
 
       {/* TIERS */}
       <section style={sectionStyle} id="tiers">
@@ -352,6 +313,46 @@ export default function SponsorInquiry() {
 
         <Reveal delay={500}>
           <p style={commitNoteStyle}>No storefront? No problem &mdash; for tiers that include a duck display, we&apos;ll find your duck a home (your office, a partner spot, even a Wind Surge game). Just mention it when you reach out.</p>
+        </Reveal>
+      </section>
+
+       {/* FOUNDING SPONSOR — annual anchor, above the field */}
+      <section style={{ ...sectionStyle, paddingBottom: "0" }} id="founding">
+        <Reveal>
+          <div style={foundingWrapStyle}>
+            <span style={foundingBadgeStyle}><Rocket size={14} /> Founding Sponsor · Only 2 slots</span>
+            <h2 style={foundingTitleStyle}>Two companies get DuckWichita off the ground. <span style={orangeAccent}>Their names are on all of it.</span></h2>
+            <p style={foundingSubStyle}>This is the apex partnership, and it sits above the whole field. Two businesses underwrite the launch for a full year and become the names behind DuckWichita from day one &mdash; on every post, every drop, every drawing. There are only two founding slots, and once they&apos;re claimed, that is it.</p>
+
+            <div style={foundingPriceRowStyle}>
+              <div style={foundingPriceCardStyle}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "4px" }}>
+                  <img src="/images/DuckWichita Patriotic Duck Logo.png" alt="DuckWichita patriotic duck" style={{ width: "40px", height: "40px", objectFit: "contain", flexShrink: 0 }} />
+                  <p style={{ ...foundingPriceBigStyle, margin: 0 }}>$1,776<span style={foundingPriceUnitStyle}>/mo</span></p>
+                </div>
+                <p style={foundingPriceSubStyle}>per slot &middot; 12-month commitment, billed monthly</p>
+              </div>
+              <div style={{ ...foundingPriceCardStyle, border: `1px solid ${ORANGE}` }}>
+                <p style={foundingPriceBigStyle}>$18,000<span style={foundingPriceUnitStyle}>/yr</span></p>
+                <p style={foundingPriceSubStyle}>per slot &middot; paid up front, one year locked in</p>
+                <span style={foundingSaveTagStyle}>Save $3,312 vs. monthly</span>
+              </div>
+            </div>
+
+            <div style={foundingBenefitsGridStyle}>
+              {foundingBenefit("A Founding Sponsor of DuckWichita \u2014 a permanent founding title, only two slots exist, locked in for the launch year")}
+              {foundingBenefit("Your logo on every DuckWichita post, all year \u2014 every drawing, every duck drop, every winner announcement")}
+              {foundingBenefit("Your name locked into the DuckWichita site for the full 12 months")}
+              {foundingBenefit("One scroll-stopping branded video a month (12 a year), scripted and produced by Grand Frame Media \u2014 built to entertain, not advertise. Yours to keep and reshare. ($4,800 production value)")}
+              {foundingBenefit("Featured alongside the headline across every drawing's social posts")}
+              {foundingBenefit("Founding Duck Host placement included \u2014 a branded duck display with twice-weekly \u201Cgo scan\u201D spotlight posts")}
+              {foundingBenefit("Everything the drawing sponsors get \u2014 at the all-year, every-post level \u2014 minus a single named prize (those belong to the rotating slots)")}
+              {foundingBenefit("First right to renew as Founding Sponsor, before anyone else gets the chance")}
+              {foundingBenefit("Part of your founding investment funds a dedicated DuckWichita assistant \u2014 leading sponsor care, social media, and duck placement \u2014 so the whole operation runs smoothly behind your name")}
+            </div>
+
+            <button onClick={() => handleTierClick("Founding Sponsor — $1,776/mo or $18,000/yr")} style={foundingCtaStyle}>Claim a founding slot <ArrowUpRight size={18} /></button>
+          </div>
         </Reveal>
       </section>
 
