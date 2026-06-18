@@ -368,8 +368,8 @@ export default function SponsorInquiry() {
             <div className="founding-bubble" onClick={() => handleTierClick("Founding Sponsor — $1,776/mo or $18,000/yr")} style={foundingBubbleStyle}>
               <span style={foundingBubbleIconStyle}><Lock size={22} /></span>
               <div>
-                <p style={foundingBubbleTitleStyle}>There&apos;s more &mdash; I&apos;ll only share it in person.</p>
-                <p style={foundingBubbleBodyStyle}>Serious founding partners get the full picture: live performance data, what&apos;s coming with merch and new revenue lines, and several perks I keep off this page on purpose. If this is you, <span style={{ color: ORANGE, fontWeight: 800 }}>reach out and let&apos;s talk &rarr;</span></p>
+                <p style={foundingBubbleTitleStyle}>There&apos;s more &mdash; I&apos;ll share with interested parties.</p>
+                <p style={foundingBubbleBodyStyle}>Serious founding partners get the full picture: To Include future plans and a behind the scenes look. If this is you, <span style={{ color: ORANGE, fontWeight: 800 }}>reach out and let&apos;s talk &rarr;</span></p>
               </div>
             </div>
 
