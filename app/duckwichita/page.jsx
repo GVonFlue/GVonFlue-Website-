@@ -38,21 +38,21 @@ export default function DuckWichita() {
   const bannerStyle = { background: INK, color: "#fff", padding: "11px 20px", display: "flex", justifyContent: "center", alignItems: "center", gap: "12px", flexWrap: "wrap", textAlign: "center", fontFamily: "var(--disp)", fontWeight: 700, fontSize: "clamp(.8rem, 2.4vw, 1rem)", letterSpacing: ".09em", textTransform: "uppercase" };
   const bannerDateStyle = { background: GOLD, color: INK, padding: "3px 13px", borderRadius: "999px", fontWeight: 800, letterSpacing: ".12em" };
 
-  const heroStyle = { position: "relative", overflow: "hidden", padding: "70px 24px 90px", textAlign: "center", background: "linear-gradient(170deg, #0A0B14 0%, #0B1E8A 45%, #1338DE 74%, #0A0B14 100%)", backgroundSize: "100% 220%", animation: "hero-bg-pan 18s ease-in-out infinite" };
+  const heroStyle = { position: "relative", padding: "32px 18px 60px", maxWidth: "1260px", margin: "0 auto" };
+  const heroFrameStyle = { position: "relative", overflow: "hidden", borderRadius: "36px", border: `3px solid ${COBALT}`, background: "linear-gradient(180deg, #FFFFFF 0%, #FBF6EA 100%)", boxShadow: "0 26px 70px rgba(19,56,222,.14)", padding: "56px 24px 64px", textAlign: "center" };
   const heroInnerStyle = { position: "relative", zIndex: 2, maxWidth: "1180px", margin: "0 auto" };
   const heroLogoStyle = { display: "block", width: "100%", maxWidth: "560px", height: "auto", margin: "0 auto 36px" };
-  const heroKickerStyle = { display: "inline-flex", alignItems: "center", gap: "10px", padding: "10px 22px", background: "rgba(255,107,53,.18)", borderRadius: "999px", color: "#FFC9B6", fontFamily: "var(--disp)", fontSize: ".9rem", fontWeight: 700, letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "32px", border: `1.5px solid rgba(255,107,53,.6)` };
-  const heroTitleStyle = { fontFamily: "var(--disp)", fontSize: "clamp(3rem, 9vw, 7rem)", lineHeight: 0.92, letterSpacing: "-.025em", margin: "0 0 28px", color: "#FFFFFF", textShadow: "0 6px 40px rgba(0,0,0,.4)" };
+  const heroKickerStyle = { display: "inline-flex", alignItems: "center", gap: "10px", padding: "10px 22px", background: "rgba(255,107,53,.12)", borderRadius: "999px", color: ORANGE, fontFamily: "var(--disp)", fontSize: ".9rem", fontWeight: 700, letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "32px", border: `1.5px solid rgba(255,107,53,.4)` };
+  const heroTitleStyle = { fontFamily: "var(--disp)", fontSize: "clamp(3rem, 9vw, 7rem)", lineHeight: 0.92, letterSpacing: "-.025em", margin: "0 0 28px", color: INK };
   const orangeAccent = { color: ORANGE };
   const goldAccent = { color: "var(--gold)" };
-  const heroSubStyle = { fontSize: "1.35rem", lineHeight: 1.5, color: "rgba(255,255,255,.82)", maxWidth: "640px", margin: "0 auto 44px" };
+  const heroSubStyle = { fontSize: "1.35rem", lineHeight: 1.5, color: "rgba(10,11,20,.7)", maxWidth: "640px", margin: "0 auto 44px" };
   const heroCtasStyle = { display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap", marginBottom: "10px" };
-  const heroGhostBtnStyle = { display: "inline-flex", alignItems: "center", gap: "8px", padding: "16px 30px", background: "rgba(255,255,255,.06)", color: "#FFFFFF", borderRadius: "999px", fontFamily: "var(--disp)", fontWeight: 700, fontSize: "1rem", textDecoration: "none", border: "2px solid rgba(255,255,255,.45)", cursor: "pointer" };
   const cdWrapStyle = { display: "flex", flexDirection: "column", alignItems: "center", gap: "14px", margin: "0 0 44px" };
-  const cdLabelStyle = { display: "inline-flex", alignItems: "center", gap: "8px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: ".92rem", letterSpacing: ".18em", textTransform: "uppercase", color: GOLD };
+  const cdLabelStyle = { display: "inline-flex", alignItems: "center", gap: "8px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: ".92rem", letterSpacing: ".18em", textTransform: "uppercase", color: ORANGE };
   const cdRowStyle = { display: "flex", gap: "10px", justifyContent: "center", flexWrap: "nowrap" };
-  const cdCellStyle = { minWidth: "72px", padding: "16px 10px", borderRadius: "18px", background: "rgba(255,255,255,.07)", border: `1.5px solid rgba(255,107,53,.6)`, boxShadow: "0 16px 44px rgba(19,56,222,.45), inset 0 1px 0 rgba(255,255,255,.2)", textAlign: "center" };
-  const cdNumStyle = { fontFamily: "var(--disp)", fontSize: "clamp(1.8rem, 6vw, 2.8rem)", fontWeight: 800, color: "#FFFFFF", lineHeight: 1, letterSpacing: "-.02em", textShadow: "0 0 18px rgba(255,107,53,.55)" };
+  const cdCellStyle = { minWidth: "72px", padding: "16px 10px", borderRadius: "18px", background: `linear-gradient(160deg, ${COBALT} 0%, ${INK} 100%)`, border: `1.5px solid rgba(255,107,53,.5)`, boxShadow: "0 16px 40px rgba(19,56,222,.3)", textAlign: "center" };
+  const cdNumStyle = { fontFamily: "var(--disp)", fontSize: "clamp(1.8rem, 6vw, 2.8rem)", fontWeight: 800, color: "#FFFFFF", lineHeight: 1, letterSpacing: "-.02em" };
   const cdUnitStyle = { fontFamily: "var(--disp)", fontSize: ".62rem", fontWeight: 700, letterSpacing: ".14em", textTransform: "uppercase", color: GOLD, marginTop: "7px" };
 
   const sectionStyle = { padding: "100px 24px", maxWidth: "1180px", margin: "0 auto" };
@@ -160,22 +160,22 @@ export default function DuckWichita() {
         .dw-sparkle.s2 { top: 18%; right: 8%; animation: sparkle-float 4.5s ease-in-out .6s infinite; }
         .dw-sparkle.s3 { top: 55%; left: 3%; animation: sparkle-float 3.8s ease-in-out 1.2s infinite; }
         .dw-sparkle.s4 { top: 62%; right: 5%; animation: sparkle-float 4.2s ease-in-out 1.8s infinite; }
-        @keyframes hero-bg-pan { 0%, 100% { background-position: 50% 0%; } 50% { background-position: 50% 100%; } }
-        @keyframes blob-drift-1 { 0%, 100% { transform: translate(0,0) scale(1); } 50% { transform: translate(60px,40px) scale(1.15); } }
-        @keyframes blob-drift-2 { 0%, 100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-70px,30px) scale(1.2); } }
-        @keyframes blob-drift-3 { 0%, 100% { transform: translate(0,0) scale(1.05); } 50% { transform: translate(40px,-50px) scale(1); } }
+        @keyframes blob-drift-1 { 0%, 100% { transform: translate(0,0) scale(1); } 50% { transform: translate(50px,34px) scale(1.12); } }
+        @keyframes blob-drift-2 { 0%, 100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-60px,26px) scale(1.16); } }
+        @keyframes blob-drift-3 { 0%, 100% { transform: translate(0,0) scale(1.05); } 50% { transform: translate(34px,-44px) scale(1); } }
         @keyframes halo-spin { to { transform: translate(-50%,-50%) rotate(360deg); } }
-        @keyframes duck-rise { 0% { transform: translateY(40px) rotate(-8deg); opacity: 0; } 12% { opacity: .9; } 88% { opacity: .9; } 100% { transform: translateY(-420px) rotate(12deg); opacity: 0; } }
-        .hero-blob { position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; z-index: 0; }
-        .hero-blob.b1 { width: 460px; height: 460px; top: -120px; left: -80px; background: radial-gradient(circle, rgba(255,107,53,.55), transparent 70%); animation: blob-drift-1 16s ease-in-out infinite; }
-        .hero-blob.b2 { width: 520px; height: 520px; bottom: -160px; right: -100px; background: radial-gradient(circle, rgba(62,96,255,.6), transparent 70%); animation: blob-drift-2 19s ease-in-out infinite; }
-        .hero-blob.b3 { width: 380px; height: 380px; top: 28%; left: 52%; background: radial-gradient(circle, rgba(231,181,60,.4), transparent 70%); animation: blob-drift-3 22s ease-in-out infinite; }
+        @keyframes duck-cross-r { 0% { transform: translate(-90px,0) rotate(-8deg) scaleX(-1); opacity: 0; } 6% { opacity: 1; } 25% { transform: translate(27vw,-24px) rotate(9deg) scaleX(-1); } 50% { transform: translate(52vw,10px) rotate(-7deg) scaleX(-1); } 75% { transform: translate(77vw,-22px) rotate(9deg) scaleX(-1); } 94% { opacity: 1; } 100% { transform: translate(112vw,0) rotate(-8deg) scaleX(-1); opacity: 0; } }
+        @keyframes duck-cross-l { 0% { transform: translate(0,0) rotate(8deg); opacity: 0; } 6% { opacity: 1; } 25% { transform: translate(-27vw,-24px) rotate(-9deg); } 50% { transform: translate(-52vw,10px) rotate(7deg); } 75% { transform: translate(-77vw,-22px) rotate(-9deg); } 94% { opacity: 1; } 100% { transform: translate(-112vw,0) rotate(8deg); opacity: 0; } }
+        .hero-blob { position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; z-index: 0; }
+        .hero-blob.b1 { width: 420px; height: 420px; top: -130px; left: -90px; background: radial-gradient(circle, rgba(255,107,53,.3), transparent 70%); animation: blob-drift-1 16s ease-in-out infinite; }
+        .hero-blob.b2 { width: 480px; height: 480px; bottom: -170px; right: -110px; background: radial-gradient(circle, rgba(19,56,222,.28), transparent 70%); animation: blob-drift-2 19s ease-in-out infinite; }
+        .hero-blob.b3 { width: 360px; height: 360px; top: 30%; left: 54%; background: radial-gradient(circle, rgba(231,181,60,.24), transparent 70%); animation: blob-drift-3 22s ease-in-out infinite; }
         .logo-halo-wrap { position: relative; display: inline-block; }
-        .logo-halo { position: absolute; top: 44%; left: 50%; width: 520px; height: 520px; max-width: 92vw; max-height: 92vw; transform: translate(-50%,-50%); border-radius: 50%; background: conic-gradient(from 0deg, rgba(255,107,53,0), rgba(255,107,53,.4), rgba(62,96,255,.4), rgba(231,181,60,.35), rgba(255,107,53,0)); filter: blur(42px); z-index: 0; pointer-events: none; animation: halo-spin 14s linear infinite; }
-        .float-duck { position: absolute; z-index: 1; font-size: 30px; bottom: 0; pointer-events: none; opacity: 0; }
-        .float-duck.fd1 { left: 12%; animation: duck-rise 9s ease-in-out 0s infinite; }
-        .float-duck.fd2 { left: 80%; font-size: 22px; animation: duck-rise 11s ease-in-out 2.5s infinite; }
-        .float-duck.fd3 { left: 46%; font-size: 26px; animation: duck-rise 10s ease-in-out 5s infinite; }
+        .logo-halo { position: absolute; top: 44%; left: 50%; width: 480px; height: 480px; max-width: 88vw; max-height: 88vw; transform: translate(-50%,-50%); border-radius: 50%; background: conic-gradient(from 0deg, rgba(255,107,53,0), rgba(255,107,53,.32), rgba(19,56,222,.3), rgba(231,181,60,.28), rgba(255,107,53,0)); filter: blur(46px); z-index: 0; pointer-events: none; animation: halo-spin 16s linear infinite; }
+        .float-duck { position: absolute; z-index: 1; pointer-events: none; opacity: 0; will-change: transform; }
+        .float-duck.fd1 { top: 16%; left: 0; font-size: 30px; animation: duck-cross-r 6.5s linear 0s infinite; }
+        .float-duck.fd2 { top: 66%; right: 0; font-size: 24px; animation: duck-cross-l 8s linear 1.2s infinite; }
+        .float-duck.fd3 { top: 36%; left: 0; font-size: 26px; animation: duck-cross-r 7.5s linear 3.4s infinite; }
         @media (prefers-reduced-motion: reduce) { .hero-blob, .logo-halo, .duck-hero-wrap, .float-duck { animation: none; } .float-duck { display: none; } }
         @media (max-width: 900px) {
           .dw-sparkle { display: none; }
@@ -192,6 +192,7 @@ export default function DuckWichita() {
       <DuckNav />
 
       <section style={heroStyle}>
+        <div style={heroFrameStyle}>
         <div className="hero-blob b1" aria-hidden="true" />
         <div className="hero-blob b2" aria-hidden="true" />
         <div className="hero-blob b3" aria-hidden="true" />
@@ -224,9 +225,10 @@ export default function DuckWichita() {
           <Reveal delay={200}>
             <div style={heroCtasStyle}>
               <a href="#prize" style={orangeBtnStyle}>See This Month&apos;s Prize <ArrowUpRight size={20} /></a>
-              <a href="#how" style={heroGhostBtnStyle}>How It Works</a>
+              <a href="#how" style={ghostBtnStyle}>How It Works</a>
             </div>
           </Reveal>
+        </div>
         </div>
       </section>
 
