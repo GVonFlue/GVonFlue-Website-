@@ -1,10 +1,19 @@
 "use client";
 
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import DuckNav from "@/components/DuckNav";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import { Instagram, Facebook, Sparkles, ArrowUpRight, Heart, MapPin, Share2, QrCode, Search, Trophy, Ticket, DollarSign, Calendar, Flame, UtensilsCrossed, Shirt } from "lucide-react";
+
+const LAUNCH_DATE = new Date("2026-06-19T00:00:00");
+function nextDrawing(from) {
+  const y = from.getFullYear(), mo = from.getMonth();
+  const opts = [[y, mo, 1], [y, mo, 15], [y, mo + 1, 1], [y, mo + 1, 15]];
+  const dts = opts.map(([yy, mm, dd]) => new Date(yy, mm, dd, 20, 0, 0));
+  return dts.find((dt) => dt > from) || dts[dts.length - 1];
+}
 
 export default function DuckWichita() {
   const COBALT = "#1338DE";
@@ -12,6 +21,17 @@ export default function DuckWichita() {
   const GOLD = "#E7B53C";
   const RED = "#D62828";
   const INK = "#0A0B14";
+
+  const [now, setNow] = useState(null);
+  useEffect(() => {
+    setNow(new Date());
+    const t = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(t);
+  }, []);
+  const cdTarget = now ? (now < LAUNCH_DATE ? LAUNCH_DATE : nextDrawing(now)) : LAUNCH_DATE;
+  const cdLabel = now && now >= LAUNCH_DATE ? "Next drawing in" : "Ducks drop in";
+  const cdDiff = now ? Math.max(0, cdTarget - now) : null;
+  const cd = cdDiff != null ? { Days: Math.floor(cdDiff / 86400000), Hrs: Math.floor((cdDiff % 86400000) / 3600000), Min: Math.floor((cdDiff % 3600000) / 60000), Sec: Math.floor((cdDiff % 60000) / 1000) } : null;
 
   const pageStyle = { background: "#FFFFFF", minHeight: "100vh", color: INK };
   const topBarStyle = { padding: "28px 24px", display: "flex", justifyContent: "center" };
@@ -26,6 +46,12 @@ export default function DuckWichita() {
   const goldAccent = { color: "var(--gold)" };
   const heroSubStyle = { fontSize: "1.35rem", lineHeight: 1.5, color: "rgba(10,11,20,.7)", maxWidth: "640px", margin: "0 auto 44px" };
   const heroCtasStyle = { display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap", marginBottom: "60px" };
+  const cdWrapStyle = { display: "flex", flexDirection: "column", alignItems: "center", gap: "14px", margin: "0 0 44px" };
+  const cdLabelStyle = { display: "inline-flex", alignItems: "center", gap: "8px", fontFamily: "var(--disp)", fontWeight: 800, fontSize: ".92rem", letterSpacing: ".18em", textTransform: "uppercase", color: ORANGE };
+  const cdRowStyle = { display: "flex", gap: "10px", justifyContent: "center", flexWrap: "nowrap" };
+  const cdCellStyle = { minWidth: "70px", padding: "16px 10px", borderRadius: "18px", background: `linear-gradient(160deg, ${COBALT} 0%, ${INK} 100%)`, border: `1.5px solid rgba(255,107,53,.45)`, boxShadow: "0 16px 40px rgba(19,56,222,.28)", textAlign: "center" };
+  const cdNumStyle = { fontFamily: "var(--disp)", fontSize: "clamp(1.8rem, 6vw, 2.8rem)", fontWeight: 800, color: "#FFFFFF", lineHeight: 1, letterSpacing: "-.02em" };
+  const cdUnitStyle = { fontFamily: "var(--disp)", fontSize: ".62rem", fontWeight: 700, letterSpacing: ".14em", textTransform: "uppercase", color: GOLD, marginTop: "7px" };
 
   const sectionStyle = { padding: "100px 24px", maxWidth: "1180px", margin: "0 auto" };
   const sectionKickerStyle = { display: "inline-block", fontFamily: "var(--disp)", fontSize: ".85rem", fontWeight: 700, color: ORANGE, letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "16px" };
@@ -122,7 +148,7 @@ export default function DuckWichita() {
         @keyframes sparkle-float { 0%, 100% { transform: translateY(0) scale(1) rotate(0deg); opacity: .5; } 50% { transform: translateY(-18px) scale(1.2) rotate(20deg); opacity: 1; } }
         @keyframes duck-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
         @keyframes duck-bob { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-8px) rotate(3deg); } }
-        .duck-hero-wrap { animation: duck-float 5s ease-in-out infinite; }
+        .duck-hero-wrap { animation: duck-float 5s ease-in-out infinite; filter: drop-shadow(0 22px 40px rgba(19,56,222,.28)); }
         .prize-button { transition: transform .35s ease, box-shadow .35s ease; }
         .prize-button:hover { transform: translateY(-6px); box-shadow: 0 40px 100px rgba(231,181,60,.4), 0 0 0 1px rgba(231,181,60,.2), inset 0 1px 0 rgba(255,255,255,.9); }
         .prize-arrow-left { position: absolute; left: -10px; top: 50%; transform: translateY(-50%); animation: arrow-bob-left 1.8s ease-in-out infinite; z-index: 2; }
@@ -132,6 +158,9 @@ export default function DuckWichita() {
         .dw-sparkle.s2 { top: 18%; right: 8%; animation: sparkle-float 4.5s ease-in-out .6s infinite; }
         .dw-sparkle.s3 { top: 55%; left: 3%; animation: sparkle-float 3.8s ease-in-out 1.2s infinite; }
         .dw-sparkle.s4 { top: 62%; right: 5%; animation: sparkle-float 4.2s ease-in-out 1.8s infinite; }
+        @keyframes aurora-drift { 0%, 100% { transform: translate3d(-50%,0,0) scale(1); } 50% { transform: translate3d(-50%,-16px,0) scale(1.06); } }
+        .hero-aurora { position: absolute; left: 50%; top: -40px; width: min(900px, 120%); height: 560px; transform: translate3d(-50%,0,0); z-index: 0; pointer-events: none; background: radial-gradient(420px 300px at 32% 32%, rgba(19,56,222,.20), transparent 62%), radial-gradient(380px 300px at 70% 42%, rgba(255,107,53,.18), transparent 64%); filter: blur(10px); animation: aurora-drift 14s ease-in-out infinite; }
+        @media (prefers-reduced-motion: reduce) { .hero-aurora, .duck-hero-wrap { animation: none; } }
         @media (max-width: 900px) {
           .dw-sparkle { display: none; }
           .flow-grid { grid-template-columns: 1fr !important; }
@@ -147,21 +176,37 @@ export default function DuckWichita() {
       <DuckNav />
 
       <section style={heroStyle}>
+        <div className="hero-aurora" aria-hidden="true" />
         <svg className="dw-sparkle s1" width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 0 L13.5 10.5 L24 12 L13.5 13.5 L12 24 L10.5 13.5 L0 12 L10.5 10.5 Z" fill={ORANGE}/></svg>
         <svg className="dw-sparkle s2" width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 0 L13.5 10.5 L24 12 L13.5 13.5 L12 24 L10.5 13.5 L0 12 L10.5 10.5 Z" fill={COBALT}/></svg>
         <svg className="dw-sparkle s3" width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M12 0 L13.5 10.5 L24 12 L13.5 13.5 L12 24 L10.5 13.5 L0 12 L10.5 10.5 Z" fill={ORANGE}/></svg>
         <svg className="dw-sparkle s4" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 0 L13.5 10.5 L24 12 L13.5 13.5 L12 24 L10.5 13.5 L0 12 L10.5 10.5 Z" fill={COBALT}/></svg>
 
-        <Reveal><img src="/logos/duckwichita-logo.png" alt="DuckWichita.com" style={heroLogoStyle} /></Reveal>
-        <Reveal delay={60}><span style={heroKickerStyle}><Sparkles size={14} /> A Wichita Movement</span></Reveal>
-        <Reveal as="h1" delay={80} style={heroTitleStyle}>Spreading <span style={orangeAccent}>smiles.</span><br/>One duck at a time.</Reveal>
-        <Reveal as="p" delay={140} style={heroSubStyle}>DuckWichita is the strangest, smallest movement in town — tiny patriotic ducks hidden across the city, each one a chance to win something local.</Reveal>
-        <Reveal delay={200}>
-          <div style={heroCtasStyle}>
-            <a href="#prize" style={orangeBtnStyle}>See This Month&apos;s Prize <ArrowUpRight size={20} /></a>
-            <a href="#how" style={ghostBtnStyle}>How It Works</a>
-          </div>
-        </Reveal>
+        <div style={{ position: "relative", zIndex: 1 }}>
+          <Reveal><div className="duck-hero-wrap"><img src="/logos/duckwichita-logo.png" alt="DuckWichita.com" style={heroLogoStyle} /></div></Reveal>
+          <Reveal delay={60}><span style={heroKickerStyle}><Sparkles size={14} /> A Wichita Movement</span></Reveal>
+          <Reveal as="h1" delay={80} style={heroTitleStyle}>Spreading <span style={orangeAccent}>smiles.</span><br/>One duck at a time.</Reveal>
+          <Reveal as="p" delay={140} style={heroSubStyle}>DuckWichita is the strangest, smallest movement in town — tiny patriotic ducks hidden across the city, each one a chance to win something local.</Reveal>
+          <Reveal delay={170}>
+            <div style={cdWrapStyle}>
+              <span style={cdLabelStyle}><span style={{ fontSize: "1.1em" }}>🦆</span> {cdLabel}</span>
+              <div style={cdRowStyle}>
+                {["Days", "Hrs", "Min", "Sec"].map((u) => (
+                  <div key={u} style={cdCellStyle}>
+                    <div style={cdNumStyle}>{cd ? String(cd[u]).padStart(2, "0") : "--"}</div>
+                    <div style={cdUnitStyle}>{u}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+          <Reveal delay={200}>
+            <div style={heroCtasStyle}>
+              <a href="#prize" style={orangeBtnStyle}>See This Month&apos;s Prize <ArrowUpRight size={20} /></a>
+              <a href="#how" style={ghostBtnStyle}>How It Works</a>
+            </div>
+          </Reveal>
+        </div>
       </section>
 
       <section style={manifestoWrapStyle} id="story">
