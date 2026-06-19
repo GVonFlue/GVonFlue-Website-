@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Lockup from "@/components/Lockup";
 import Footer from "@/components/Footer";
@@ -53,6 +53,14 @@ export default function JoinTheFlock() {
     return () => timers.forEach(clearTimeout);
   }, []);
 
+  // Capture which duck was scanned, from the QR's ?utm_content=duck-XXX param.
+  // Falls back to "direct" for visitors who arrive without scanning a duck.
+  const entryTypeRef = useRef("direct");
+  useEffect(() => {
+    const content = new URLSearchParams(window.location.search).get("utm_content");
+    if (content) entryTypeRef.current = content;
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
@@ -60,6 +68,7 @@ export default function JoinTheFlock() {
     formData.append("access_key", FORM_KEY);
     formData.append("subject", "🦆 New DuckWichita Giveaway Entry");
     formData.append("from_name", "DuckWichita Site");
+    formData.append("entry_type", entryTypeRef.current);
 
     // Log the entry to Google Sheets — fire-and-forget, independent of the email
     const form = e.target;
@@ -70,6 +79,7 @@ export default function JoinTheFlock() {
         phone: form.phone.value,
         status: form.status.value,
         instagram: form.instagram ? form.instagram.value : "",
+        entry_type: entryTypeRef.current,
       });
       fetch(SHEET_ENDPOINT, { method: "POST", mode: "no-cors", body: sheetParams });
     } catch (err) {
@@ -245,208 +255,4 @@ export default function JoinTheFlock() {
         <Reveal as="h1" delay={80} style={heroTitleStyle}>You&apos;ve Been <span style={goldAccent}>Ducked</span>, Wichita.</Reveal>
         <Reveal as="p" delay={140} style={heroSubStyle}>Somewhere out there, a tiny patriotic duck chose <strong style={{ color: "var(--ink)" }}>you</strong>. Now you&apos;re part of the flock — and there&apos;s a real prize with your name on it.</Reveal>
         <Reveal delay={200}>
-          <div style={{ marginTop: "10px" }}>
-            <div className="enter-pop-wrap">
-              <a href="#enter" className="enter-pop-btn">Enter The Giveaway <ArrowUpRight size={32} strokeWidth={2.5} /></a>
-            </div>
-            <div style={{ marginTop: "24px" }}>
-              <a href="#what" style={heroSecondaryLinkStyle}>What Is DuckWichita? →</a>
-            </div>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* JUNE LAUNCH PRIZE — full $840+ package */}
-      <section style={prizeWrapStyle}>
-        <div className="prize-arrow-left">
-          <svg width="90" height="90" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 40 L62 40 M45 22 L62 40 L45 58" stroke="var(--gold)" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </div>
-        <div className="prize-arrow-right">
-          <svg width="90" height="90" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ transform: "rotate(180deg)" }}><path d="M8 40 L62 40 M45 22 L62 40 L45 58" stroke="var(--gold)" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </div>
-
-        <div className="prize-button" style={prizeButtonStyle}>
-          <div style={{ textAlign: "center" }}>
-            <Reveal><span style={prizeBadgeStyle}>🦆 July 1 Drawing</span></Reveal>
-            <Reveal as="h2" delay={80} style={prizeHeadlineStyle}>The ultimate <span style={goldAccent}>Wichita summer</span> package.</Reveal>
-            <Reveal as="p" delay={140} style={prizeSubStyle}>Five prizes. Over $840 in total value. One Wichita winner. This is what we&apos;re launching with — and we&apos;re only getting bigger.</Reveal>
-          </div>
-
-          {/* Headline Sponsor — Joe Dirt */}
-          <Reveal delay={180}>
-            <div style={headlineCardWrapStyle}>
-              <div style={headlineRibbonStyle}>★ HEADLINE SPONSOR ★</div>
-              <div style={headlineCardStyle}>
-                <div style={headlineLogoWrapStyle}>
-                  <img src="/images/joedirt.png" alt="Joe Dirt Fireworks" style={headlineLogoStyle} />
-                </div>
-                <p style={headlineSponsorStyle}>Sponsored by Joe Dirt Fireworks</p>
-                <h3 style={headlineTitleStyle}>$300 Fireworks Bundle</h3>
-                <p style={headlineBodyStyle}>The headline prize. Joe Dirt Fireworks is loading up a premium $300 bundle of the loudest, brightest fireworks Wichita has to offer. Light up your 4th of July.</p>
-                <span style={headlineValueStyle}>$300 value</span>
-              </div>
-            </div>
-          </Reveal>
-
-          {/* 4 supporting prizes */}
-          <Reveal delay={240}>
-            <div style={prizeCardsStyle}>
-              <div style={prizeCardStyle}>
-                <div style={prizeIconWrapStyle}><Ticket size={24} /></div>
-                <h3 style={prizeCardTitleStyle}>4 Wind Surge Tickets</h3>
-                <p style={prizeCardBodyStyle}>Section A, directly behind home plate. Bring the family, a date, your crew. Good for any home game this season.</p>
-                <div style={prizeCardMetaStyle}><MapPin size={14} /> Equity Bank Park</div>
-              </div>
-              <div style={prizeCardStyle}>
-                <div style={prizeIconWrapStyle}><UtensilsCrossed size={24} /></div>
-                <h3 style={prizeCardTitleStyle}>$200 Dinner Gift Card</h3>
-                <p style={prizeCardBodyStyle}>A full dinner on the house at a top Wichita restaurant. Bring whoever you want. Restaurant sponsor announcement coming soon.</p>
-                <div style={prizeCardMetaStyle}><Sparkles size={14} /> Local restaurant</div>
-              </div>
-              <div style={prizeCardStyle}>
-                <div style={prizeIconWrapStyle}><Shirt size={24} /></div>
-                <h3 style={prizeCardTitleStyle}>DuckWichita Merch Bundle</h3>
-                <p style={prizeCardBodyStyle}>Two official DuckWichita tees and a sticker pack. Collector&apos;s edition — only the first winners get these.</p>
-                <div style={prizeCardMetaStyle}><Sparkles size={14} /> Limited drop</div>
-              </div>
-              <div style={prizeCardStyle}>
-                <div style={prizeIconWrapStyle}><DollarSign size={24} /></div>
-                <h3 style={prizeCardTitleStyle}>$200 Cash</h3>
-                <p style={prizeCardBodyStyle}>No strings, no restrictions. Spend it on whatever the rest of this package doesn&apos;t cover.</p>
-                <div style={prizeCardMetaStyle}><Sparkles size={14} /> Spend it however</div>
-              </div>
-            </div>
-          </Reveal>
-
-          <Reveal delay={300}>
-            <div style={prizeFooterStyle}>
-              <p style={prizeValueLineStyle}>Total package value: <span style={goldAccent}>$840+</span></p>
-              <p style={prizeDrawingLineStyle}><Calendar size={16} style={{ display: "inline", marginRight: "6px", verticalAlign: "-3px" }} />First drawing: July 1, 2026 · Winner announced on @gvonflue</p>
-              <a href="#enter" className="btn btn-gold btn-lg">Enter Now <ArrowUpRight size={20} /></a>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      <section style={sectionStyle} id="what">
-        <Reveal as="span" className="section-kicker">02 — How it works</Reveal>
-        <Reveal as="h2" delay={60} className="section-title">So... what just <span style={goldAccent}>happened?</span></Reveal>
-        <Reveal as="p" delay={120} style={ledeStyle}>You found one of the DuckWichita ducks. No catch. No weird sales pitch. Just a random little piece of Wichita fun created to make people smile, support local businesses, and give people a chance to win cool stuff.</Reveal>
-        <div style={cardsGridStyle}>
-          <Reveal delay={180}>
-            <div style={cardStyle}>
-              <div style={cardNumStyle}>1</div>
-              <h3 style={cardTitleStyle}>You Got Ducked</h3>
-              <p style={cardBodyStyle}>A little duck found its way to you somewhere around Wichita. That&apos;s not random — that&apos;s the universe paying you a tiny compliment.</p>
-            </div>
-          </Reveal>
-          <Reveal delay={240}>
-            <div style={cardStyle}>
-              <div style={cardNumStyle}>2</div>
-              <h3 style={cardTitleStyle}>Scan The Code</h3>
-              <p style={cardBodyStyle}>You scanned the QR. That&apos;s how you got here. Welcome to the flock — it&apos;s quieter than you&apos;d think.</p>
-            </div>
-          </Reveal>
-          <Reveal delay={300}>
-            <div style={cardStyle}>
-              <div style={cardNumStyle}>3</div>
-              <h3 style={cardTitleStyle}>Enter To Win</h3>
-              <p style={cardBodyStyle}>Drop your name below for the 1st-and-15th-of-every-month drawings. Gift cards, dinners, experiences, the works.</p>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      <section style={sectionStyle} id="enter">
-        <Reveal as="span" className="section-kicker">03 — Enter the flock</Reveal>
-        <Reveal as="h2" delay={60} className="section-title">Enter the <span style={goldAccent}>DuckWichita</span> giveaway.</Reveal>
-        <Reveal as="p" delay={120} style={ledeStyle}>Every drawing, someone from the flock wins local prizes — gift cards, experiences, event tickets, food, coffee, and whatever other fun things we can get our hands on. Two drawings a month, every month.</Reveal>
-        <div style={formCardStyle}>
-          <form onSubmit={handleSubmit}>
-            <input type="hidden" name="botcheck" />
-            <label style={labelStyle} htmlFor="first_name">First Name</label>
-            <input style={inputStyle} type="text" id="first_name" name="first_name" required />
-            <label style={labelStyle} htmlFor="email">Email</label>
-            <input style={inputStyle} type="email" id="email" name="email" required />
-            <label style={labelStyle} htmlFor="phone">Phone Number</label>
-            <input style={inputStyle} type="tel" id="phone" name="phone" required />
-            <label style={labelStyle} htmlFor="status">I am a...</label>
-            <select style={inputStyle} id="status" name="status" required defaultValue="">
-              <option value="" disabled>Pick one</option>
-              <option>Homeowner</option>
-              <option>Renter</option>
-              <option>Thinking About Buying</option>
-              <option>Thinking About Selling</option>
-              <option>Just Here For The Duck</option>
-            </select>
-            <label style={labelStyle} htmlFor="instagram">Instagram Handle <span style={{ fontWeight: 400, color: "var(--muted)" }}>(optional)</span></label>
-            <input style={inputStyle} type="text" id="instagram" name="instagram" placeholder="@yourhandle" />
-            <button type="submit" style={submitBtnStyle} disabled={submitting}>{submitting ? "Adding you..." : "Enter Me In The Flock"}</button>
-            <p style={flockReassureStyle}>Each duck keeps you in the <strong style={{ color: "var(--ink)" }}>next 2 drawings</strong>. We draw the 1st and 15th of every month — find another duck any time to stay in the flock. By entering, you agree to the <a href="/rules" style={{ color: "var(--cobalt)", textDecoration: "underline" }}>official rules</a>.</p>
-          </form>
-        </div>
-      </section>
-
-      {/* POST YOUR DUCK — now with 5x bonus entry */}
-      <section style={sectionStyle}>
-        <Reveal as="span" className="section-kicker">04 — Spread the flock</Reveal>
-        <Reveal as="h2" delay={60} className="section-title">Post your <span style={goldAccent}>duck.</span></Reveal>
-        <Reveal as="p" delay={120} style={ledeStyle}>Take a photo with your duck and post it using <strong>#DuckWichita</strong>. Tag me so I can repost it — and follow <strong>@gvonflue</strong> while you&apos;re there, because that&apos;s where I announce who won each drawing.</Reveal>
-
-        <Reveal delay={180}>
-          <div style={bonusBoxStyle}>
-            <span style={bonusKickerStyle}>🎯 BONUS</span>
-            <h3 style={bonusTitleStyle}>Post your duck = <span style={bonusEmphasisStyle}>5x entries.</span></h3>
-            <p style={bonusBodyStyle}>Snap a photo with your duck and post it to Instagram or Facebook using <strong style={bonusEmphasisStyle}>#DuckWichita</strong>. Once we see it, we&apos;ll bump your entry from 1 to <strong style={bonusEmphasisStyle}>5 entries</strong> — five times the chances to win the package. Make sure the duck is in the photo.</p>
-          </div>
-        </Reveal>
-
-        <Reveal delay={240}>
-          <div style={flockBtnsStyle}>
-            <a href="https://instagram.com/gvonflue" target="_blank" rel="noopener noreferrer" className="btn btn-gold btn-lg"><Instagram size={20} /> Tag @gvonflue</a>
-            <a href="https://www.facebook.com/garrettvonflue/" target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg">Find me on Facebook</a>
-          </div>
-        </Reveal>
-      </section>
-
-      <section style={darkSectionStyle}>
-        <Reveal as="span" style={sponsorKickerStyle}>05 — For local businesses</Reveal>
-        <Reveal as="h2" delay={60} style={sponsorTitleStyle}>Want your business in <span style={goldAccent}>the flock?</span></Reveal>
-        <Reveal as="p" delay={120} style={sponsorCopyStyle}>DuckWichita exists to spotlight local businesses. Restaurants, coffee shops, service companies, boutiques, gyms, events, and local legends are all welcome.</Reveal>
-        <Reveal delay={180}>
-          <a href="/sponsor" className="btn btn-gold btn-lg">Become A Sponsor <ArrowUpRight size={20} /></a>
-        </Reveal>
-      </section>
-
-      <section style={sectionStyle}>
-        <Reveal as="span" className="section-kicker">06 — The why</Reveal>
-        <Reveal as="h2" delay={60} className="section-title">Why <span style={goldAccent}>DuckWichita</span> exists.</Reveal>
-        <Reveal as="p" delay={120} style={ledeStyle}>I started DuckWichita because Wichita has a lot of incredible people, businesses, and small everyday moments that don&apos;t get enough credit. A tiny patriotic duck with a QR code is a goofy way to remind a stranger that someone in their city is rooting for them.</Reveal>
-        <Reveal as="p" delay={180} style={{ ...ledeStyle, marginTop: "20px" }}>That&apos;s the whole thing. Make people smile. Showcase local. Hand out some prizes. If it ever stops being fun, it stops.</Reveal>
-        <Reveal delay={240}>
-          <div style={{ marginTop: "32px" }}>
-            <p style={sigNameStyle}>— Garrett Von Flue</p>
-            <p style={sigSubStyle}>REALTOR® · Real Broker LLC · Wichita, KS</p>
-          </div>
-        </Reveal>
-      </section>
-
-      <section style={sectionStyle}>
-        <Reveal as="span" className="section-kicker">07 — Common questions</Reveal>
-        <Reveal as="h2" delay={60} className="section-title">Quick <span style={goldAccent}>answers.</span></Reveal>
-        <div style={{ maxWidth: "780px", marginTop: "40px" }}>
-          {faqs.map((item, i) => (
-            <Reveal key={i} delay={i * 60}>
-              <div style={faqItemStyle}>
-                <h3 style={faqQuestionStyle}>{item.q}</h3>
-                <p style={faqAnswerStyle}>{item.a}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      <Footer />
-    </main>
-  );
-}
+          <div style={{ marginTop:
