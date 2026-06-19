@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Lockup from "@/components/Lockup";
 import Footer from "@/components/Footer";
@@ -10,9 +10,48 @@ import { ArrowUpRight, Instagram, Sparkles, Ticket, DollarSign, Calendar, MapPin
 const FORM_KEY = "e87c5fc0-d3e8-47e8-a1ab-5be73241a042";
 const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxUouOJJvN_7pIAAfHX4DSdskQKNjYUebZ5bb1yH5Rxdsac_IWytyBB-d-vlcaFHXCJ/exec";
 
+// Flying-duck pool. First 3 are well-spread so the "calm" state mirrors the home page.
+const SKY_DUCKS = [
+  { top: "16%", size: 34, dur: "8s",    delay: "0s",   dir: "r" },
+  { top: "50%", size: 30, dur: "10s",   delay: "0.8s", dir: "l" },
+  { top: "78%", size: 32, dur: "9s",    delay: "0.4s", dir: "r" },
+  { top: "8%",  size: 22, dur: "11s",   delay: "1.4s", dir: "l" },
+  { top: "24%", size: 40, dur: "7s",    delay: "2.6s", dir: "r" },
+  { top: "32%", size: 26, dur: "11.5s", delay: "0.6s", dir: "l" },
+  { top: "40%", size: 28, dur: "9.5s",  delay: "3.2s", dir: "r" },
+  { top: "44%", size: 20, dur: "12s",   delay: "1.0s", dir: "l" },
+  { top: "56%", size: 36, dur: "8.5s",  delay: "2.0s", dir: "r" },
+  { top: "60%", size: 24, dur: "10.5s", delay: "4.0s", dir: "l" },
+  { top: "64%", size: 30, dur: "7.5s",  delay: "0.9s", dir: "r" },
+  { top: "68%", size: 22, dur: "11s",   delay: "2.8s", dir: "l" },
+  { top: "72%", size: 34, dur: "8s",    delay: "1.8s", dir: "r" },
+  { top: "84%", size: 26, dur: "10s",   delay: "5.0s", dir: "l" },
+  { top: "88%", size: 38, dur: "7s",    delay: "3.6s", dir: "r" },
+  { top: "92%", size: 20, dur: "12s",   delay: "4.6s", dir: "l" },
+  { top: "12%", size: 32, dur: "8.5s",  delay: "5.4s", dir: "r" },
+  { top: "20%", size: 24, dur: "11s",   delay: "1.2s", dir: "l" },
+  { top: "28%", size: 30, dur: "9s",    delay: "4.2s", dir: "r" },
+  { top: "36%", size: 22, dur: "10.5s", delay: "3.0s", dir: "l" },
+  { top: "48%", size: 36, dur: "8s",    delay: "2.2s", dir: "r" },
+  { top: "52%", size: 26, dur: "11s",   delay: "5.8s", dir: "l" },
+];
+
 export default function JoinTheFlock() {
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
+
+  // Start with a full flock, then thin out to a calm 3 (home-page count).
+  const [duckCount, setDuckCount] = useState(22);
+  useEffect(() => {
+    const steps = [
+      { t: 5000, n: 13 },
+      { t: 10000, n: 8 },
+      { t: 16000, n: 5 },
+      { t: 26000, n: 3 },
+    ];
+    const timers = steps.map((s) => setTimeout(() => setDuckCount(s.n), s.t));
+    return () => timers.forEach(clearTimeout);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -64,6 +103,7 @@ export default function JoinTheFlock() {
   const goldAccent = { color: "var(--gold)" };
   const heroSubStyle = { fontSize: "1.35rem", lineHeight: 1.5, color: "var(--muted)", maxWidth: "680px", margin: "0 auto 44px", position: "relative", zIndex: 2 };
   const heroCtasStyle = { display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap", marginBottom: "60px", position: "relative", zIndex: 2 };
+  const heroSecondaryLinkStyle = { display: "inline-flex", alignItems: "center", gap: "6px", color: "var(--cobalt)", fontFamily: "var(--disp)", fontSize: "1.05rem", fontWeight: 600, textDecoration: "none", borderBottom: "2px solid rgba(19,56,222,.25)", paddingBottom: "2px" };
   const duckFrameStyle = { maxWidth: "440px", margin: "0 auto", aspectRatio: "1/1", borderRadius: "32px", background: "linear-gradient(135deg, #1338DE 0%, #0A0B14 100%)", overflow: "hidden", boxShadow: "0 30px 80px rgba(19,56,222,.35), 0 0 70px rgba(231,181,60,.25)", position: "relative", zIndex: 2 };
   const duckImgStyle = { width: "100%", height: "100%", objectFit: "cover", display: "block" };
   const sectionStyle = { padding: "100px 24px", maxWidth: "1180px", margin: "0 auto" };
@@ -157,7 +197,37 @@ export default function JoinTheFlock() {
         .hero-sparkle.s5 { top: 78%; left: 14%; animation: sparkle-float 4s ease-in-out .4s infinite; }
         .hero-sparkle.s6 { top: 82%; right: 16%; animation: sparkle-float 4.6s ease-in-out 1s infinite; }
         @media (max-width: 900px) { .prize-arrow-left, .prize-arrow-right { display: none; } .hero-sparkle { display: none; } }
+
+        /* Big "pop" Enter button */
+        @keyframes enter-pop { 0% { transform: scale(.55); opacity: 0; } 55% { transform: scale(1.12); opacity: 1; } 75% { transform: scale(.97); } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes enter-glow-pulse { 0%, 100% { box-shadow: 0 18px 55px rgba(231,181,60,.5), 0 0 0 0 rgba(231,181,60,.55); } 50% { box-shadow: 0 26px 80px rgba(231,181,60,.72), 0 0 0 26px rgba(231,181,60,0); } }
+        .enter-pop-wrap { display: inline-block; animation: enter-pop .8s cubic-bezier(.34,1.56,.64,1) both; }
+        .enter-pop-btn { display: inline-flex; align-items: center; gap: 14px; padding: 26px 60px; font-family: var(--disp); font-weight: 800; font-size: clamp(1.5rem, 4.5vw, 2.4rem); letter-spacing: -.01em; color: var(--ink); background: linear-gradient(135deg, #FFD75E 0%, #E7B53C 55%, #D9A030 100%); border: 3px solid #fff; border-radius: 999px; text-decoration: none; box-shadow: 0 18px 55px rgba(231,181,60,.5); animation: enter-glow-pulse 2.2s ease-in-out infinite; transition: transform .2s ease; cursor: pointer; }
+        .enter-pop-btn:hover { transform: scale(1.05); }
+        .enter-pop-btn svg { flex-shrink: 0; }
+        @media (max-width: 600px) { .enter-pop-btn { padding: 22px 36px; gap: 10px; } }
+
+        /* Flying-duck sky — full flock that simmers down over time */
+        .duck-sky { position: fixed; inset: 0; pointer-events: none; z-index: 60; overflow: hidden; }
+        .sky-duck { position: absolute; left: 0; will-change: transform; animation-timing-function: linear; animation-iteration-count: infinite; filter: drop-shadow(0 6px 10px rgba(10,11,20,.18)); }
+        .sky-duck.r { animation-name: sky-cross-r; }
+        .sky-duck.l { animation-name: sky-cross-l; }
+        @keyframes sky-cross-r { 0% { transform: translate(-12vw,0) rotate(-8deg) scaleX(-1); opacity: 0; } 6% { opacity: 1; } 25% { transform: translate(20vw,-30px) rotate(9deg) scaleX(-1); } 50% { transform: translate(48vw,18px) rotate(-7deg) scaleX(-1); } 75% { transform: translate(76vw,-26px) rotate(9deg) scaleX(-1); } 94% { opacity: 1; } 100% { transform: translate(115vw,0) rotate(-8deg) scaleX(-1); opacity: 0; } }
+        @keyframes sky-cross-l { 0% { transform: translate(112vw,0) rotate(8deg); opacity: 0; } 6% { opacity: 1; } 25% { transform: translate(78vw,-30px) rotate(-9deg); } 50% { transform: translate(48vw,18px) rotate(7deg); } 75% { transform: translate(18vw,-26px) rotate(-9deg); } 94% { opacity: 1; } 100% { transform: translate(-15vw,0) rotate(8deg); opacity: 0; } }
+        @media (prefers-reduced-motion: reduce) { .duck-sky { display: none; } .enter-pop-wrap, .enter-pop-btn { animation: none; } }
       `}</style>
+
+      <div className="duck-sky" aria-hidden="true">
+        {SKY_DUCKS.slice(0, duckCount).map((d, i) => (
+          <span
+            key={i}
+            className={`sky-duck ${d.dir}`}
+            style={{ top: d.top, fontSize: `${d.size}px`, animationDuration: d.dur, animationDelay: d.delay }}
+          >
+            🦆
+          </span>
+        ))}
+      </div>
 
       <div style={topBarStyle}><Lockup /></div>
 
@@ -175,14 +245,13 @@ export default function JoinTheFlock() {
         <Reveal as="h1" delay={80} style={heroTitleStyle}>You&apos;ve Been <span style={goldAccent}>Ducked</span>, Wichita.</Reveal>
         <Reveal as="p" delay={140} style={heroSubStyle}>Somewhere out there, a tiny patriotic duck chose <strong style={{ color: "var(--ink)" }}>you</strong>. Now you&apos;re part of the flock — and there&apos;s a real prize with your name on it.</Reveal>
         <Reveal delay={200}>
-          <div style={heroCtasStyle}>
-            <a href="#enter" className="btn btn-gold btn-lg">Enter The Giveaway <ArrowUpRight size={20} /></a>
-            <a href="#what" className="btn btn-ghost btn-lg">What Is DuckWichita?</a>
-          </div>
-        </Reveal>
-        <Reveal delay={260}>
-          <div className="duck-frame-wrap" style={duckFrameStyle}>
-            <img src="/images/roundlogo.png" alt="The DuckWichita duck" style={duckImgStyle} />
+          <div style={{ marginTop: "10px" }}>
+            <div className="enter-pop-wrap">
+              <a href="#enter" className="enter-pop-btn">Enter The Giveaway <ArrowUpRight size={32} strokeWidth={2.5} /></a>
+            </div>
+            <div style={{ marginTop: "24px" }}>
+              <a href="#what" style={heroSecondaryLinkStyle}>What Is DuckWichita? →</a>
+            </div>
           </div>
         </Reveal>
       </section>
