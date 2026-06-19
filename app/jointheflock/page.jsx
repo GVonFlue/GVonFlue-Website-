@@ -182,7 +182,7 @@ export default function JoinTheFlock() {
         </Reveal>
         <Reveal delay={260}>
           <div className="duck-frame-wrap" style={duckFrameStyle}>
-            <img src="/images/duck.jpg" alt="The DuckWichita duck" style={duckImgStyle} />
+            <img src="/images/DuckWichita.com/round.png" alt="The DuckWichita duck" style={duckImgStyle} />
           </div>
         </Reveal>
       </section>
