@@ -63,20 +63,32 @@ export default function JoinTheFlock() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const form = e.target;
+
+    // Require a complete phone number (at least 10 digits), ignoring formatting.
+    const phoneDigits = form.phone.value.replace(/\D/g, "");
+    if (phoneDigits.length < 10) {
+      form.phone.setCustomValidity("Please enter a complete phone number (at least 10 digits).");
+      form.phone.reportValidity();
+      return;
+    }
+    form.phone.setCustomValidity("");
+
     setSubmitting(true);
-    const formData = new FormData(e.target);
+    const formData = new FormData(form);
     formData.append("access_key", FORM_KEY);
     formData.append("subject", "🦆 New DuckWichita Giveaway Entry");
     formData.append("from_name", "DuckWichita Site");
     formData.append("entry_type", entryTypeRef.current);
 
     // Log the entry to Google Sheets — fire-and-forget, independent of the email
-    const form = e.target;
     try {
       const sheetParams = new URLSearchParams({
         first_name: form.first_name.value,
         email: form.email.value,
         phone: form.phone.value,
+        zip: form.zip.value,
+        rent_own: form.rent_own.value,
         status: form.status.value,
         instagram: form.instagram ? form.instagram.value : "",
         entry_type: entryTypeRef.current,
@@ -379,15 +391,21 @@ export default function JoinTheFlock() {
             <label style={labelStyle} htmlFor="email">Email</label>
             <input style={inputStyle} type="email" id="email" name="email" required />
             <label style={labelStyle} htmlFor="phone">Phone Number</label>
-            <input style={inputStyle} type="tel" id="phone" name="phone" required />
-            <label style={labelStyle} htmlFor="status">I am a...</label>
+            <input style={inputStyle} type="tel" id="phone" name="phone" inputMode="tel" placeholder="(316) 555-1234" required onInput={(e) => e.target.setCustomValidity("")} />
+            <label style={labelStyle} htmlFor="zip">Zip Code</label>
+            <input style={inputStyle} type="text" id="zip" name="zip" inputMode="numeric" pattern="\d{5}" maxLength={5} placeholder="67212" required title="Enter your 5-digit ZIP code" />
+            <label style={labelStyle} htmlFor="rent_own">Do you rent or own your home?</label>
+            <select style={inputStyle} id="rent_own" name="rent_own" required defaultValue="">
+              <option value="" disabled>Pick one</option>
+              <option>Rent</option>
+              <option>Own</option>
+            </select>
+            <label style={labelStyle} htmlFor="status">I am...</label>
             <select style={inputStyle} id="status" name="status" required defaultValue="">
               <option value="" disabled>Pick one</option>
-              <option>Homeowner</option>
-              <option>Renter</option>
-              <option>Thinking About Buying</option>
-              <option>Thinking About Selling</option>
-              <option>Just Here For The Duck</option>
+              <option>Thinking about buying in the next 6-12 months</option>
+              <option>Thinking about selling in the next 6-12 months</option>
+              <option>Just here for the DUCK!</option>
             </select>
             <label style={labelStyle} htmlFor="instagram">Instagram Handle <span style={{ fontWeight: 400, color: "var(--muted)" }}>(optional)</span></label>
             <input style={inputStyle} type="text" id="instagram" name="instagram" placeholder="@yourhandle" />
