@@ -386,7 +386,7 @@ export default function JoinTheFlock() {
         <div style={formCardStyle}>
           <form onSubmit={handleSubmit}>
             <input type="hidden" name="botcheck" />
-            <label style={labelStyle} htmlFor="first_name">First Name</label>
+            <label style={labelStyle} htmlFor="first_name">First and Last Name</label>
             <input style={inputStyle} type="text" id="first_name" name="first_name" required />
             <label style={labelStyle} htmlFor="email">Email</label>
             <input style={inputStyle} type="email" id="email" name="email" required />
