@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import { Instagram, Facebook, Sparkles, ArrowUpRight, Heart, MapPin, Share2, QrCode, Search, Trophy, Ticket, DollarSign, Calendar, Flame, UtensilsCrossed, Shirt } from "lucide-react";
 
-const LAUNCH_DATE = new Date("2026-06-19T00:00:00");
+const LAUNCH_DATE = new Date("2026-06-19T10:00:00");
 function nextDrawing(from) {
   const y = from.getFullYear(), mo = from.getMonth();
   const opts = [[y, mo, 1], [y, mo, 15], [y, mo + 1, 1], [y, mo + 1, 15]];
