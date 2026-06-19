@@ -66,7 +66,7 @@ export default function RulesPage() {
           <p style={pStyle}>There are two equal ways to get your <span style={strongStyle}>base entry</span>:</p>
           <ul style={ulStyle}>
             <li><span style={strongStyle}>Scan a DuckWichita duck:</span> Find a DuckWichita duck placed in or around Wichita, scan the QR code on its tag, and complete the entry form at duckwichita.com/jointheflock.</li>
-            <li><span style={strongStyle}>Enter directly online:</span> Visit duckwichita.com/jointheflock and complete the entry form at any time. You do not need to find a duck to enter or win.</li>
+            <li><span style={strongStyle}>Enter directly online:</span> Email your name and phone number to Gvonflue@gmail.com. Be sure to adress it as "DuckWichita Entry" You will be given 1 entry .</li>
           </ul>
           <p style={pStyle}>Each person receives <span style={strongStyle}>one (1) base entry</span>. Duplicate sign-ups from the same person will be consolidated into a single base entry.</p>
           <p style={pStyle}><span style={strongStyle}>Bonus entries — the &quot;5x&quot; bonus.</span> After you&apos;ve entered, you can increase your single base entry to a total of <span style={strongStyle}>five (5) entries</span> by posting a photo of yourself with your DuckWichita duck to a public Instagram or Facebook post using the hashtag <span style={strongStyle}>#DuckWichita</span>. The duck must be clearly visible in the photo. Once the Sponsor verifies the post, four (4) bonus entries are added to your existing entry, for five (5) total.</p>
