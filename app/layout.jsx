@@ -55,13 +55,7 @@ export default function RootLayout({ children }) {
   const plausibleSrc = isDuckWichita
     ? "https://plausible.io/js/pa-nRuk62WnHY1uabnN-kt7c.js" // DuckWichita
     : isGVonFlue
-    ? "https://plausible.io/js/<!-- Privacy-friendly analytics by Plausible -->
-<script async src="https://plausible.io/js/pa-TK3j-XIwj5W_eAE56VW4s.js"></script>
-<script>
-  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-  plausible.init()
-</script>
-.js" // GVonFlue ← paste new token
+    ? "https://plausible.io/js/pa-TK3j-XIwj5W_eAE56VW4s.js" // GVonFlue
     : null;
 
   return (
