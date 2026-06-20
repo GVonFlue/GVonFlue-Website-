@@ -43,24 +43,34 @@ export const viewport = {
 };
 
 export default function RootLayout({ children }) {
-  // One app serves both gvonflue.com and duckwichita.com (see next.config.js
-  // host rewrites). Only load Plausible on duckwichita.com so real-estate
-  // traffic never pollutes the DuckWichita stats. headers() is synchronous
-  // in Next 14.
+  // One app serves both gvonflue (gvonflue.com / gvonflue.vercel.app) and
+  // duckwichita.com (see next.config.js host rewrites). Each domain gets its
+  // own Plausible site so the two traffic streams never mix. headers() is
+  // synchronous in Next 14.
   const host = headers().get("host") || "";
   const isDuckWichita = host.includes("duckwichita.com");
+  const isGVonFlue = host.includes("gvonflue");
+
+  // Pick the right Plausible script per domain.
+  const plausibleSrc = isDuckWichita
+    ? "https://plausible.io/js/pa-nRuk62WnHY1uabnN-kt7c.js" // DuckWichita
+    : isGVonFlue
+    ? "https://plausible.io/js/<!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://plausible.io/js/pa-TK3j-XIwj5W_eAE56VW4s.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+.js" // GVonFlue ← paste new token
+    : null;
 
   return (
     <html lang="en">
       <body className="gvf">
         {children}
-        {isDuckWichita && (
+        {plausibleSrc && (
           <>
-            <Script
-              defer
-              src="https://plausible.io/js/pa-nRuk62WnHY1uabnN-kt7c.js"
-              strategy="afterInteractive"
-            />
+            <Script defer src={plausibleSrc} strategy="afterInteractive" />
             <Script id="plausible-init" strategy="afterInteractive">
               {`window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()`}
             </Script>
