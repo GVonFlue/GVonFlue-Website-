@@ -549,3 +549,4 @@ const css = `
   .fx-grid{grid-template-columns:1fr;}
   .fx-msg{max-width:88%;}
 }
+`;
