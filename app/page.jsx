@@ -1,6 +1,7 @@
 import ScrollBar from "@/components/ScrollBar";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
+import Fixer from "@/components/Fixer";
 import Journey from "@/components/Journey";
 import About from "@/components/About";
 import Values from "@/components/Values";
@@ -17,6 +18,7 @@ export default function HomePage() {
       <ScrollBar />
       <Nav />
       <Hero />
+      <Fixer />
       <Journey />
       <About />
       <Values />
