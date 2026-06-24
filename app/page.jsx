@@ -1,3 +1,4 @@
+import Intro from "@/components/Intro";
 import ScrollBar from "@/components/ScrollBar";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
@@ -15,6 +16,7 @@ import Footer from "@/components/Footer";
 export default function HomePage() {
   return (
     <>
+      <Intro />
       <ScrollBar />
       <Nav />
       <Hero />
