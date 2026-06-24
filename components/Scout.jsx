@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Sparkles, ArrowRight, Check, RotateCcw, CalendarClock } from "lucide-react";
+import { Compass, ArrowRight, Check, RotateCcw, CalendarClock } from "lucide-react";
 
 const WEB3FORMS_KEY = "e87c5fc0-d3e8-47e8-a1ab-5be73241a042";
 const CALENDLY = "https://calendly.com/gvonflue-all0/30min";
@@ -221,10 +221,11 @@ export default function Scout() {
       <div className="fx-root">
         <div className="fx-head">
           <span className="fx-kicker">
-            <Sparkles size={14} /> AI Home Guide
+            <Compass size={14} /> Your Home Guide
           </span>
           <h2 className="fx-title">
             Meet <em>Scout</em>.
+            <img src="/logos/soloduck.png" alt="Scout the duck" className="fx-title-duck" />
           </h2>
           <p className="fx-sub">
             Sixty seconds with Scout and you're locked in with a real game plan.
@@ -285,7 +286,7 @@ export default function Scout() {
               <div className="fx-card">
                 <div className="fx-card-top">
                   <span className="fx-check"><Check size={16} strokeWidth={3} /></span>
-                  Lead locked in
+                  You're locked in
                 </div>
                 <div className="fx-card-name">{answers.name}</div>
                 <div className="fx-grid">
@@ -416,6 +417,10 @@ const css = `
 .fx-title em{font-style:italic;color:var(--fx-cobalt);
   background:linear-gradient(90deg,#3a5bff,#1338DE);
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.fx-title-duck{display:inline-block;height:0.92em;width:0.92em;object-fit:contain;
+  vertical-align:-0.16em;margin-left:14px;background:var(--fx-cream);
+  border:1px solid rgba(19,56,222,0.35);border-radius:13px;padding:4px;
+  box-shadow:0 6px 16px rgba(19,56,222,0.30);}
 .fx-sub{color:rgba(255,255,255,0.62);font-size:1.05rem;line-height:1.6;
   max-width:48ch;margin:16px auto 0;font-family:var(--body);}
 .fx-trust{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:22px;}
