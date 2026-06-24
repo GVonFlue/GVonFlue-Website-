@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Lockup from "./Lockup";
 
 const LINKS = [
@@ -65,7 +65,6 @@ export default function DuckNav() {
             <Link key={l.label} href={l.href} className="ducknav-link" onClick={() => setOpen(false)}>{l.label}</Link>
           ))}
           <a href={REALTY_URL} className="ducknav-realty" onClick={() => setOpen(false)}>GVonFlue Realty Group</a>
-          <Link href="/jointheflock" className="ducknav-cta" onClick={() => setOpen(false)}>Join the Flock <ArrowUpRight size={16} /></Link>
         </div>
       )}
     </>
