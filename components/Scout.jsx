@@ -417,7 +417,7 @@ const css = `
 .fx-title em{font-style:italic;color:var(--fx-cobalt);
   background:linear-gradient(90deg,#3a5bff,#1338DE);
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-.fx-title-duck{display:inline-block;height:0.92em;width:0.92em;object-fit:contain;
+.fx-title-duck{display:inline-block;height:1.84em;width:1.84em;object-fit:contain;
   vertical-align:-0.16em;margin-left:14px;background:var(--fx-cream);
   border:1px solid rgba(19,56,222,0.35);border-radius:13px;padding:4px;
   box-shadow:0 6px 16px rgba(19,56,222,0.30);}
