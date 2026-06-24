@@ -225,8 +225,8 @@ export default function Scout() {
           </span>
           <h2 className="fx-title">
             Meet <em>Scout</em>.
-            <img src="/logos/soloduck.png" alt="Scout the duck" className="fx-title-duck" />
           </h2>
+          <img src="/logos/soloduck.png" alt="Scout the duck" className="fx-title-duck" />
           <p className="fx-sub">
             Sixty seconds with Scout and you're locked in with a real game plan.
             No clipboard forms. Just real answers, straight to Garrett.
@@ -417,10 +417,7 @@ const css = `
 .fx-title em{font-style:italic;color:var(--fx-cobalt);
   background:linear-gradient(90deg,#3a5bff,#1338DE);
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-.fx-title-duck{display:inline-block;height:1.84em;width:1.84em;object-fit:contain;
-  vertical-align:-0.16em;margin-left:14px;background:var(--fx-cream);
-  border:1px solid rgba(19,56,222,0.35);border-radius:13px;padding:4px;
-  box-shadow:0 6px 16px rgba(19,56,222,0.30);}
+.fx-title-duck{display:block;width:110px;height:auto;margin:22px auto 0;object-fit:contain;}
 .fx-sub{color:rgba(255,255,255,0.62);font-size:1.05rem;line-height:1.6;
   max-width:48ch;margin:16px auto 0;font-family:var(--body);}
 .fx-trust{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:22px;}
