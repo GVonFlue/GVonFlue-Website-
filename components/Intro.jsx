@@ -3,12 +3,47 @@
 import { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 
-/* ── GVonFlue landing gate ──
-   Duck art: /logos/soloduck.png
+/* ── GVonFlue landing gate (shatter exit) ──
+   Logo: /logos/gvonflue-logo.png
    Levers in the .gvf-intro CSS block: --gv-cobalt #1338DE  --gv-orange #FF6B35
    --gv-ink #0A0B14  --gv-cream #FBF6EA
-   To show on EVERY visit instead of once per session, delete the
-   sessionStorage block inside the first useEffect (marked below). */
+   Shatter density: COLS x ROWS below.  Exit duration: EXIT_MS below.
+   To show on EVERY visit, delete the sessionStorage block in the first useEffect. */
+
+const COLS = 7;
+const ROWS = 5;
+const EXIT_MS = 1050;
+
+// deterministic pseudo-random (same on server + client -> no hydration mismatch)
+const hash = (i, s) => {
+  const x = Math.sin((i + 1) * 12.9898 + s * 78.233) * 43758.5453;
+  return x - Math.floor(x);
+};
+
+function tileStyle(i) {
+  const col = i % COLS;
+  const row = Math.floor(i / COLS);
+  let nx = (col + 0.5) / COLS - 0.5;
+  let ny = (row + 0.5) / ROWS - 0.5;
+  // center-ish tiles get a hashed direction so they don't just sit there
+  if (Math.abs(nx) + Math.abs(ny) < 0.12) {
+    const a = hash(i, 9) * Math.PI * 2;
+    nx = Math.cos(a);
+    ny = Math.sin(a);
+  }
+  const len = Math.hypot(nx, ny) || 1;
+  const mag = 95 + hash(i, 3) * 75; // 95..170 vmax
+  const dx = (nx / len) * mag;
+  const dy = (ny / len) * mag;
+  const rot = (hash(i, 4) - 0.5) * 200; // -100..100 deg
+  const delay = hash(i, 5) * 0.13; // 0..0.13s stagger
+  return {
+    "--dx": `${dx.toFixed(1)}vmax`,
+    "--dy": `${dy.toFixed(1)}vmax`,
+    "--rot": `${rot.toFixed(1)}deg`,
+    transitionDelay: `${delay.toFixed(3)}s`,
+  };
+}
 
 export default function Intro() {
   const [gone, setGone] = useState(false);
@@ -35,10 +70,12 @@ export default function Intro() {
     try {
       sessionStorage.setItem("gvf_intro_seen", "1");
     } catch (e) {}
-    setTimeout(() => setGone(true), 850);
+    setTimeout(() => setGone(true), EXIT_MS);
   };
 
   if (gone) return null;
+
+  const tiles = Array.from({ length: COLS * ROWS });
 
   return (
     <div
@@ -47,10 +84,17 @@ export default function Intro() {
       aria-label="Welcome to GVonFlue Real Estate"
     >
       <style>{css}</style>
+
+      <div className="gvf-shatter" aria-hidden="true">
+        {tiles.map((_, i) => (
+          <span key={i} className="gvf-tile" style={tileStyle(i)} />
+        ))}
+      </div>
+
+      <div className="gvf-glow" aria-hidden="true" />
+
       <div className="gvf-inner">
-        <img src="/logos/soloduck.png" alt="" className="gvf-duck" />
-        <p className="gvf-kicker">GVonFlue Real Estate</p>
-        <h1 className="gvf-name">Garrett Von Flue</h1>
+        <img src="/logos/gvonflue-logo.png" alt="GVonFlue Real Estate" className="gvf-logo" />
         <p className="gvf-tag">Relationship First Real Estate</p>
         <button className="gvf-enter" onClick={enter}>
           Enter <ArrowRight size={20} />
@@ -64,46 +108,48 @@ export default function Intro() {
 const css = `
 .gvf-intro{
   --gv-cobalt:#1338DE;--gv-orange:#FF6B35;--gv-ink:#0A0B14;--gv-cream:#FBF6EA;
-  position:fixed;inset:0;z-index:99999;display:grid;place-items:center;
-  background:var(--gv-ink);overflow:hidden;padding:24px;
-  transition:opacity 0.8s ease, transform 0.8s ease;
+  position:fixed;inset:0;z-index:99999;overflow:hidden;
 }
-.gvf-intro::before{
-  content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:760px;height:760px;border-radius:50%;
-  background:radial-gradient(circle,rgba(19,56,222,0.32),transparent 62%);
-  filter:blur(50px);pointer-events:none;
+.gvf-shatter{
+  position:absolute;inset:0;z-index:0;display:grid;
+  grid-template-columns:repeat(7,1fr);grid-template-rows:repeat(5,1fr);
 }
-.gvf-intro::after{
-  content:"";position:absolute;bottom:-120px;right:-80px;
-  width:420px;height:420px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,107,53,0.16),transparent 64%);
-  filter:blur(50px);pointer-events:none;
+.gvf-tile{
+  background:var(--gv-ink);box-shadow:0 0 0 1px var(--gv-ink);
+  will-change:transform,opacity;
+  transition:transform 0.85s cubic-bezier(.55,.06,.3,1), opacity 0.85s ease;
 }
-.gvf-leaving{opacity:0;transform:scale(1.08);pointer-events:none;}
+.gvf-leaving .gvf-tile{
+  transform:translate(var(--dx),var(--dy)) rotate(var(--rot)) scale(0.55);
+  opacity:0;
+}
+.gvf-glow{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(680px 680px at 50% 46%, rgba(19,56,222,0.30), transparent 60%),
+    radial-gradient(420px 420px at 82% 88%, rgba(255,107,53,0.16), transparent 62%);
+  transition:opacity 0.4s ease;
+}
+.gvf-leaving .gvf-glow{opacity:0;}
 .gvf-inner{
-  position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;
-  text-align:center;animation:gvfIn 0.9s cubic-bezier(.2,.8,.2,1) both;
+  position:absolute;inset:0;z-index:2;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:24px;
+  animation:gvfIn 0.9s cubic-bezier(.2,.8,.2,1) both;
+  transition:opacity 0.32s ease, transform 0.32s ease;
 }
-.gvf-leaving .gvf-inner{transform:translateY(-22px);transition:transform 0.8s ease;}
-.gvf-duck{
-  width:128px;height:auto;display:block;margin-bottom:26px;
-  animation:gvfFloat 3.2s ease-in-out infinite;
-}
-.gvf-kicker{
-  font-family:var(--body);font-size:0.74rem;font-weight:700;letter-spacing:0.22em;
-  text-transform:uppercase;color:var(--gv-orange);margin:0 0 14px;
-}
-.gvf-name{
-  font-family:var(--disp);font-weight:600;line-height:1.02;color:#fff;margin:0;
-  font-size:clamp(2.4rem,7vw,4.4rem);letter-spacing:-0.01em;
+.gvf-leaving .gvf-inner{opacity:0;transform:scale(1.18) translateY(-12px);pointer-events:none;}
+.gvf-logo{
+  width:clamp(260px,42vw,420px);height:auto;display:block;
+  filter:drop-shadow(0 6px 30px rgba(19,56,222,0.55));
+  animation:gvfFloat 3.4s ease-in-out infinite;
 }
 .gvf-tag{
   font-family:var(--body);font-size:clamp(1rem,2.4vw,1.25rem);
-  color:rgba(255,255,255,0.6);margin:14px 0 0;
+  color:rgba(255,255,255,0.62);margin:26px 0 0;
 }
 .gvf-enter{
-  margin-top:38px;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+  margin-top:36px;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
   font-family:var(--disp);font-size:1.1rem;font-weight:600;color:#fff;
   background:linear-gradient(135deg,var(--gv-orange),#ff8a5c);
   border:none;padding:16px 38px;border-radius:999px;
@@ -119,7 +165,6 @@ const css = `
 @keyframes gvfIn{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:translateY(0);}}
 @keyframes gvfFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);}}
 @media(max-width:520px){
-  .gvf-duck{width:104px;margin-bottom:20px;}
   .gvf-enter{padding:15px 32px;font-size:1.02rem;}
 }
 `;
