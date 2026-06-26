@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 
 const FORM_KEY = "e87c5fc0-d3e8-47e8-a1ab-5be73241a042";
-const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxUouOJJvN_7pIAAfHX4DSdskQKNjYUebZ5bb1yH5Rxdsac_IWytyBB-d-vlcaFHXCJ/exec";
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbzOBQRpnEV7uEdxnugSrmFRYtL2jLqnV0l6PMILQT3f4r0zrMPHffqZhI4YeeHVW_BV7Q/exec";
 
 const ORANGE = "#FF6B35";
 const COBALT = "#1338DE";
