@@ -149,9 +149,9 @@ export default function Ambassadors() {
   const signOffStyle = { fontFamily: "var(--disp)", fontSize: "1.3rem", fontWeight: 700, color: "var(--ink)", marginTop: "8px" };
 
   const doSteps = [
-    { icon: <Package size={26} />, step: "Step one", title: "Get your ducks", body: "We hand you a batch of around 20 to 25 QR ducks, each one tied to your name. Pick them up and you are ready to roll." },
+    { icon: <Package size={26} />, step: "Step one", title: "Get your ducks", body: "We hand you a batch of around 10 to 15 QR ducks, each one tied to your name. Pick them up and you are ready to roll." },
     { icon: <MapPin size={26} />, step: "Step two", title: "Hide them", body: "Stash your ducks in fun, safe, public spots around your part of town. Somewhere a stranger will smile when they find one." },
-    { icon: <Video size={26} />, step: "Step three", title: "Send a clip", body: "Film a quick 10 to 15 second vertical clip of each drop and text it to us the same day. We post it to the story that day." },
+    { icon: <Video size={26} />, step: "Step three", title: "Send a clip", body: "Film a quick 10 to 15 second vertical clip of each drop and text it to us right away. We post it to the story that day." },
   ];
 
   const perks = [
@@ -243,7 +243,7 @@ export default function Ambassadors() {
       <section style={sectionStyle} id="what">
         <Reveal as="span" className="section-kicker">01 · What an ambassador is</Reveal>
         <Reveal as="h2" delay={60} className="section-title">The people who actually <span style={accent}>spread the ducks.</span></Reveal>
-        <Reveal as="p" delay={120} style={ledeStyle}>Every ambassador gets a batch of QR ducks with your name tied to every duck ID, so every scan in your zone counts toward you. You pick the spots. You make the drop. We hand out around 20 to 25 ducks to start and restock the ones that keep getting found first.</Reveal>
+        <Reveal as="p" delay={120} style={ledeStyle}>Every ambassador gets a batch of QR ducks with your name tied to every duck ID, so every scan in your zone counts toward you. You pick the spots. You make the drop. We hand out around 10 to 15 ducks to start and restock the ones that keep getting found first.</Reveal>
 
         <div style={cardsGridStyle}>
           {doSteps.map((s, i) => (
