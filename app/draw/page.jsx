@@ -11,20 +11,34 @@ const CREAM = "#FBF6EA";
 const HUB_LOGO = "/images/roundlogo.png";
 const WORDMARK = "/images/duckwichitalogo.png";
 
-const SEG_COLORS = [COBALT, ORANGE, GOLD, COBALT_DEEP];
-const textColorFor = (bg) => (bg === GOLD ? INK : "#FFFFFF");
-const FONT = '700 SZ px "Clash Display", system-ui, sans-serif';
+// Reel geometry. These are the only knobs you normally touch.
+const VISIBLE = 5;        // rows showing in the window
+const ROW_H = 58;         // height of one name row in px
+const CENTER = Math.floor(VISIBLE / 2);
+const WINDOW_H = VISIBLE * ROW_H;
+const REEL_LEN = 64;      // rows built per spin (independent of name count)
+
+// translateY that lands row `t` on the center payline
+const trackY = (t) => ROW_H * ((VISIBLE - 1) / 2 - t);
 
 function parseNames(raw) {
   return raw.split(/\r?\n/).map((s) => s.trim()).filter(Boolean);
 }
 
+function buildIdleReel(list) {
+  if (list.length === 0) return [];
+  const rows = [];
+  const need = Math.max(VISIBLE, list.length);
+  for (let i = 0; i < need; i++) rows.push(list[i % list.length]);
+  return rows;
+}
+
 const FAQS = [
-  { q: "Is the random name picker free?", a: "Yes. It is completely free, with no sign-up and no limits. Everything runs in your browser, and your list is never uploaded or saved anywhere." },
-  { q: "How does the wheel choose a winner?", a: "Every name becomes a slice of the wheel. When you spin, one slice is selected at random and revealed as the winner. The more slices a name has, the better its odds." },
-  { q: "Can I give one name more chances to win?", a: "Yes. Add a name more than once and it gets that many slices. Five entries means five slices and five times the odds, which keeps weighted drawings fair." },
-  { q: "Can I use it for giveaways, raffles, or classrooms?", a: "Absolutely. Paste any list of names, students, teams, or ticket numbers, then spin to pick a winner. It works great for giveaways, raffles, prize drawings, and classroom callouts." },
-  { q: "Is it actually random?", a: "Yes. Each spin uses your browser's built-in randomness to choose the winning slice, so every name on the wheel gets a fair shot." },
+  { q: "Is the random name picker free?", a: "Yes. It is completely free, with no sign up and no limits. Everything runs in your browser, and your list is never uploaded or saved anywhere." },
+  { q: "How does it choose a winner?", a: "Every entry is one ticket. When you pull, the reel spins through the names and stops on one ticket chosen at random. The more tickets a name has, the better its odds." },
+  { q: "Can I give one name more chances to win?", a: "Yes. Add a name more than once and it gets that many tickets. Five lines for one person is five tickets and five times the odds, which keeps weighted drawings fair." },
+  { q: "Can I use it for giveaways, raffles, or classrooms?", a: "Absolutely. Paste any list of names, students, teams, or ticket numbers, then pull to draw a winner. It works great for giveaways, raffles, prize drawings, and classroom callouts." },
+  { q: "Does it work with a big list?", a: "Yes. Unlike a wheel that turns into a blur once you load dozens of names, the reel scrolls readable names the whole time and lands on one winner, whether you have ten entries or a thousand." },
 ];
 
 export default function DrawPage() {
@@ -35,153 +49,39 @@ export default function DrawPage() {
   const [panelOpen, setPanelOpen] = useState(true);
   const [muted, setMuted] = useState(false);
   const [winners, setWinners] = useState([]);
+  const [reel, setReel] = useState([]);
+  const [runId, setRunId] = useState(0);
 
   const names = parseNames(raw);
 
-  const canvasRef = useRef(null);
-  const wrapRef = useRef(null);
+  const reelRef = useRef(null);
   const mainRef = useRef(null);
   const namesRef = useRef([]);
-  const rotationRef = useRef(0);
-  const sizeRef = useRef(440);
   const rafRef = useRef(0);
   const spinningRef = useRef(false);
   const mutedRef = useRef(false);
-  const logoRef = useRef(null);
   const audioRef = useRef(null);
-  const lastSegRef = useRef(-1);
+  const lastCenterRef = useRef(CENTER);
+  const targetRef = useRef(REEL_LEN - VISIBLE + CENTER);
+  const winnerRef = useRef(null);
 
   useEffect(() => { namesRef.current = parseNames(raw); }, [raw]);
   useEffect(() => { spinningRef.current = spinning; }, [spinning]);
   useEffect(() => { mutedRef.current = muted; }, [muted]);
 
-  const draw = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    const dpr = window.devicePixelRatio || 1;
-    const size = sizeRef.current;
-    if (canvas.width !== Math.round(size * dpr)) {
-      canvas.width = Math.round(size * dpr);
-      canvas.height = Math.round(size * dpr);
-      canvas.style.width = size + "px";
-      canvas.style.height = size + "px";
-    }
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.clearRect(0, 0, size, size);
-
-    const list = namesRef.current;
-    const n = Math.max(list.length, 1);
-    const seg = (2 * Math.PI) / n;
-    const cx = size / 2;
-    const cy = size / 2;
-    const r = size / 2 - 8;
-    const hubR = size * 0.13;
-    const rotation = rotationRef.current;
-
-    for (let i = 0; i < n; i++) {
-      const start = -Math.PI / 2 + i * seg + rotation;
-      const end = start + seg;
-      const fill = list.length ? SEG_COLORS[i % SEG_COLORS.length] : "#E5E7EF";
-      ctx.beginPath();
-      ctx.moveTo(cx, cy);
-      ctx.arc(cx, cy, r, start, end);
-      ctx.closePath();
-      ctx.fillStyle = fill;
-      ctx.fill();
-      ctx.strokeStyle = "rgba(255,255,255,.16)";
-      ctx.lineWidth = 1;
-      ctx.stroke();
-
-      if (list.length) {
-        const mid = start + seg / 2;
-        const fontSize = Math.min(24, Math.max(7, seg * r * 0.62));
-        if (fontSize >= 7) {
-          ctx.save();
-          ctx.translate(cx, cy);
-          ctx.rotate(mid);
-          ctx.textAlign = "right";
-          ctx.textBaseline = "middle";
-          ctx.fillStyle = textColorFor(fill);
-          ctx.font = FONT.replace("SZ", fontSize.toFixed(1));
-          const maxW = r - hubR - 22;
-          let label = list[i];
-          if (ctx.measureText(label).width > maxW) {
-            while (label.length > 1 && ctx.measureText(label + "…").width > maxW) {
-              label = label.slice(0, -1);
-            }
-            label += "…";
-          }
-          ctx.fillText(label, r - 14, 0);
-          ctx.restore();
-        }
+  // Idle state: load the entered names into the machine, reel parked on center.
+  useEffect(() => {
+    if (spinningRef.current) return;
+    setReel(buildIdleReel(parseNames(raw)));
+    requestAnimationFrame(() => {
+      const strip = reelRef.current;
+      if (strip && !spinningRef.current) {
+        strip.style.transform = `translateY(${trackY(CENTER)}px)`;
+        strip.style.filter = "blur(0px)";
       }
-    }
+    });
+  }, [raw]);
 
-    // gold rim
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, 2 * Math.PI);
-    ctx.lineWidth = 9;
-    ctx.strokeStyle = GOLD;
-    ctx.stroke();
-
-    // hub
-    ctx.beginPath();
-    ctx.arc(cx, cy, hubR, 0, 2 * Math.PI);
-    ctx.fillStyle = INK;
-    ctx.fill();
-    const logo = logoRef.current;
-    if (logo && logo.complete && logo.naturalWidth) {
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(cx, cy, hubR - 4, 0, 2 * Math.PI);
-      ctx.clip();
-      const d = (hubR - 4) * 2;
-      const scale = Math.max(d / logo.naturalWidth, d / logo.naturalHeight);
-      const dw = logo.naturalWidth * scale;
-      const dh = logo.naturalHeight * scale;
-      ctx.drawImage(logo, cx - dw / 2, cy - dh / 2, dw, dh);
-      ctx.restore();
-    } else {
-      ctx.font = `${hubR * 1.1}px serif`;
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText("🦆", cx, cy + size * 0.004);
-    }
-    ctx.beginPath();
-    ctx.arc(cx, cy, hubR, 0, 2 * Math.PI);
-    ctx.lineWidth = 5;
-    ctx.strokeStyle = GOLD;
-    ctx.stroke();
-  }, []);
-
-  const resize = useCallback(() => {
-    const wrap = wrapRef.current;
-    if (!wrap) return;
-    const w = wrap.clientWidth;
-    const size = Math.max(280, Math.min(w, window.innerHeight * 0.66, 620));
-    sizeRef.current = size;
-    draw();
-  }, [draw]);
-
-  useEffect(() => {
-    const img = new Image();
-    img.onload = () => { logoRef.current = img; draw(); };
-    img.onerror = () => { logoRef.current = null; };
-    img.src = HUB_LOGO;
-  }, [draw]);
-
-  useEffect(() => {
-    resize();
-    window.addEventListener("resize", resize);
-    document.addEventListener("fullscreenchange", resize);
-    return () => {
-      window.removeEventListener("resize", resize);
-      document.removeEventListener("fullscreenchange", resize);
-    };
-  }, [resize]);
-
-  useEffect(() => { draw(); }, [raw, clean, panelOpen, winner, draw]);
   useEffect(() => () => cancelAnimationFrame(rafRef.current), []);
 
   // audio
@@ -204,12 +104,12 @@ export default function DrawPage() {
     o.type = "square";
     o.frequency.value = 1100;
     const t = ac.currentTime;
-    g.gain.setValueAtTime(0.05, t);
-    g.gain.exponentialRampToValueAtTime(0.0008, t + 0.045);
+    g.gain.setValueAtTime(0.045, t);
+    g.gain.exponentialRampToValueAtTime(0.0008, t + 0.04);
     o.connect(g);
     g.connect(ac.destination);
     o.start(t);
-    o.stop(t + 0.05);
+    o.stop(t + 0.045);
   }, []);
 
   const playFanfare = useCallback(() => {
@@ -239,45 +139,66 @@ export default function DrawPage() {
     ensureAudio();
     setWinner(null);
     setSpinning(true);
-    const n = list.length;
-    const seg = (2 * Math.PI) / n;
-    const winnerIndex = Math.floor(Math.random() * n);
-    const turns = 6 + Math.floor(Math.random() * 4);
-    const current = rotationRef.current;
-    const targetMod = ((-(winnerIndex * seg + seg / 2)) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
-    const currentMod = ((current % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
-    let delta = targetMod - currentMod;
-    if (delta < 0) delta += 2 * Math.PI;
-    const target = current + turns * 2 * Math.PI + delta;
-    const startRot = current;
-    const dur = 5200 + Math.random() * 900;
+
+    const winnerIndex = Math.floor(Math.random() * list.length);
+    const winnerName = list[winnerIndex];
+
+    const rows = [];
+    for (let i = 0; i < REEL_LEN; i++) rows.push(list[Math.floor(Math.random() * list.length)]);
+    const target = REEL_LEN - VISIBLE + CENTER;
+    rows[target] = winnerName;
+
+    targetRef.current = target;
+    winnerRef.current = winnerName;
+    setReel(rows);
+    setRunId((id) => id + 1);
+  }, [ensureAudio]);
+
+  // Run the reel animation after the new rows are committed to the DOM.
+  useEffect(() => {
+    if (runId === 0) return;
+    const strip = reelRef.current;
+    if (!strip) return;
+
+    const target = targetRef.current;
+    const startT = trackY(CENTER);
+    const endT = trackY(target);
+    const dur = 4400 + Math.random() * 900;
     const t0 = performance.now();
-    const easeOut = (t) => 1 - Math.pow(1 - t, 3);
-    lastSegRef.current = -1;
+    const ease = (t) => 1 - Math.pow(1 - t, 3);
+    let prevY = startT;
+    lastCenterRef.current = CENTER;
+
+    strip.style.transform = `translateY(${startT}px)`;
+    strip.style.filter = "blur(0px)";
+
     const frame = (now) => {
-      const t = Math.min((now - t0) / dur, 1);
-      const rot = startRot + (target - startRot) * easeOut(t);
-      rotationRef.current = rot;
-      const curSeg = ((Math.floor(-rot / seg) % n) + n) % n;
-      if (curSeg !== lastSegRef.current) {
-        lastSegRef.current = curSeg;
+      const p = Math.min((now - t0) / dur, 1);
+      const y = startT + (endT - startT) * ease(p);
+      strip.style.transform = `translateY(${y}px)`;
+      const dy = Math.abs(y - prevY);
+      prevY = y;
+      strip.style.filter = `blur(${Math.min(7, dy * 0.05).toFixed(2)}px)`;
+      const c = Math.round((VISIBLE - 1) / 2 - y / ROW_H);
+      if (c !== lastCenterRef.current) {
+        lastCenterRef.current = c;
         playTick();
       }
-      draw();
-      if (t < 1) {
+      if (p < 1) {
         rafRef.current = requestAnimationFrame(frame);
       } else {
-        rotationRef.current = target;
-        draw();
+        strip.style.transform = `translateY(${endT}px)`;
+        strip.style.filter = "blur(0px)";
         setSpinning(false);
-        const w = list[winnerIndex];
+        const w = winnerRef.current;
         setWinner(w);
         setWinners((prev) => [...prev, w]);
         playFanfare();
       }
     };
     rafRef.current = requestAnimationFrame(frame);
-  }, [draw, ensureAudio, playTick, playFanfare]);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [runId, playTick, playFanfare]);
 
   useEffect(() => {
     const onKey = (e) => {
@@ -328,18 +249,29 @@ export default function DrawPage() {
   const logoImgStyle = { display: "block", width: "100%", maxWidth: "340px", height: "auto" };
   const liveStyle = { fontFamily: "var(--disp)", fontWeight: 700, textTransform: "uppercase", fontSize: "clamp(2.6rem, 8vw, 4.6rem)", lineHeight: 1, letterSpacing: ".015em", margin: "18px 0 0", background: `linear-gradient(180deg, #FFE9A8 0%, ${GOLD} 55%, #C8962A 100%)`, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", WebkitTextFillColor: "transparent", animation: "live-glow 2.6s ease-in-out infinite" };
   const subStyle = { color: "rgba(255,255,255,.62)", fontFamily: "var(--disp)", fontWeight: 600, fontSize: "1rem", letterSpacing: ".04em", margin: "14px 0 0" };
-  const stageStyle = { width: "100%", maxWidth: "660px", display: "flex", flexDirection: "column", alignItems: "center", marginTop: "26px" };
-  const wheelWrapStyle = { position: "relative", width: "100%", display: "flex", justifyContent: "center", cursor: names.length && !spinning ? "pointer" : "default" };
-  const pointerStyle = { position: "absolute", top: "-4px", left: "50%", transform: "translateX(-50%)", zIndex: 3, pointerEvents: "none" };
-  const pointerTriStyle = { width: 0, height: 0, borderLeft: "18px solid transparent", borderRight: "18px solid transparent", borderTop: `28px solid ${GOLD}`, filter: "drop-shadow(0 3px 4px rgba(0,0,0,.45))" };
+
+  const stageStyle = { width: "100%", maxWidth: "540px", display: "flex", flexDirection: "column", alignItems: "center", marginTop: "30px" };
+  const cabinetStyle = { width: "100%", position: "relative", background: `linear-gradient(180deg, ${COBALT} 0%, ${COBALT_DEEP} 100%)`, border: `6px solid ${GOLD}`, borderRadius: "30px", padding: "24px 22px 26px", boxShadow: "0 30px 80px rgba(0,0,0,.5), inset 0 2px 0 rgba(255,255,255,.18)" };
+  const medallionStyle = { width: "82px", height: "82px", borderRadius: "999px", background: INK, border: `4px solid ${GOLD}`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px", overflow: "hidden", boxShadow: "0 0 0 4px rgba(11,30,138,.6), 0 10px 26px rgba(0,0,0,.45)" };
+  const bezelStyle = { position: "relative", borderRadius: "18px", padding: "7px", background: `linear-gradient(180deg, #FFE08A 0%, ${GOLD} 45%, #B8841F 100%)`, boxShadow: "inset 0 2px 6px rgba(0,0,0,.35)" };
+  const windowStyle = { position: "relative", height: `${WINDOW_H}px`, borderRadius: "12px", overflow: "hidden", background: `linear-gradient(180deg, #11142C 0%, ${INK} 100%)`, WebkitMaskImage: "linear-gradient(180deg, transparent 0%, #000 16%, #000 84%, transparent 100%)", maskImage: "linear-gradient(180deg, transparent 0%, #000 16%, #000 84%, transparent 100%)" };
+  const stripStyle = { position: "absolute", top: 0, left: 0, width: "100%", willChange: "transform, filter" };
+  const rowStyle = { height: `${ROW_H}px`, display: "flex", alignItems: "center", justifyContent: "center", padding: "0 26px" };
+  const rowTextStyle = { maxWidth: "100%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", fontFamily: "var(--disp)", fontWeight: 700, fontSize: "clamp(1.15rem, 4.6vw, 1.55rem)", letterSpacing: ".01em", color: CREAM, lineHeight: 1 };
+  const paylineStyle = { position: "absolute", left: 0, right: 0, top: "50%", height: `${ROW_H}px`, transform: "translateY(-50%)", borderTop: `2px solid ${GOLD}`, borderBottom: `2px solid ${GOLD}`, background: "linear-gradient(180deg, rgba(231,181,60,.20) 0%, rgba(231,181,60,.04) 100%)", boxShadow: "inset 0 0 34px rgba(231,181,60,.35)", pointerEvents: "none", zIndex: 2 };
+  const triBase = { position: "absolute", top: "50%", transform: "translateY(-50%)", width: 0, height: 0, zIndex: 3, filter: "drop-shadow(0 2px 3px rgba(0,0,0,.4))" };
+  const triLeftStyle = { ...triBase, left: "-3px", borderTop: "12px solid transparent", borderBottom: "12px solid transparent", borderLeft: `16px solid ${GOLD}` };
+  const triRightStyle = { ...triBase, right: "-3px", borderTop: "12px solid transparent", borderBottom: "12px solid transparent", borderRight: `16px solid ${GOLD}` };
+  const placeholderStyle = { position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "0 30px", color: "rgba(255,255,255,.62)", fontFamily: "var(--disp)", fontWeight: 600, zIndex: 1, pointerEvents: "none" };
+
   const countStyle = { marginTop: "22px", color: "rgba(255,255,255,.65)", fontFamily: "var(--disp)", fontWeight: 600, fontSize: ".95rem", letterSpacing: ".04em" };
-  const spinBtnStyle = { marginTop: "16px", padding: "20px 64px", borderRadius: "999px", border: "3px solid #fff", background: names.length && !spinning ? `linear-gradient(135deg, #FFD75E 0%, ${GOLD} 55%, #D9A030 100%)` : "rgba(255,255,255,.12)", color: names.length && !spinning ? INK : "rgba(255,255,255,.45)", fontFamily: "var(--disp)", fontWeight: 800, fontSize: "1.7rem", letterSpacing: ".04em", cursor: names.length && !spinning ? "pointer" : "not-allowed", boxShadow: names.length && !spinning ? "0 16px 50px rgba(231,181,60,.5)" : "none", animation: names.length && !spinning ? "spinpulse 2.2s ease-in-out infinite" : "none" };
+  const spinBtnStyle = { marginTop: "16px", padding: "20px 64px", borderRadius: "999px", border: "3px solid #fff", background: names.length && !spinning ? `linear-gradient(135deg, #FFD75E 0%, ${GOLD} 55%, #D9A030 100%)` : "rgba(255,255,255,.12)", color: names.length && !spinning ? INK : "rgba(255,255,255,.45)", fontFamily: "var(--disp)", fontWeight: 800, fontSize: "1.7rem", letterSpacing: ".06em", cursor: names.length && !spinning ? "pointer" : "not-allowed", boxShadow: names.length && !spinning ? "0 16px 50px rgba(231,181,60,.5)" : "none", animation: names.length && !spinning ? "spinpulse 2.2s ease-in-out infinite" : "none" };
   const utilRowStyle = { display: "flex", gap: "12px", marginTop: "20px", flexWrap: "wrap", justifyContent: "center" };
   const utilBtnStyle = { padding: "11px 20px", borderRadius: "999px", border: "1.5px solid rgba(255,255,255,.25)", background: "rgba(255,255,255,.06)", color: "#fff", fontFamily: "var(--disp)", fontWeight: 600, fontSize: ".9rem", cursor: "pointer" };
-  const winnersWrapStyle = { width: "100%", maxWidth: "660px", marginTop: "26px", background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.12)", borderRadius: "16px", padding: "16px 18px" };
+  const winnersWrapStyle = { width: "100%", maxWidth: "540px", marginTop: "26px", background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.12)", borderRadius: "16px", padding: "16px 18px" };
   const winnersHeadStyle = { display: "flex", justifyContent: "space-between", alignItems: "center", fontFamily: "var(--disp)", fontWeight: 700, fontSize: ".95rem", marginBottom: "10px" };
   const chipStyle = { display: "inline-block", background: "rgba(231,181,60,.16)", border: `1px solid rgba(231,181,60,.45)`, color: GOLD, borderRadius: "999px", padding: "5px 12px", margin: "0 8px 8px 0", fontSize: ".88rem", fontWeight: 600 };
-  const panelStyle = { width: "100%", maxWidth: "660px", marginTop: "28px", background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.12)", borderRadius: "20px", padding: "22px" };
+  const panelStyle = { width: "100%", maxWidth: "540px", marginTop: "28px", background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.12)", borderRadius: "20px", padding: "22px" };
   const panelLabelStyle = { fontFamily: "var(--disp)", fontWeight: 700, fontSize: ".95rem", marginBottom: "4px" };
   const panelHintStyle = { color: "rgba(255,255,255,.6)", fontSize: ".85rem", lineHeight: 1.5, margin: "0 0 14px" };
   const textareaStyle = { width: "100%", minHeight: "150px", resize: "vertical", padding: "14px 16px", borderRadius: "12px", border: "1px solid rgba(255,255,255,.18)", background: "rgba(0,0,0,.25)", color: "#fff", fontFamily: "var(--body), monospace", fontSize: "1rem", lineHeight: 1.5, outline: "none", boxSizing: "border-box" };
@@ -406,23 +338,40 @@ export default function DrawPage() {
           <img src={WORDMARK} alt="DuckWichita" style={logoImgStyle} />
         </div>
         <h1 style={liveStyle} data-live>Live Drawing</h1>
-        {!clean && <p style={subStyle}>Paste names · spin the wheel · pick a winner</p>}
+        {!clean && <p style={subStyle}>Paste names · pull the lever · draw a winner</p>}
       </div>
 
       <div style={stageStyle}>
-        <div ref={wrapRef} style={wheelWrapStyle} onClick={spin}>
-          <div style={pointerStyle}><div style={pointerTriStyle} /></div>
-          <canvas ref={canvasRef} />
-          {names.length === 0 && (
-            <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", textAlign: "center", color: "rgba(255,255,255,.7)", fontFamily: "var(--disp)", fontWeight: 600, maxWidth: "60%", pointerEvents: "none" }}>
-              Paste your names below to build the wheel.
+        <div style={cabinetStyle}>
+          <div style={medallionStyle}>
+            <img
+              src={HUB_LOGO}
+              alt="DuckWichita"
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              onError={(e) => { e.currentTarget.style.display = "none"; e.currentTarget.parentElement.innerHTML = '<span style="font-size:42px">🦆</span>'; }}
+            />
+          </div>
+
+          <div style={bezelStyle}>
+            <div style={windowStyle}>
+              <div ref={reelRef} style={stripStyle}>
+                {reel.map((nm, i) => (
+                  <div key={i} style={rowStyle}>
+                    <span style={rowTextStyle}>{nm}</span>
+                  </div>
+                ))}
+              </div>
+              {names.length === 0 && <div style={placeholderStyle}>Paste names below to load the machine.</div>}
+              <div style={paylineStyle} />
             </div>
-          )}
+            <div style={triLeftStyle} />
+            <div style={triRightStyle} />
+          </div>
         </div>
 
-        <div style={countStyle}>{names.length > 0 ? `${names.length} names on the wheel` : "No names loaded yet"}</div>
+        <div style={countStyle}>{names.length > 0 ? `${names.length} ${names.length === 1 ? "name" : "names"} loaded` : "No names loaded yet"}</div>
 
-        <button style={spinBtnStyle} onClick={spin} disabled={!names.length || spinning}>{spinning ? "Spinning…" : "SPIN"}</button>
+        <button style={spinBtnStyle} onClick={spin} disabled={!names.length || spinning}>{spinning ? "Drawing…" : "SPIN"}</button>
 
         {!clean && (
           <div style={utilRowStyle}>
@@ -449,21 +398,24 @@ export default function DrawPage() {
       {!clean && panelOpen && (
         <div style={panelStyle}>
           <div style={panelLabelStyle}>Your names</div>
-          <p style={panelHintStyle}>Paste one name per line. Want to weight the odds? Add a name more than once — five lines for one person is five times the chances.</p>
+          <p style={panelHintStyle}>Paste one name per line. Want to weight the odds? Add a name more than once. Five lines for one person is five tickets and five times the chances.</p>
           <textarea style={textareaStyle} value={raw} onChange={(e) => setRaw(e.target.value)} placeholder={"Garrett\nHannah\nLogan\nMaria\n..."} spellCheck={false} />
         </div>
       )}
 
       {!clean && (
         <section style={seoStyle}>
-          <h2 style={seoH2}>Free random name picker wheel</h2>
-          <p>This is a free random name picker wheel — paste a list of names, spin the wheel, and it picks a winner at random. There is no sign-up and nothing to install. Your list stays in your browser and is never uploaded, so it is a private, fair way to run a drawing. Use it as a quick wheel of names alternative whenever you need to choose a winner without playing favorites.</p>
+          <h2 style={seoH2}>Free random name picker</h2>
+          <p>This is a free random name picker built like a slot machine. Paste a list of names, pull the lever, and the reel scrolls through your entries and lands on one winner at random. There is no sign up and nothing to install. Your list stays in your browser and is never uploaded, so it is a private, fair way to run a drawing. Use it whenever you need to choose a winner without playing favorites.</p>
 
           <h2 style={seoH2}>How to use it</h2>
-          <p>Paste your names into the box above, one per line. The wheel builds itself, with each name getting its own slice. Press SPIN (or tap the wheel) and watch it slow to a stop on a random winner. To run a multi-prize drawing, choose Remove winner after each spin so the same person is not drawn twice.</p>
+          <p>Paste your names into the box above, one per line. Each name becomes a ticket in the machine. Press SPIN, or tap the space bar, and watch the reel slow to a stop on a random winner. To run a drawing with several prizes, choose Remove winner after each pull so the same person is not drawn twice.</p>
+
+          <h2 style={seoH2}>Why a reel instead of a wheel</h2>
+          <p>A spinning wheel looks great with a handful of names, but once you load dozens the slices get so thin the labels turn into an unreadable blur. The reel does not have that problem. Names stay full size and readable while it spins, whether you load ten people or a thousand, so a big community drawing looks just as clean as a small one.</p>
 
           <h2 style={seoH2}>Popular uses</h2>
-          <p>People use the wheel to draw giveaway and raffle winners, pick a prize-drawing winner for a contest, call on students in a classroom, choose who goes first in a game, pick the next person in a team standup, and run Secret Santa or door-prize draws at events.</p>
+          <p>People use it to draw giveaway and raffle winners, pick a prize drawing winner for a contest, call on students in a classroom, choose who goes first in a game, pick the next person in a team standup, and run Secret Santa or door prize draws at events.</p>
 
           <h2 style={seoH2}>Common questions</h2>
           {FAQS.map((f, i) => (
