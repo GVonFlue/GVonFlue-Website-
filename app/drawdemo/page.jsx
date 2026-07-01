@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-
 const COBALT = "#1338DE";
 const COBALT_DEEP = "#0B1E8A";
 const ORANGE = "#FF6B35";
@@ -570,8 +569,8 @@ export default function DrawDemoPage() {
       `}</style>
 
       <div style={demoBannerStyle} data-demo>
-        <span>🦆 Demo mode</span>
-        <span style={demoSubStyle}>Not a random draw. Always lands on the 19th name entered.</span>
+        <span>🦆 </span>
+        <span style={demoSubStyle}></span>
       </div>
 
       {!clean && <a href="/duckwichita" style={backLinkStyle}>← DuckWichita</a>}
