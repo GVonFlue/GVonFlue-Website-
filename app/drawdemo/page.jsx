@@ -612,7 +612,7 @@ export default function DrawDemoPage() {
                 onError={(e) => { e.currentTarget.style.display = "none"; e.currentTarget.parentElement.innerHTML = '<span style="font-size:34px">🦆</span>'; }}
               />
             </div>
-            <span style={marqueeTextStyle}>Live Drawing!w</span>
+            <span style={marqueeTextStyle}>Live Drawing!</span>
           </div>
 
           <div style={reelsRowWrap}>
