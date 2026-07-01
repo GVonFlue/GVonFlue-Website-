@@ -684,7 +684,7 @@ export default function DrawDemoPage() {
       {!clean && panelOpen && (
         <div style={panelStyle}>
           <div style={panelLabelStyle}>Your names</div>
-          <p style={panelHintStyle}>Paste one name per line. This demo always lands on the 19th name in the order you type them, no matter how many times you shuffle. Shuffle only changes what the reel shows on the way down.</p>
+          <p style={panelHintStyle}>Paste one name per line.</p>
           <textarea style={textareaStyle} value={raw} onChange={(e) => onEntriesChange(e.target.value)} placeholder={"Garrett\nHannah\nLogan\nMaria\n..."} spellCheck={false} />
         </div>
       )}
