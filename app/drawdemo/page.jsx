@@ -590,7 +590,7 @@ export default function DrawDemoPage() {
           <img src={WORDMARK} alt="DuckWichita" style={logoImgStyle} />
         </div>
         <h1 style={liveStyle} data-live>Live Drawing</h1>
-        {!clean && <p style={subStyle}>Demo machine · always lands on the 19th name you entered</p>}
+        {!clean && <p style={subStyle}></p>}
       </div>
 
       <div style={stageStyle}>
@@ -612,7 +612,7 @@ export default function DrawDemoPage() {
                 onError={(e) => { e.currentTarget.style.display = "none"; e.currentTarget.parentElement.innerHTML = '<span style="font-size:34px">🦆</span>'; }}
               />
             </div>
-            <span style={marqueeTextStyle}>Demo Draw</span>
+            <span style={marqueeTextStyle}>Live Drawing!w</span>
           </div>
 
           <div style={reelsRowWrap}>
@@ -690,7 +690,7 @@ export default function DrawDemoPage() {
       )}
 
       <footer style={footStyle}>
-        Demo page · Made by <a href="/duckwichita" style={{ color: GOLD, textDecoration: "none", borderBottom: `1px solid rgba(231,181,60,.5)` }}>DuckWichita</a> · Wichita, KS
+         · Made by <a href="/duckwichita" style={{ color: GOLD, textDecoration: "none", borderBottom: `1px solid rgba(231,181,60,.5)` }}>DuckWichita</a> · Wichita, KS
       </footer>
 
       {flash && <div style={{ position: "fixed", inset: 0, zIndex: 33, background: "#fff", pointerEvents: "none", animation: "win-flash .48s ease-out forwards" }} aria-hidden="true" />}
