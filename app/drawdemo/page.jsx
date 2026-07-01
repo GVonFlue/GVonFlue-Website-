@@ -682,7 +682,7 @@ export default function DrawDemoPage() {
         <div style={panelStyle}>
           <div style={panelLabelStyle}>Your names</div>
           <p style={panelHintStyle}>Paste one name per line.</p>
-          <textarea style={textareaStyle} value={raw} onChange={(e) => onEntriesChange(e.target.value)} placeholder={"Garrett\nHannah\nLogan\nMaria\n..."} spellCheck={false} />
+          <textarea style={textareaStyle} value={raw} onChange={(e) => onEntriesChange(e.target.value)} placeholder={""} spellCheck={false} />
         </div>
       )}
 
