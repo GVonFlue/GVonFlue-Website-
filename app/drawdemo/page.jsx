@@ -654,9 +654,6 @@ export default function DrawDemoPage() {
           <Bulbs count={13} />
         </div>
 
-        <div style={countStyle}>{names.length > 0 ? `${names.length} ${names.length === 1 ? "name" : "names"} loaded` : "No names loaded yet"}</div>
-        {demoTargetName && <div style={targetStyle}>Demo will land on: {demoTargetName}</div>}
-
         <button style={spinBtnStyle} onClick={spin} disabled={!names.length || spinning}>{spinning ? "Drawing…" : "SPIN"}</button>
 
         {!clean && (
