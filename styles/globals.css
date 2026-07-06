@@ -318,7 +318,7 @@ html{overflow-x:clip}
   .nav-mobile a{font-weight:600;font-size:1.05rem}
   .hero-grid,.about-grid,.lead-grid,.footer-inner{grid-template-columns:1fr}
   .hero{padding-top:130px}
-  .hero-card{max-width:360px;margin:10px auto 0}
+  .hero-card{width:100%;max-width:360px;margin:10px auto 0}
   .hero-photo{transform:none!important;will-change:auto}
   .hero-badge{left:0}
   .values-grid,.social-grid{grid-template-columns:repeat(2,1fr)}
