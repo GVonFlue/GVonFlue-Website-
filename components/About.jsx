@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import Reveal from "./Reveal";
@@ -9,41 +9,56 @@ import { useScrollProgress, mapRange } from "./useScroll";
 export default function About() {
   const sectionRef = useRef(null);
   const p = useScrollProgress(sectionRef);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Animation lands by p=0.4, then holds in place until p=1.0 releases the pin.
-  const photoStyle = {
-    transform: `translateX(${mapRange(p, 0.05, 0.4, -400, 0)}px) rotate(${mapRange(p, 0.05, 0.4, -60, 0)}deg)`,
-    opacity: mapRange(p, 0.05, 0.35, 0, 1),
-    transition: "transform 80ms linear, opacity 80ms linear",
-    willChange: "transform, opacity",
-    transformOrigin: "center center",
-  };
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 900px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
-  const copyStyle = {
-    transform: `translateX(${mapRange(p, 0.05, 0.4, 400, 0)}px) rotate(${mapRange(p, 0.05, 0.4, 60, 0)}deg)`,
-    opacity: mapRange(p, 0.05, 0.35, 0, 1),
-    transition: "transform 80ms linear, opacity 80ms linear",
-    willChange: "transform, opacity",
-    transformOrigin: "center center",
-  };
+  // Desktop: pinned swing-in animation lands by p=0.4.
+  // Mobile: no pin, no transform — static stacked section.
+  const photoStyle = isMobile
+    ? { opacity: 1 }
+    : {
+        transform: `translateX(${mapRange(p, 0.05, 0.4, -400, 0)}px) rotate(${mapRange(p, 0.05, 0.4, -60, 0)}deg)`,
+        opacity: mapRange(p, 0.05, 0.35, 0, 1),
+        transition: "transform 80ms linear, opacity 80ms linear",
+        willChange: "transform, opacity",
+        transformOrigin: "center center",
+      };
+
+  const copyStyle = isMobile
+    ? { opacity: 1 }
+    : {
+        transform: `translateX(${mapRange(p, 0.05, 0.4, 400, 0)}px) rotate(${mapRange(p, 0.05, 0.4, 60, 0)}deg)`,
+        opacity: mapRange(p, 0.05, 0.35, 0, 1),
+        transition: "transform 80ms linear, opacity 80ms linear",
+        willChange: "transform, opacity",
+        transformOrigin: "center center",
+      };
+
+  const outerStyle = isMobile
+    ? { position: "relative" }
+    : { position: "relative", height: "220vh" };
+
+  const innerStyle = isMobile
+    ? { position: "relative" }
+    : {
+        position: "sticky",
+        top: 0,
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
+        overflow: "hidden",
+      };
 
   return (
-    <section
-      id="about"
-      ref={sectionRef}
-      style={{ position: "relative", height: "220vh" }}
-    >
-      <div
-        className="about"
-        style={{
-          position: "sticky",
-          top: 0,
-          height: "100vh",
-          display: "flex",
-          alignItems: "center",
-          overflow: "hidden",
-        }}
-      >
+    <section id="about" ref={sectionRef} style={outerStyle}>
+      <div className="about" style={innerStyle}>
         <div className="section-wrap about-grid" style={{ width: "100%" }}>
           <div className="about-photo" style={photoStyle}>
             <div className="about-photo-inner">
