@@ -79,7 +79,7 @@ export default function Hero() {
           </Reveal>
         </div>
 
-        <Reveal delay={200} className="hero-card" style={{ position: "relative", zIndex: 10 }}>
+        <div className="hero-card" style={{ position: "relative", zIndex: 10 }}>
           <div
             className="hero-photo"
             style={{ ...cardStyle, position: "relative", zIndex: 10, pointerEvents: "auto" }}
@@ -162,7 +162,7 @@ export default function Hero() {
               </button>
             )}
           </div>
-        </Reveal>
+        </div>
       </div>
 
       <div className="hero-marquee">
