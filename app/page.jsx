@@ -9,8 +9,6 @@ import Values from "@/components/Values";
 import ProyTech from "@/components/ProyTech";
 import LeadMagnet from "@/components/LeadMagnet";
 import DuckWichita from "@/components/DuckWichita";
-import Social from "@/components/Social";
-import Local from "@/components/Local";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
 
@@ -28,8 +26,6 @@ export default function HomePage() {
       <ProyTech />
       <LeadMagnet />
       <DuckWichita />
-      <Social />
-      <Local />
       <FinalCTA />
       <Footer />
     </>
