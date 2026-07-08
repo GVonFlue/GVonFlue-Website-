@@ -29,13 +29,13 @@ const VIDEOS = [
   },
   {
     id: "rwDRhN8aU-E",
-    brand: "The Commerce Club",
-    blurb: "Turning a night out into content people actually finished watching.",
+    brand: "Eyewear Junkie",
+    blurb: "Scroll stopping power. the "what is going on?!" factor",
   },
   {
     id: "YT_ID_THREE",
     brand: "The Commerce Club",
-    blurb: "Same room, different story. Proof one brand can go a lot of directions.",
+    blurb: "showcasing ammenities.",
   },
 ];
 
