@@ -30,7 +30,7 @@ const VIDEOS = [
   {
     id: "rwDRhN8aU-E",
     brand: "Eyewear Junkie",
-    blurb: "Scroll stopping power. the "what is going on?!" factor",
+    blurb: "Scroll stopping power. the what is going on?! factor",
   },
   {
     id: "YT_ID_THREE",
