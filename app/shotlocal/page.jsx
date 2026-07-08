@@ -41,7 +41,7 @@ const VIDEOS = [
 
 const INCLUDED = [
   "One scroll stopping vertical video, ready for Reels, TikTok, and Shorts",
-  "Cleared for your social and your website",
+  "Perfect for your social and your website",
   "One round of revisions, dialed in until it feels right",
   "Delivered in 5 to 7 days",
   "The raw clips are yours to keep",
@@ -80,7 +80,7 @@ const TIERS = [
       "4 new videos every month",
       "My best per video rate",
       "First look at new formats",
-      "A quick game plan call each quarter",
+      "A quick game plan call each month",
     ],
     featured: false,
   },
