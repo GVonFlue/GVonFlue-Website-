@@ -113,12 +113,7 @@ export default function ShotLocalPage() {
               front of a Wichita audience that already trusts <span className="hl">me.</span>
             </p>
             <div className="hero-ctas">
-              
-                href="https://calendly.com/gvonflue-all0/30min"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-gold btn-lg"
-              >
+              <a href="https://calendly.com/gvonflue-all0/30min" target="_blank" rel="noopener noreferrer" className="btn btn-gold btn-lg">
                 Book a 30 minute call <ArrowUpRight size={20} />
               </a>
               <a href="#work" className="btn btn-ghost btn-lg">
@@ -135,13 +130,7 @@ export default function ShotLocalPage() {
 
           <div className="hero-card">
             <div className="sl-hero-video">
-              <iframe
-                src={`https://www.youtube.com/embed/${VIDEOS[0].id}`}
-                title={`${VIDEOS[0].brand} · Shot Local`}
-                loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
+              <iframe src={`https://www.youtube.com/embed/${VIDEOS[0].id}`} title={`${VIDEOS[0].brand} · Shot Local`} loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
             </div>
           </div>
         </div>
@@ -202,13 +191,7 @@ export default function ShotLocalPage() {
             {VIDEOS.map((v, i) => (
               <article className="sl-reel" key={i}>
                 <div className="sl-phone">
-                  <iframe
-                    src={`https://www.youtube.com/embed/${v.id}`}
-                    title={v.brand}
-                    loading="lazy"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
+                  <iframe src={`https://www.youtube.com/embed/${v.id}`} title={v.brand} loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
                 </div>
                 <h3 className="sl-reelBrand">{v.brand}</h3>
                 <p className="sl-reelBlurb">{v.blurb}</p>
@@ -268,14 +251,7 @@ export default function ShotLocalPage() {
                       </li>
                     ))}
                   </ul>
-                  
-                    className={btnClass}
-                    href="https://calendly.com/gvonflue-all0/30min"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Let's talk
-                  </a>
+                  <a className={btnClass} href="https://calendly.com/gvonflue-all0/30min" target="_blank" rel="noopener noreferrer">Let's talk</a>
                 </div>
               );
             })}
@@ -292,12 +268,7 @@ export default function ShotLocalPage() {
             Grab a time, tell me about your brand, and let's make something people
             actually want to watch.
           </p>
-          
-            href="https://calendly.com/gvonflue-all0/30min"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-gold btn-lg"
-          >
+          <a href="https://calendly.com/gvonflue-all0/30min" target="_blank" rel="noopener noreferrer" className="btn btn-gold btn-lg">
             Book a 30 minute call <ArrowUpRight size={20} />
           </a>
           <p className="sl-signoff">No suit · No jargon · Just keys</p>
