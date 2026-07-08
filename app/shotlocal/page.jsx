@@ -1,7 +1,7 @@
 "use client";
 
-// app/work/page.jsx
-// Public page, not linked in the main nav. Reach it at gvonflue.vercel.app/work
+// app/shotlocal/page.jsx
+// Public page, not linked in the main nav. Reach it at gvonflue.vercel.app/shotlocal
 //
 // SWAP CHECKLIST before you go live:
 //   1. Video IDs  -> replace the three YT_ID_x values below with your real YouTube IDs
@@ -74,7 +74,7 @@ const TIERS = [
   },
 ];
 
-export default function WorkPage() {
+export default function ShotLocalPage() {
   return (
     <main className="work">
       {/* HERO / ABOUT
@@ -84,6 +84,7 @@ export default function WorkPage() {
         <div className="glow" aria-hidden="true" />
         <div className="wrap heroGrid">
           <div className="heroText">
+            <div className="wordmark">Shot Local</div>
             <p className="eyebrow">No suit · No jargon · Just keys</p>
             <h1>Hey, I'm Garrett.</h1>
             <p className="lead">
@@ -176,30 +177,27 @@ export default function WorkPage() {
             Built for locally owned Wichita area brands. Bigger scope? Let's talk.
           </p>
           <div className="tierGrid">
-            {TIERS.map((t, i) => (
-              <div className={`tier${t.featured ? " tierFeatured" : ""}`} key={i}>
-                {t.badge && <span className="badge">{t.badge}</span>}
-                <h3 className="tierName">{t.name}</h3>
-                <div className="tierPrice">
-                  <span className="amount">{t.price}</span>
-                  <span className="per">{t.unit}</span>
+            {TIERS.map((t, i) => {
+              const cardClass = t.featured ? "tier tierFeatured" : "tier";
+              const btnClass = t.featured ? "btn btnOrange tierBtn" : "btn btnPrimary tierBtn";
+              return (
+                <div className={cardClass} key={i}>
+                  {t.badge && <span className="badge">{t.badge}</span>}
+                  <h3 className="tierName">{t.name}</h3>
+                  <div className="tierPrice">
+                    <span className="amount">{t.price}</span>
+                    <span className="per">{t.unit}</span>
+                  </div>
+                  <p className="tierPitch">{t.pitch}</p>
+                  <ul className="tierPoints">
+                    {t.points.map((p, j) => (
+                      <li key={j}><span className="dot" aria-hidden="true">·</span>{p}</li>
+                    ))}
+                  </ul>
+                  <a className={btnClass} href="https://calendly.com/gvonflue-all0/30min" target="_blank" rel="noopener noreferrer">Let's talk</a>
                 </div>
-                <p className="tierPitch">{t.pitch}</p>
-                <ul className="tierPoints">
-                  {t.points.map((p, j) => (
-                    <li key={j}><span className="dot" aria-hidden="true">·</span>{p}</li>
-                  ))}
-                </ul>
-                
-                  className={`btn ${t.featured ? "btnOrange" : "btnPrimary"} tierBtn`}
-                  href="https://calendly.com/gvonflue-all0/30min"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Let's talk
-                </a>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -256,6 +254,26 @@ export default function WorkPage() {
           margin: 0 0 14px;
         }
         .eyebrow.dark { color: var(--cobalt); }
+
+        .wordmark {
+          display: flex;
+          align-items: center;
+          gap: 11px;
+          font-family: var(--disp);
+          font-weight: 700;
+          font-size: 1.12rem;
+          letter-spacing: 0.02em;
+          color: var(--cream);
+          margin: 0 0 34px;
+        }
+        .wordmark::before {
+          content: "";
+          width: 12px;
+          height: 12px;
+          border-radius: 3px;
+          background: var(--orange);
+          box-shadow: 0 0 14px rgba(255,107,53,0.75);
+        }
 
         /* HERO */
         .hero {
