@@ -45,7 +45,7 @@ const INCLUDED = [
   "One round of revisions, dialed in until it feels right",
   "Delivered in 5 to 7 days",
   "The raw clips are yours to keep",
-  "Cross posted to my Wichita audience for extra reach",
+  "Custom script for each video",
 ];
 
 const TIERS = [
@@ -87,7 +87,7 @@ const TIERS = [
 ];
 
 const MARQUEE =
-  "REELS ✦ BRAND VIDEOS ✦ SOCIAL CONTENT ✦ LOCAL STORIES ✦ NO SUIT ✦ JUST KEYS ✦ ";
+  "REELS ✦ BRAND VIDEOS ✦ SOCIAL CONTENT ✦ LOCAL STORIES ✦ NO SUIT ✦ JUST ME ✦ ";
 
 export default function ShotLocalPage() {
   return (
@@ -271,7 +271,7 @@ export default function ShotLocalPage() {
           <a href="https://calendly.com/gvonflue-all0/30min" target="_blank" rel="noopener noreferrer" className="btn btn-gold btn-lg">
             Book a 30 minute call <ArrowUpRight size={20} />
           </a>
-          <p className="sl-signoff">No suit · No jargon · Just keys</p>
+          <p className="sl-signoff">No suit · No jargon · Just ME</p>
         </div>
       </section>
 
