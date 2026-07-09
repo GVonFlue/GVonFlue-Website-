@@ -605,8 +605,8 @@ export default function SuiteNight() {
                 audience than rent one.
               </p>
               <p>
-                I have guided 120 plus families home. I built an AI system that answers every lead in
-                seconds because I got tired of chasing my tail, and then other agents started asking
+                I have guided 75 plus families home. I built an AI system that answers every lead in
+                seconds because I got tired of chasing my tail, and then others started asking
                 me to build theirs. Everything I have that works came from a relationship first, not
                 a transaction first.
               </p>
@@ -618,11 +618,11 @@ export default function SuiteNight() {
             <div className="sn-host-panel sn-reveal">
               <div className="sn-panel-glow" />
               <div className="sn-stat">
-                <strong>120+</strong>
+                <strong>75+</strong>
                 <span>families guided home</span>
               </div>
               <div className="sn-stat">
-                <strong>500</strong>
+                <strong>200</strong>
                 <span>ducks hidden across Wichita</span>
               </div>
               <div className="sn-stat">
