@@ -7,7 +7,7 @@ const SEATS_TOTAL = 19;          // public framing: "Only 19 spots"
 const SEATS_TAKEN = 0;           // bump this as seats fill
 const SHOW_CATERING = false;     // flip to true once a sponsor is locked
 const WEB3FORMS_KEY = "e87c5fc0-d3e8-47e8-a1ab-5be73241a042";
-const APPS_SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_EXEC_URL_HERE";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwmN-Ay_a19_I5qKMWGEDw4p9OLKPttyzVDrkQe2EF0oa3xZtU6d8TcctCsKLdRK-1L/exec";
 
 const SPOTS_LEFT = Math.max(SEATS_TOTAL - SEATS_TAKEN, 0);
 
