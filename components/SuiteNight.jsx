@@ -289,7 +289,7 @@ export default function SuiteNight() {
 
               <p className="sn-hero-sub">
                 Twenty people. One private suite. One real hour before first pitch.
-                <span className="sn-hl"> No pitch. Even if we never work together.</span>
+                <span className="sn-hl"> </span>
               </p>
 
               <div className="sn-hero-cta">
