@@ -662,7 +662,7 @@ export default function SuiteNight() {
       <section className="sn-final">
         <div className="sn-wrap sn-reveal">
           <h2>
-            {SPOTS_LEFT} seats.
+            {SPOTS_LEFT} seats left.
             <br />
             <em>August 12.</em>
           </h2>
