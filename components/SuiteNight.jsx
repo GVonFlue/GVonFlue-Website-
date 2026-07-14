@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 /* KNOBS · edit these, nothing else */
 const SEATS_TOTAL = 19;          // public framing: "Only 19 spots"
 const SEATS_TAKEN = 5;           // bump this as seats fill
-const SHOW_CATERING = false;     // flip to true once a sponsor is locked
+const SHOW_CATERING = false;     // flip to true to show the catering card (06) in the value stack
 const WEB3FORMS_KEY = "e87c5fc0-d3e8-47e8-a1ab-5be73241a042";
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwmN-Ay_a19_I5qKMWGEDw4p9OLKPttyzVDrkQe2EF0oa3xZtU6d8TcctCsKLdRK-1L/exec";
 
@@ -22,10 +22,10 @@ const MARQUEE = [
   "NO SUIT",
 ];
 
-/* Catering sponsors · flip an "open" slot to a filled one by adding name + logo */
-const DM_URL = "https://instagram.com/gvonflue"; // where "DM to claim" points
+/* Catering sponsors · flip an "open" slot to a filled one by adding name + logo + url */
+const DM_URL = "https://instagram.com/gvonflue"; // where "DM to claim" / "Click to claim" points
 const CATERING_SPONSORS = [
-  { name: "Adeas Printing", logo: "/logos/adeaslogo.png", open: false },
+  { name: "Adeas Printing", logo: "/logos/adeaslogo.png", url: "https://www.adeasprinting.com/", open: false },
   { open: true },
   { open: true },
 ];
@@ -61,8 +61,9 @@ const STACK = [
 
 const CATERING = {
   n: "06",
-  t: "Catered food in the suite",
-  d: "Eat well while you meet well. Covered for the night.",
+  t: "Catering provided",
+  d: "Eat well while you meet well. Covered for the night by our sponsors.",
+  sponsors: true,
 };
 
 const WHO = [
@@ -444,6 +445,22 @@ export default function SuiteNight() {
                 <h3>{s.t}</h3>
                 <p>{s.d}</p>
                 {s.teaser && <span className="sn-card-tag">Live reveal</span>}
+                {s.sponsors && (
+                  <div className="sn-card-logos">
+                    {CATERING_SPONSORS.map((sp, k) =>
+                      sp.open ? (
+                        <span key={k} className="sn-card-logo sn-card-logo-open">
+                          Open
+                        </span>
+                      ) : (
+                        <span key={k} className="sn-card-logo">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={sp.logo} alt={sp.name} />
+                        </span>
+                      )
+                    )}
+                  </div>
+                )}
               </article>
             ))}
           </div>
@@ -461,6 +478,50 @@ export default function SuiteNight() {
               <div className="sn-who-card sn-reveal" key={i} style={{ transitionDelay: `${i * 50}ms` }}>
                 <i>✓</i>
                 <p>{w}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CATERING SPONSORS */}
+      <section className="sn-sponsors">
+        <div className="sn-wrap">
+          <span className="sn-kicker sn-kicker-orange sn-reveal">Catering provided by</span>
+          <h2 className="sn-h2 sn-reveal">The people making the food happen.</h2>
+          <div className="sn-sponsor-grid">
+            {CATERING_SPONSORS.map((s, i) => (
+              <div className="sn-sponsor-card sn-reveal" key={i} style={{ transitionDelay: `${i * 70}ms` }}>
+                {s.open ? (
+                  <>
+                    <div className="sn-sponsor-logo sn-sponsor-logo-open">
+                      <span>Open Spot</span>
+                    </div>
+                    <a
+                      className="sn-sponsor-link sn-sponsor-link-open"
+                      href={DM_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Click to claim →
+                    </a>
+                  </>
+                ) : (
+                  <>
+                    <div className="sn-sponsor-logo">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={s.logo} alt={s.name} />
+                    </div>
+                    <a
+                      className="sn-sponsor-link"
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Visit {s.name} →
+                    </a>
+                  </>
+                )}
               </div>
             ))}
           </div>
@@ -820,6 +881,10 @@ const CSS = `
 .sn-card h3{font-family:var(--disp);font-weight:600;font-size:1.4rem;margin:14px 0 12px;letter-spacing:-.01em}
 .sn-card p{font-size:.97rem;line-height:1.66}
 .sn-card-tag{display:inline-block;margin-top:16px;font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);background:var(--o);padding:.4rem .75rem;border-radius:999px}
+.sn-card-logos{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.sn-card-logo{display:flex;align-items:center;justify-content:center;height:46px;min-width:88px;padding:6px 12px;background:#fff;border-radius:10px}
+.sn-card-logo img{max-height:32px;max-width:100%;width:auto;object-fit:contain}
+.sn-card-logo-open{font-family:var(--disp);font-weight:700;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);background:rgba(10,11,20,.14)}
 
 .sn-who{padding:120px 0;background:var(--white)}
 .sn-who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:50px}
@@ -828,6 +893,20 @@ const CSS = `
 .sn-who-card i{font-style:normal;font-weight:900;color:#fff;background:var(--cobalt);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0}
 .sn-who-card:nth-child(even) i{background:var(--o)}
 .sn-who-card p{font-size:1rem;line-height:1.55;color:var(--txt);font-weight:500}
+
+.sn-sponsors{padding:120px 0;background:var(--cream)}
+.sn-sponsor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
+.sn-sponsor-card{display:flex;flex-direction:column;align-items:center;gap:20px;background:#fff;border:2px solid var(--cobalt);border-radius:20px;padding:36px 28px;box-shadow:0 0 0 5px rgba(19,56,222,.12),0 20px 46px rgba(19,56,222,.14);transition:transform .3s ease,box-shadow .3s ease}
+.sn-sponsor-card:hover{transform:translateY(-6px);box-shadow:0 0 0 6px rgba(255,107,53,.18),0 28px 60px rgba(19,56,222,.22)}
+.sn-sponsor-card:nth-child(even){border-color:var(--o);box-shadow:0 0 0 5px rgba(255,107,53,.14),0 20px 46px rgba(255,107,53,.16)}
+.sn-sponsor-card:nth-child(even):hover{box-shadow:0 0 0 6px rgba(19,56,222,.20),0 28px 60px rgba(255,107,53,.24)}
+.sn-sponsor-logo{display:flex;align-items:center;justify-content:center;height:90px;width:100%}
+.sn-sponsor-logo img{max-height:80px;max-width:100%;width:auto;object-fit:contain}
+.sn-sponsor-logo-open{border:1.5px dashed rgba(10,11,20,.24);border-radius:14px}
+.sn-sponsor-logo-open span{font-family:var(--disp);font-weight:700;font-size:.9rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.sn-sponsor-link{font-family:var(--disp);font-weight:600;font-size:1rem;color:var(--cobalt);text-decoration:none;transition:color .2s,transform .2s}
+.sn-sponsor-link:hover{color:var(--o);transform:translateX(3px)}
+.sn-sponsor-link-open{color:var(--o)}
 
 .sn-scarcity{background:var(--o);padding:100px 0}
 .sn-scarcity .sn-wrap{display:grid;grid-template-columns:auto 1fr;gap:56px;align-items:center}
@@ -920,6 +999,8 @@ const CSS = `
 .sn-cards{grid-template-columns:1fr;gap:16px}
 .sn-who{padding:90px 0}
 .sn-who-grid{grid-template-columns:1fr;gap:14px}
+.sn-sponsors{padding:90px 0}
+.sn-sponsor-grid{grid-template-columns:1fr;gap:16px}
 .sn-scarcity{padding:70px 0}
 .sn-scarcity .sn-wrap{grid-template-columns:1fr;gap:12px;text-align:center}
 .sn-count-copy p{margin-left:auto;margin-right:auto}
