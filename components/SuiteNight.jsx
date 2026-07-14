@@ -22,6 +22,14 @@ const MARQUEE = [
   "NO SUIT",
 ];
 
+/* Catering sponsors · flip an "open" slot to a filled one by adding name + logo */
+const DM_URL = "https://instagram.com/gvonflue"; // where "DM to claim" points
+const CATERING_SPONSORS = [
+  { name: "Adeas Printing", logo: "/logos/adeaslogo.png", open: false },
+  { open: true },
+  { open: true },
+];
+
 const STACK = [
   {
     n: "01",
@@ -315,6 +323,29 @@ export default function SuiteNight() {
                 <i className="sn-plate-div" />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/logos/proytech-logo.png" alt="ProyTech" />
+              </div>
+
+              <p className="sn-brought-label sn-cater-label">Catering brought to you by</p>
+              <div className="sn-cater-grid">
+                {CATERING_SPONSORS.map((s, i) =>
+                  s.open ? (
+                    <a
+                      key={i}
+                      className="sn-cater-slot sn-cater-open"
+                      href={DM_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span className="sn-cater-open-tag">Open</span>
+                      <span className="sn-cater-open-cta">DM to claim</span>
+                    </a>
+                  ) : (
+                    <div key={i} className="sn-cater-slot sn-cater-filled">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={s.logo} alt={s.name} />
+                    </div>
+                  )
+                )}
               </div>
             </aside>
           </div>
@@ -737,6 +768,15 @@ const CSS = `
 .sn-plate{display:flex;align-items:center;justify-content:center;gap:16px;background:#fff;border-radius:12px;padding:16px 14px}
 .sn-plate img{height:36px;width:auto;object-fit:contain}
 .sn-plate-div{width:1px;height:30px;background:rgba(10,11,20,.14)}
+.sn-cater-label{margin-top:20px}
+.sn-cater-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sn-cater-slot{display:flex;align-items:center;justify-content:center;height:56px;border-radius:10px;padding:8px;text-decoration:none;transition:.24s ease}
+.sn-cater-filled{background:#fff}
+.sn-cater-filled img{max-height:38px;max-width:100%;width:auto;object-fit:contain}
+.sn-cater-open{flex-direction:column;gap:2px;background:rgba(255,255,255,.05);border:1.5px dashed rgba(255,255,255,.28)}
+.sn-cater-open:hover{border-color:var(--o);background:rgba(255,107,53,.10);transform:translateY(-2px)}
+.sn-cater-open-tag{font-family:var(--disp);font-weight:700;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85)}
+.sn-cater-open-cta{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--o)}
 
 .sn-bubble{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:28px;align-items:center;margin:56px 0 0;background:#fff;border:2px solid var(--cobalt);border-radius:26px;padding:26px 32px;box-shadow:0 0 0 6px rgba(19,56,222,.14),0 30px 70px rgba(0,0,0,.45)}
 .sn-bub-cell span{display:block;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:6px}
