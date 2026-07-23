@@ -33,7 +33,7 @@ const DM_URL = "https://instagram.com/gvonflue"; // where "DM to claim" / "Click
 const CATERING_SPONSORS = [
   { name: "Adeas Printing", logo: "/logos/adeaslogo.png", url: "https://www.adeasprinting.com/", open: false },
   { name: "Kihle Roofing", logo: "/logos/kihlelogo.png", url: "https://kihleroofing.com", open: false },
-  { open: true },
+  { name: "Cruise Made EASY", logo: "/logos/cruisemadeeasylogo.png", url: "https://cruisemadeeasy.com", open: false },
 ];
 
 const STACK = [
