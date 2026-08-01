@@ -30,7 +30,7 @@ const HOST_BRANDS = [
 
 /* Sponsors · 5 slots · flip an open slot by adding name + logo + url */
 const SPONSORS = [
-  { open: true },
+  { name: "Dwell Real Estate Group", logo: "/logos/dwelllogo.png", url: "https://dwellrealestategroup.com", open: false },
   { open: true },
   { open: true },
   { open: true },
@@ -87,7 +87,7 @@ const FAQ = [
   },
   {
     q: "Can I bring my family?",
-    a: "Your entry covers up to 2 suite seats, you and one guest. If you have a bigger family, they are absolutely welcome at the ballpark, you just grab affordable general admission tickets for the extras. Here is the important part: your whole family comes down to the field for the anthem with you, and they can pop into the suite for food. Nobody gets left out of the moment.",
+    a: "Your entry covers up to 2 suite seats, you and one guest. If you have a bigger family, they are absolutely welcome at the ballpark, you just grab affordable general admission tickets for the extras. And here is the part that matters most: your whole family comes down to the field for the anthem with you. That moment is for all of you.",
   },
   {
     q: "Do I have to be a combat veteran, or a certain branch?",
@@ -356,13 +356,14 @@ export default function VeteransSuiteNight() {
           <h2 className="sn-what-h sn-reveal">
             This one is
             <br />
-            <s>on us.</s>
+            <em>on us.</em>
           </h2>
 
           <div className="sn-chips sn-reveal">
             <span>{SUITE_SEATS} free seats</span>
             <span>On the field</span>
             <span>Anthem salute</span>
+            <span>Catering provided</span>
             <span>Sponsor funded</span>
           </div>
 
@@ -376,9 +377,6 @@ export default function VeteransSuiteNight() {
               the drawing, and if your name is pulled, you and a guest get a seat in the suite, a
               catered night at the ballpark, and a walk down to the field for the national anthem
               where you stand on that grass and salute the flag you served.
-              <br />
-              <br />
-              Logan and I will be there. I will be in my old uniform. Come stand with us.
             </p>
           </div>
         </div>
@@ -455,9 +453,10 @@ export default function VeteransSuiteNight() {
           </div>
 
           <p className="sn-family-note sn-reveal">
-            Bigger family? No problem. Your entry covers 2 suite seats, and you can grab affordable
-            general admission for the rest. Your whole family still walks the field for the anthem
-            and can stop into the suite for food. Nobody misses the moment.
+            Bigger family? Your entry covers 2 suite seats, you and a guest. If you want to bring
+            more, they are welcome at the ballpark with affordable general admission tickets, and
+            everyone comes down to the field for the anthem together. That moment is for your whole
+            family.
           </p>
         </div>
       </section>
@@ -838,6 +837,7 @@ const CSS = `
 .sn-what{position:relative;padding:140px 0 120px;background:var(--cream);overflow:hidden}
 .sn-what-glow{position:absolute;inset:auto -8% -30% auto;width:60%;height:80%;z-index:0;background:radial-gradient(45% 55% at 70% 40%,rgba(19,56,222,.14),transparent 70%),radial-gradient(40% 50% at 90% 80%,rgba(255,107,53,.16),transparent 70%);filter:blur(12px)}
 .sn-what-h{font-family:var(--disp);font-weight:600;letter-spacing:-.03em;line-height:.98;font-size:clamp(2.3rem,5.4vw,4.6rem);color:var(--ink);margin:16px 0 0}
+.sn-what-h em{font-style:normal;color:var(--o)}
 .sn-what-h s{text-decoration:none;position:relative;color:var(--o);white-space:nowrap}
 .sn-what-h s:after{content:"";position:absolute;left:-1%;right:-1%;top:52%;height:7px;background:var(--cobalt);border-radius:4px;transform:rotate(-1.6deg)}
 .sn-chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px}
