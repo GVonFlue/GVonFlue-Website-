@@ -30,7 +30,7 @@ const HOST_BRANDS = [
 
 /* Sponsors · 5 slots · flip an open slot by adding name + logo + url */
 const SPONSORS = [
-  { name: "Dwell Real Estate Group", logo: "/logos/dwelllogo.png", url: "https://dwellrealestategroup.com", open: false },
+  { name: "Dwell Real Estate Group", logo: "/logos/dwelllogo.png", url: "https://dwellwichita.com/", open: false },
   { open: true },
   { open: true },
   { open: true },
@@ -161,6 +161,15 @@ export default function MilitarySuiteNight() {
   const [err, setErr] = useState("");
   const [openFaq, setOpenFaq] = useState(0);
   const [showBar, setShowBar] = useState(false);
+  const [sponsorOpen, setSponsorOpen] = useState(false);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") setSponsorOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setShowBar(window.scrollY > 700);
@@ -380,19 +389,18 @@ export default function MilitarySuiteNight() {
             {SPONSORS.map((s, i) => (
               <div className="sn-sponsor-card sn-reveal" key={i} style={{ transitionDelay: `${i * 60}ms` }}>
                 {s.open ? (
-                  <>
-                    <div className="sn-sponsor-logo sn-sponsor-logo-open">
+                  <button
+                    type="button"
+                    className="sn-sponsor-openbtn"
+                    onClick={() => setSponsorOpen(true)}
+                  >
+                    <span className="sn-sponsor-logo sn-sponsor-logo-open">
                       <span>Open Spot</span>
-                    </div>
-                    <a
-                      className="sn-sponsor-link sn-sponsor-link-open"
-                      href={DM_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    </span>
+                    <span className="sn-sponsor-link sn-sponsor-link-open">
                       Sponsor a service member →
-                    </a>
-                  </>
+                    </span>
+                  </button>
                 ) : (
                   <>
                     <div className="sn-sponsor-logo">
@@ -780,6 +788,78 @@ export default function MilitarySuiteNight() {
         </div>
       </section>
 
+      {/* SPONSOR MODAL */}
+      {sponsorOpen && (
+        <div className="sn-modal" role="dialog" aria-modal="true" aria-label="Become a sponsor">
+          <div className="sn-modal-scrim" onClick={() => setSponsorOpen(false)} />
+          <div className="sn-modal-card">
+            <button
+              type="button"
+              className="sn-modal-x"
+              onClick={() => setSponsorOpen(false)}
+              aria-label="Close"
+            >
+              ✕
+            </button>
+
+            <span className="sn-kicker sn-kicker-orange">Become a sponsor</span>
+            <h3 className="sn-modal-h">Put your name behind our military.</h3>
+            <div className="sn-modal-price">
+              <strong>$450</strong>
+              <span>one sponsor spot</span>
+            </div>
+
+            <div className="sn-modal-cols">
+              <div className="sn-modal-col">
+                <h4 className="sn-modal-colh sn-modal-colh-blue">What you get</h4>
+                <ul className="sn-modal-list">
+                  <li>Your logo on the website</li>
+                  <li>Your logo on every social post for this event</li>
+                  <li>1 ticket to Suite Night</li>
+                  <li>Your brand featured inside the suite</li>
+                  <li>You get to shake hands with the military members who come</li>
+                </ul>
+              </div>
+              <div className="sn-modal-col">
+                <h4 className="sn-modal-colh sn-modal-colh-orange">What you are giving</h4>
+                <ul className="sn-modal-list">
+                  <li>A night for 18 military members and veterans</li>
+                  <li>Their place in the suite</li>
+                  <li>Catering provided for the night</li>
+                  <li>A night our military can enjoy on a date that will forever live in infamy</li>
+                  <li>Our military walking onto the field for the national anthem</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="sn-modal-contact">
+              <p className="sn-modal-contact-label">Ready, or have questions? Reach me directly.</p>
+              <div className="sn-modal-contact-row">
+                <a className="sn-modal-btn sn-modal-btn-primary" href="tel:19013353905">
+                  Call or text · 901-335-3905
+                </a>
+                <a
+                  className="sn-modal-btn"
+                  href="https://www.instagram.com/gvonflue"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Instagram · @gvonflue
+                </a>
+                <a
+                  className="sn-modal-btn"
+                  href="https://www.facebook.com/GarrettVonFlue"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Facebook · Garrett Von Flue
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* STICKY BAR */}
       {status !== "done" && (
         <div className={`sn-bar ${showBar ? "sn-bar-in" : ""}`}>
@@ -947,6 +1027,38 @@ const CSS = `
 .sn-sponsor-link{font-family:var(--disp);font-weight:700;font-size:.92rem;color:var(--cobalt);text-decoration:none;transition:color .2s,transform .2s;text-align:center;line-height:1.3}
 .sn-sponsor-link:hover{color:var(--o);transform:translateX(3px)}
 .sn-sponsor-link-open{color:var(--o)}
+.sn-sponsor-openbtn{display:flex;flex-direction:column;align-items:center;gap:16px;width:100%;background:none;border:none;padding:0;margin:0;cursor:pointer;font-family:inherit}
+.sn-sponsor-openbtn .sn-sponsor-logo{transition:border-color .24s ease,background .24s ease}
+.sn-sponsor-openbtn:hover .sn-sponsor-logo-open{border-color:var(--o);background:rgba(255,107,53,.06)}
+.sn-sponsor-openbtn:hover .sn-sponsor-link-open{color:var(--o-deep)}
+
+/* Sponsor modal */
+.sn-modal{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;padding:24px}
+.sn-modal-scrim{position:absolute;inset:0;background:rgba(6,7,14,.72);backdrop-filter:blur(4px);animation:sn-fade .25s ease}
+@keyframes sn-fade{from{opacity:0}}
+.sn-modal-card{position:relative;z-index:1;width:100%;max-width:720px;max-height:88vh;overflow-y:auto;background:#fff;border-radius:24px;padding:40px 40px 34px;box-shadow:0 40px 120px rgba(0,0,0,.5);animation:sn-modal-in .32s cubic-bezier(.2,.9,.3,1)}
+@keyframes sn-modal-in{from{opacity:0;transform:translateY(24px) scale(.98)}}
+.sn-modal-x{position:absolute;top:18px;right:18px;width:38px;height:38px;border-radius:50%;border:none;background:var(--cream);color:var(--ink);font-size:1rem;cursor:pointer;transition:.2s ease}
+.sn-modal-x:hover{background:var(--o);color:#fff;transform:rotate(90deg)}
+.sn-modal-h{font-family:var(--disp);font-weight:600;font-size:clamp(1.5rem,3vw,2.1rem);color:var(--ink);letter-spacing:-.02em;line-height:1.08;margin:10px 0 0}
+.sn-modal-price{display:flex;align-items:baseline;gap:12px;margin:18px 0 4px;padding:14px 20px;background:var(--ink);border-radius:16px;width:fit-content}
+.sn-modal-price strong{font-family:var(--disp);font-weight:700;font-size:2.2rem;color:var(--o);line-height:1;letter-spacing:-.02em}
+.sn-modal-price span{font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.66)}
+.sn-modal-cols{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:26px}
+.sn-modal-colh{font-family:var(--disp);font-weight:700;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
+.sn-modal-colh-blue{color:var(--cobalt)}
+.sn-modal-colh-orange{color:var(--o)}
+.sn-modal-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.sn-modal-list li{position:relative;padding-left:26px;font-size:.97rem;line-height:1.5;color:var(--txt,#111528)}
+.sn-modal-list li:before{content:"★";position:absolute;left:0;top:1px;color:var(--o);font-size:.8rem}
+.sn-modal-col:nth-child(2) .sn-modal-list li:before{color:var(--cobalt)}
+.sn-modal-contact{margin-top:30px;padding-top:24px;border-top:1px solid rgba(10,11,20,.1)}
+.sn-modal-contact-label{font-size:.95rem;color:var(--muted);margin-bottom:14px;font-weight:600}
+.sn-modal-contact-row{display:flex;flex-wrap:wrap;gap:10px}
+.sn-modal-btn{display:inline-flex;align-items:center;font-family:var(--disp);font-weight:600;font-size:.92rem;color:var(--ink);text-decoration:none;background:var(--cream);border:1.5px solid rgba(10,11,20,.12);border-radius:999px;padding:.75rem 1.2rem;transition:.2s ease}
+.sn-modal-btn:hover{border-color:var(--cobalt);transform:translateY(-2px)}
+.sn-modal-btn-primary{background:var(--o);color:#fff;border-color:var(--o)}
+.sn-modal-btn-primary:hover{background:var(--o-deep);border-color:var(--o-deep)}
 
 .sn-reserve{background:var(--ink);padding:120px 0}
 .sn-reserve-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
@@ -1048,6 +1160,8 @@ const CSS = `
 .sn-faq{padding:90px 0}
 .sn-faq-a p{padding-right:0}
 .sn-final{padding:90px 0}
+.sn-modal-card{padding:30px 22px 26px}
+.sn-modal-cols{grid-template-columns:1fr;gap:22px}
 }
 @media(prefers-reduced-motion:reduce){
 .sn-reveal{opacity:1;transform:none;transition:none}
