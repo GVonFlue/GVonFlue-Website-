@@ -30,7 +30,7 @@ const HOST_BRANDS = [
 
 /* Sponsors · 5 slots · flip an open slot by adding name + logo + url */
 const SPONSORS = [
-  { name: "Dwell Real Estate Group", logo: "/logos/dwelllogo.png", url: "https://dwellrealestategroup.com", open: false },
+  { name: "Dwell Real Estate Group", logo: "/logos/dwelllogo.png", url: "https://dwellwichita.com/", open: false },
   { open: true },
   { open: true },
   { open: true },
