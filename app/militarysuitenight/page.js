@@ -3,11 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 
 /* ============================================================
-   SUITE NIGHT · VETERANS EDITION · Sept 11
+   MILITARY SUITE NIGHT · Sept 11
    KNOBS · edit these, nothing else
    ============================================================ */
 const EVENT_DATE = "September 11 · 2026";
-const SUITE_SEATS = 18;            // free suite seats for veterans (after 5 sponsors + you + Logan)
+const SUITE_SEATS = 18;            // free suite seats for our military (after 5 sponsors + you + Logan)
 const WINNERS = 9;                 // 9 winners x 2 seats = 18
 const SEATS_PER_WINNER = 2;
 const SHOW_CATERING = true;
@@ -18,7 +18,7 @@ const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwmN-Ay_a19_I5q
 const DM_URL = "https://instagram.com/gvonflue";
 
 const BRANCHES = ["Army", "Marine Corps", "Navy", "Air Force", "Space Force", "Coast Guard", "National Guard"];
-const STATUSES = ["Veteran", "Active Duty", "Reserve", "Retired"];
+const STATUSES = ["Active Duty", "Veteran", "Reserve", "National Guard", "Retired"];
 const SEAT_OPTS = ["1 seat (just me)", "2 seats (me + 1)"];
 const PARTY_OPTS = ["Just me", "2", "3", "4", "5+"];
 
@@ -30,7 +30,7 @@ const HOST_BRANDS = [
 
 /* Sponsors · 5 slots · flip an open slot by adding name + logo + url */
 const SPONSORS = [
-  { name: "Dwell Real Estate Group", logo: "/logos/dwelllogo.png", url: "https://dwellwichita.com/", open: false },
+  { name: "Dwell Real Estate Group", logo: "/logos/dwelllogo.png", url: "https://dwellrealestategroup.com", open: false },
   { open: true },
   { open: true },
   { open: true },
@@ -43,14 +43,14 @@ const MARQUEE = [
   "PRIVATE SUITE 5",
   "SEPT 11",
   "CATERED",
-  "FREE FOR VETERANS",
+  "FREE FOR OUR MILITARY",
 ];
 
 const STACK = [
   {
     n: "01",
     t: "On the field for the anthem",
-    d: "Every veteran walks down to the field for the national anthem. You stand on that grass, face the flag, and render the salute you earned. Bring the family, they come too.",
+    d: "Every service member walks down to the field for the national anthem. You stand on that grass, face the flag, and render the salute you earned. Bring the family, they come too.",
     hero: true,
   },
   {
@@ -61,7 +61,7 @@ const STACK = [
   {
     n: "03",
     t: "A room that gets it",
-    d: "Veterans, active duty, and the Wichita business owners who wanted to stand behind you. One suite, one night, real connection.",
+    d: "Military, active and veteran, plus the Wichita business owners who wanted to stand behind you. One suite, one night, real connection.",
   },
   {
     n: "04",
@@ -79,19 +79,19 @@ const STACK = [
 const FAQ = [
   {
     q: "Wait, this is actually free?",
-    a: "Yes. Five local sponsors are covering this so that veterans do not pay a cent for the suite. That is the whole point. You enter the drawing, and if your name is drawn, your seats are on us.",
+    a: "Yes. Five local sponsors are covering this so that no one who served pays a cent for the suite. That is the whole point. You enter the drawing, and if your name is drawn, your seats are on us.",
   },
   {
     q: "How does the drawing work?",
-    a: `You fill out the entry form below. On drawing day I pull ${WINNERS} names live. Each winner gets ${SEATS_PER_WINNER} suite seats, so ${WINNERS} veterans and their guest fill the suite. If your name is drawn, I contact you directly to confirm.`,
+    a: `You fill out the entry form below. On drawing day I pull ${WINNERS} names live. Each winner gets ${SEATS_PER_WINNER} suite seats, so ${WINNERS} service members and their guest fill the suite. If your name is drawn, I contact you directly to confirm.`,
   },
   {
     q: "Can I bring my family?",
     a: "Your entry covers up to 2 suite seats, you and one guest. If you have a bigger family, they are absolutely welcome at the ballpark, you just grab affordable general admission tickets for the extras. And here is the part that matters most: your whole family comes down to the field for the anthem with you. That moment is for all of you.",
   },
   {
-    q: "Do I have to be a combat veteran, or a certain branch?",
-    a: "No. Every branch, every era, active duty, reserve, guard, retired, veteran. If you served, you belong here.",
+    q: "Do I have to be a certain branch, era, or component?",
+    a: "No. Every branch, every era, active duty, reserve, guard, retired, veteran. If you have worn the uniform, you belong here.",
   },
   {
     q: "Do I have to wear my uniform?",
@@ -143,7 +143,7 @@ function FaqRow({ q, a, open, onToggle }) {
 }
 
 /* Page */
-export default function VeteransSuiteNight() {
+export default function MilitarySuiteNight() {
   useReveal();
 
   const [form, setForm] = useState({
@@ -218,8 +218,8 @@ export default function VeteransSuiteNight() {
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
           access_key: WEB3FORMS_KEY,
-          subject: "🎖️ New Veterans Suite Night Entry",
-          from_name: "Veterans Suite Night · GVonFlue",
+          subject: "🎖️ New Military Suite Night Entry",
+          from_name: "Military Suite Night · GVonFlue",
           ...payload,
         }),
       });
@@ -244,7 +244,26 @@ export default function VeteransSuiteNight() {
       {/* HERO */}
       <section className="sn-hero">
         <div className="sn-photo" />
+        <div className="sn-camo" />
         <div className="sn-shade" />
+        <div className="sn-flag" aria-hidden="true">
+          <div className="sn-flag-cloth" />
+          <svg className="sn-flag-def" width="0" height="0">
+            <defs>
+              <filter id="sn-wave">
+                <feTurbulence type="fractalNoise" baseFrequency="0.008 0.016" numOctaves="2" result="noise" seed="7">
+                  <animate
+                    attributeName="baseFrequency"
+                    dur="14s"
+                    values="0.008 0.016; 0.012 0.022; 0.008 0.016"
+                    repeatCount="indefinite"
+                  />
+                </feTurbulence>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="26" xChannelSelector="R" yChannelSelector="G" />
+              </filter>
+            </defs>
+          </svg>
+        </div>
         <div className="sn-stripes" />
         <div className="sn-grain" />
 
@@ -259,11 +278,11 @@ export default function VeteransSuiteNight() {
               <h1 className="sn-h1">
                 Suite Night
                 <br />
-                <em>Veterans Edition</em>
+                <em>Military Edition</em>
               </h1>
 
               <p className="sn-hero-sub">
-                Eighteen free suite seats for our veterans. On the field for the anthem. The game
+                Eighteen free suite seats for our military. On the field for the anthem. The game
                 from a private suite. All of it on us.
               </p>
 
@@ -274,7 +293,7 @@ export default function VeteransSuiteNight() {
                 <div className="sn-seats-pill">
                   <strong>FREE</strong>
                   <span>
-                    for veterans
+                    for our military
                     <br />
                     · sponsor funded
                   </span>
@@ -301,7 +320,7 @@ export default function VeteransSuiteNight() {
               <div className="sn-brought sn-flag-panel">
                 <p className="sn-brought-label">The moment</p>
                 <p className="sn-flag-copy">
-                  Every veteran walks the field for the national anthem. You stand. You salute. We
+                  Every service member walks the field for the national anthem. You stand. You salute. We
                   honor it right.
                 </p>
               </div>
@@ -348,6 +367,54 @@ export default function VeteransSuiteNight() {
         </div>
       </section>
 
+      {/* SPONSORS · directly under hero · the spotlight */}
+      <section className="sn-sponsors sn-sponsors-lead">
+        <div className="sn-wrap">
+          <span className="sn-kicker sn-kicker-orange sn-reveal">The ones who made it free</span>
+          <h2 className="sn-h2 sn-reveal">Standing behind our military.</h2>
+          <p className="sn-sponsors-lede sn-reveal">
+            Every free seat, the catered food, the whole night. None of it happens without these
+            businesses. They did not have to step up. They chose to. Give them your business.
+          </p>
+          <div className="sn-sponsor-grid sn-sponsor-grid-5">
+            {SPONSORS.map((s, i) => (
+              <div className="sn-sponsor-card sn-reveal" key={i} style={{ transitionDelay: `${i * 60}ms` }}>
+                {s.open ? (
+                  <>
+                    <div className="sn-sponsor-logo sn-sponsor-logo-open">
+                      <span>Open Spot</span>
+                    </div>
+                    <a
+                      className="sn-sponsor-link sn-sponsor-link-open"
+                      href={DM_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Sponsor a service member →
+                    </a>
+                  </>
+                ) : (
+                  <>
+                    <div className="sn-sponsor-logo">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={s.logo} alt={s.name} />
+                    </div>
+                    <a
+                      className="sn-sponsor-link"
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Visit {s.name} →
+                    </a>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* WHAT THIS IS */}
       <section className="sn-what">
         <div className="sn-what-glow" />
@@ -373,7 +440,7 @@ export default function VeteransSuiteNight() {
               people who served get honored the way they should.
             </p>
             <p className="sn-body sn-reveal">
-              Five local sponsors stepped up so that not a single veteran pays to be here. You enter
+              Five local sponsors stepped up so that not a single service member pays to be here. You enter
               the drawing, and if your name is pulled, you and a guest get a seat in the suite, a
               catered night at the ballpark, and a walk down to the field for the national anthem
               where you stand on that grass and salute the flag you served.
@@ -439,7 +506,7 @@ export default function VeteransSuiteNight() {
               <i>2</i>
               <p>
                 <strong>I draw {WINNERS} names live.</strong> Each winner gets {SEATS_PER_WINNER}{" "}
-                suite seats, you plus a guest. That fills the suite with {WINNERS} veterans and the
+                suite seats, you plus a guest. That fills the suite with {WINNERS} service members and the
                 people they love.
               </p>
             </div>
@@ -458,50 +525,6 @@ export default function VeteransSuiteNight() {
             everyone comes down to the field for the anthem together. That moment is for your whole
             family.
           </p>
-        </div>
-      </section>
-
-      {/* SPONSORS */}
-      <section className="sn-sponsors">
-        <div className="sn-wrap">
-          <span className="sn-kicker sn-kicker-orange sn-reveal">The ones who made it free</span>
-          <h2 className="sn-h2 sn-reveal">Standing behind our veterans.</h2>
-          <div className="sn-sponsor-grid sn-sponsor-grid-5">
-            {SPONSORS.map((s, i) => (
-              <div className="sn-sponsor-card sn-reveal" key={i} style={{ transitionDelay: `${i * 60}ms` }}>
-                {s.open ? (
-                  <>
-                    <div className="sn-sponsor-logo sn-sponsor-logo-open">
-                      <span>Open Spot</span>
-                    </div>
-                    <a
-                      className="sn-sponsor-link sn-sponsor-link-open"
-                      href={DM_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Sponsor a veteran →
-                    </a>
-                  </>
-                ) : (
-                  <>
-                    <div className="sn-sponsor-logo">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={s.logo} alt={s.name} />
-                    </div>
-                    <a
-                      className="sn-sponsor-link"
-                      href={s.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Visit {s.name} →
-                    </a>
-                  </>
-                )}
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -683,13 +706,14 @@ export default function VeteransSuiteNight() {
               <span className="sn-kicker">05 · Why I am doing this</span>
               <h2 className="sn-h2">I served too.</h2>
               <p>
-                I am Garrett Von Flue. Army veteran, REALTOR® with Real Broker LLC, and co CEO of
-                ProyTech. Of everything I have built, this is the night that means the most to me.
+                I am Garrett Von Flue. Army veteran, 13B cannon crewmember on a Paladin, REALTOR®
+                with Real Broker LLC, and co CEO of ProyTech. Of everything I have built, this is the
+                night that means the most to me.
               </p>
               <p>
                 I know what it is to serve, and I know how rarely anyone stops to say thank you in a
                 way you can feel. So I am putting on the uniform one more time, gathering people who
-                want to stand behind our veterans, and giving away a night that says it plainly. We
+                want to stand behind our military, and giving away a night that says it plainly. We
                 see you. We are grateful.
               </p>
               <p className="sn-host-line">
@@ -701,7 +725,7 @@ export default function VeteransSuiteNight() {
               <div className="sn-panel-glow" />
               <div className="sn-stat">
                 <strong>{SUITE_SEATS}</strong>
-                <span>free suite seats for veterans</span>
+                <span>free suite seats for our military</span>
               </div>
               <div className="sn-stat">
                 <strong>5</strong>
@@ -712,6 +736,7 @@ export default function VeteransSuiteNight() {
                 <span>walk to the field for the anthem</span>
               </div>
               <div className="sn-panel-tags">
+                <span>13B · Paladin</span>
                 <span>All branches</span>
                 <span>All eras</span>
                 <span>Uniform encouraged</span>
@@ -759,7 +784,7 @@ export default function VeteransSuiteNight() {
       {status !== "done" && (
         <div className={`sn-bar ${showBar ? "sn-bar-in" : ""}`}>
           <span>
-            <strong>{SUITE_SEATS} free seats</strong> · Sept 11 · veterans
+            <strong>{SUITE_SEATS} free seats</strong> · Sept 11 · military
           </span>
           <button className="sn-btn sn-btn-orange sn-btn-sm" onClick={scrollToForm}>
             Enter
@@ -794,6 +819,33 @@ const CSS = `
 @keyframes sn-drift{to{transform:scale(1.13) translate3d(0,-14px,0)}}
 .sn-shade{position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,rgba(10,11,20,.96) 0%,rgba(10,11,20,.9) 38%,rgba(10,11,20,.58) 64%,rgba(10,49,97,.5) 86%,rgba(178,34,52,.3) 100%)}
 .sn-shade:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,11,20,.55) 0%,transparent 26%,transparent 70%,rgba(10,11,20,.85) 100%)}
+
+/* Subtle woodland/OD camo texture over the photo */
+.sn-camo{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.14;mix-blend-mode:overlay;background:
+  radial-gradient(ellipse 220px 150px at 12% 20%, #2f3a1e 0 40%, transparent 42%),
+  radial-gradient(ellipse 260px 170px at 78% 12%, #1c2411 0 42%, transparent 44%),
+  radial-gradient(ellipse 200px 140px at 60% 42%, #4b3d24 0 40%, transparent 43%),
+  radial-gradient(ellipse 240px 160px at 30% 66%, #232b13 0 41%, transparent 44%),
+  radial-gradient(ellipse 210px 150px at 88% 72%, #3a2f1c 0 40%, transparent 43%),
+  radial-gradient(ellipse 190px 130px at 46% 88%, #1a2110 0 42%, transparent 45%),
+  linear-gradient(120deg,#39421f,#20260f)}
+
+/* American flag · built in CSS, rippled with the SVG turbulence filter */
+.sn-flag{position:absolute;top:-6%;right:-6%;width:62%;height:80%;z-index:1;pointer-events:none;overflow:hidden;
+  -webkit-mask-image:radial-gradient(120% 100% at 100% 0,#000 42%,transparent 78%);
+  mask-image:radial-gradient(120% 100% at 100% 0,#000 42%,transparent 78%);opacity:.26}
+.sn-flag-def{position:absolute}
+.sn-flag-cloth{position:absolute;inset:-8%;filter:url(#sn-wave);
+  background:
+    /* blue canton, top-left, ~40% wide x ~54% tall */
+    linear-gradient(#0A3161,#0A3161),
+    /* 13 stripes */
+    repeating-linear-gradient(180deg,#B22234 0 7.69%,#f7f7f5 7.69% 15.38%);
+  background-repeat:no-repeat, no-repeat;
+  background-position:0 0, 0 0;
+  background-size:40% 53.8%, 100% 100%;
+  animation:sn-flag-sway 9s ease-in-out infinite alternate}
+@keyframes sn-flag-sway{from{transform:translate3d(0,0,0) skewY(-.4deg)}to{transform:translate3d(-1.4%,0,0) skewY(.6deg)}}
 .sn-stripes{position:absolute;left:0;right:0;top:0;height:10px;z-index:2;background:repeating-linear-gradient(90deg,var(--flag-red) 0,var(--flag-red) 40px,#fff 40px,#fff 80px);opacity:.5}
 .sn-grain{position:absolute;inset:0;z-index:2;opacity:.06;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .sn-hero-inner{position:relative;z-index:3;max-width:1180px;margin:0 auto;padding:0 28px}
@@ -880,17 +932,19 @@ const CSS = `
 .sn-family-note{margin:34px auto 0;max-width:760px;text-align:center;font-size:1.02rem;line-height:1.6;color:var(--muted);background:var(--cream);border:1.5px dashed rgba(255,107,53,.4);border-radius:18px;padding:26px 30px}
 
 .sn-sponsors{padding:120px 0;background:var(--cream)}
+.sn-sponsors-lead{padding:100px 0 110px;background:linear-gradient(180deg,#fff 0%,var(--cream) 100%)}
+.sn-sponsors-lede{max-width:720px;margin:22px 0 0;font-size:1.12rem;line-height:1.62;color:var(--muted);font-weight:500}
 .sn-sponsor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
-.sn-sponsor-grid-5{grid-template-columns:repeat(5,1fr);gap:16px}
-.sn-sponsor-card{display:flex;flex-direction:column;align-items:center;gap:18px;background:#fff;border:2px solid var(--cobalt);border-radius:20px;padding:30px 20px;box-shadow:0 0 0 5px rgba(19,56,222,.12),0 20px 46px rgba(19,56,222,.14);transition:transform .3s ease,box-shadow .3s ease}
+.sn-sponsor-grid-5{grid-template-columns:repeat(5,1fr);gap:18px}
+.sn-sponsor-card{display:flex;flex-direction:column;align-items:center;gap:16px;background:#fff;border:2px solid var(--cobalt);border-radius:20px;padding:22px 18px 24px;box-shadow:0 0 0 5px rgba(19,56,222,.12),0 20px 46px rgba(19,56,222,.14);transition:transform .3s ease,box-shadow .3s ease}
 .sn-sponsor-card:hover{transform:translateY(-6px);box-shadow:0 0 0 6px rgba(255,107,53,.18),0 28px 60px rgba(19,56,222,.22)}
 .sn-sponsor-card:nth-child(even){border-color:var(--o);box-shadow:0 0 0 5px rgba(255,107,53,.14),0 20px 46px rgba(255,107,53,.16)}
 .sn-sponsor-card:nth-child(even):hover{box-shadow:0 0 0 6px rgba(19,56,222,.20),0 28px 60px rgba(255,107,53,.24)}
-.sn-sponsor-logo{display:flex;align-items:center;justify-content:center;height:70px;width:100%}
-.sn-sponsor-logo img{max-height:62px;max-width:100%;width:auto;object-fit:contain}
-.sn-sponsor-logo-open{border:1.5px dashed rgba(10,11,20,.24);border-radius:14px}
-.sn-sponsor-logo-open span{font-family:var(--disp);font-weight:700;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:center}
-.sn-sponsor-link{font-family:var(--disp);font-weight:600;font-size:.9rem;color:var(--cobalt);text-decoration:none;transition:color .2s,transform .2s;text-align:center}
+.sn-sponsor-logo{display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:1/1;background:#fff;border-radius:14px}
+.sn-sponsor-logo img{max-height:88%;max-width:88%;width:auto;object-fit:contain}
+.sn-sponsor-logo-open{border:1.5px dashed rgba(10,11,20,.24)}
+.sn-sponsor-logo-open span{font-family:var(--disp);font-weight:700;font-size:.9rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:center}
+.sn-sponsor-link{font-family:var(--disp);font-weight:700;font-size:.92rem;color:var(--cobalt);text-decoration:none;transition:color .2s,transform .2s;text-align:center;line-height:1.3}
 .sn-sponsor-link:hover{color:var(--o);transform:translateX(3px)}
 .sn-sponsor-link-open{color:var(--o)}
 
@@ -998,5 +1052,6 @@ const CSS = `
 @media(prefers-reduced-motion:reduce){
 .sn-reveal{opacity:1;transform:none;transition:none}
 .sn-track,.sn-photo{animation:none}
+.sn-flag-cloth{animation:none}
 }
 `;
