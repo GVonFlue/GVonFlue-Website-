@@ -292,7 +292,7 @@ export default function MilitarySuiteNight() {
 
               <p className="sn-hero-sub">
                 Eighteen free suite seats for our military. On the field for the anthem. The game
-                from a private suite. All of it on us.
+                from a private suite. Catering Included. All of it on us.
               </p>
 
               <div className="sn-hero-cta">
