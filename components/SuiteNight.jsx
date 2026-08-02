@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 /* KNOBS · edit these, nothing else */
 const SEATS_TOTAL = 19;          // public framing: "Only 19 spots"
-const SEATS_TAKEN = 15;           // bump this as seats fill
+const SEATS_TAKEN = 17;           // bump this as seats fill
 const SHOW_CATERING = true;     // flip to true to show the catering card (06) in the value stack
 const WEB3FORMS_KEY = "e87c5fc0-d3e8-47e8-a1ab-5be73241a042";
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwmN-Ay_a19_I5qKMWGEDw4p9OLKPttyzVDrkQe2EF0oa3xZtU6d8TcctCsKLdRK-1L/exec";
