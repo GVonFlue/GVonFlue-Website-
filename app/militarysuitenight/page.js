@@ -17,6 +17,11 @@ const WEB3FORMS_KEY = "e87c5fc0-d3e8-47e8-a1ab-5be73241a042";
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwmN-Ay_a19_I5qKMWGEDw4p9OLKPttyzVDrkQe2EF0oa3xZtU6d8TcctCsKLdRK-1L/exec";
 const DM_URL = "https://instagram.com/gvonflue";
 
+/* Sponsor-a-Veteran fund */
+const STRIPE_LINK = "https://buy.stripe.com/PASTE_YOUR_LINK"; // your Stripe Payment Link
+const FUND_GOAL = 250;   // stadium-fill goal, number of vets
+const FUND_PRICE = 12;   // dollars per veteran
+
 const BRANCHES = ["Army", "Marine Corps", "Navy", "Air Force", "Space Force", "Coast Guard", "National Guard"];
 const STATUSES = ["Active Duty", "Veteran", "Reserve", "National Guard", "Retired"];
 const SEAT_OPTS = ["1 seat (just me)", "2 seats (me + 1)"];
@@ -163,6 +168,23 @@ export default function MilitarySuiteNight() {
   const [openFaq, setOpenFaq] = useState(0);
   const [showBar, setShowBar] = useState(false);
   const [sponsorOpen, setSponsorOpen] = useState(false);
+  const [vetsFunded, setVetsFunded] = useState(null);
+  const [qty, setQty] = useState(1);
+
+  useEffect(() => {
+    let alive = true;
+    fetch("/api/vets-funded")
+      .then((r) => r.json())
+      .then((d) => {
+        if (alive) setVetsFunded(typeof d.vetsFunded === "number" ? d.vetsFunded : 0);
+      })
+      .catch(() => {
+        if (alive) setVetsFunded(0);
+      });
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   useEffect(() => {
     const onKey = (e) => {
@@ -294,7 +316,7 @@ export default function MilitarySuiteNight() {
 
               <p className="sn-hero-sub">
                 Eighteen free suite seats for our military. On the field for the anthem. The game
-                from a private suite. Catering Included. All of it on us.
+                from a private suite. All of it on us.
               </p>
 
               <div className="sn-hero-cta">
@@ -421,6 +443,80 @@ export default function MilitarySuiteNight() {
                 )}
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SPONSOR A VETERAN · community fund */}
+      <section className="sn-fund">
+        <div className="sn-fund-glow" />
+        <div className="sn-wrap">
+          <div className="sn-fund-grid">
+            <div className="sn-fund-copy sn-reveal">
+              <span className="sn-kicker sn-kicker-orange">Fill the stadium</span>
+              <h2 className="sn-h2 sn-h2-light">
+                $12 puts a service<br />member in the stands.
+              </h2>
+              <p>
+                The suite honors 18. But the drawing leaves a lot of good people out, and no service
+                member should watch from home. So here is how the rest of us pitch in.
+              </p>
+              <p className="sn-small">
+                Every $12 buys one general admission ticket for a veteran or active-duty service
+                member who did not draw the suite. 100% goes to tickets. Let us pack that stadium
+                with the people who earned the seat.
+              </p>
+
+              {vetsFunded !== null && (
+                <div className="sn-fund-meter">
+                  <div className="sn-fund-meter-top">
+                    <strong>{vetsFunded}</strong>
+                    <span>of {FUND_GOAL} veterans funded</span>
+                  </div>
+                  <div className="sn-fund-bar">
+                    <div
+                      className="sn-fund-bar-fill"
+                      style={{ width: `${Math.min((vetsFunded / FUND_GOAL) * 100, 100)}%` }}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="sn-fund-card sn-reveal">
+              <p className="sn-fund-card-label">Sponsor a veteran</p>
+              <div className="sn-fund-qty">
+                {[1, 2, 5, 10].map((n) => (
+                  <button
+                    key={n}
+                    type="button"
+                    className={`sn-fund-chip ${qty === n ? "sn-fund-chip-on" : ""}`}
+                    onClick={() => setQty(n)}
+                  >
+                    {n}
+                  </button>
+                ))}
+              </div>
+              <div className="sn-fund-total">
+                <span>You are sending</span>
+                <strong>
+                  {qty} {qty === 1 ? "veteran" : "veterans"}
+                </strong>
+                <em>${qty * FUND_PRICE}</em>
+              </div>
+              <a
+                className="sn-btn sn-btn-orange sn-btn-block"
+                href={`${STRIPE_LINK}?quantity=${qty}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Sponsor {qty === 1 ? "a veteran" : `${qty} veterans`} · ${qty * FUND_PRICE}
+              </a>
+              <p className="sn-fund-fine">
+                Secure checkout. 100% buys general admission tickets for service members. Not tax
+                deductible.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -1023,8 +1119,7 @@ const CSS = `
 .sn-who-card strong{color:var(--ink)}
 .sn-family-note{margin:34px auto 0;max-width:760px;text-align:center;font-size:1.02rem;line-height:1.6;color:var(--muted);background:var(--cream);border:1.5px dashed rgba(255,107,53,.4);border-radius:18px;padding:26px 30px}
 
-.sn-sponsors{padding:120px 0;background:var(--cream)}
-.sn-sponsors-lead{padding:100px 0 110px;background:linear-gradient(180deg,#fff 0%,var(--cream) 100%)}
+.sn-sponsors{padding:120px 0;background:var(--cream)}.sn-sponsors-lead{padding:100px 0 110px;background:linear-gradient(180deg,#fff 0%,var(--cream) 100%)}
 .sn-sponsors-lede{max-width:720px;margin:22px 0 0;font-size:1.12rem;line-height:1.62;color:var(--muted);font-weight:500}
 .sn-sponsor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
 .sn-sponsor-grid-5{grid-template-columns:repeat(5,1fr);gap:18px}
@@ -1039,6 +1134,30 @@ const CSS = `
 .sn-sponsor-link{font-family:var(--disp);font-weight:700;font-size:.92rem;color:var(--cobalt);text-decoration:none;transition:color .2s,transform .2s;text-align:center;line-height:1.3}
 .sn-sponsor-link:hover{color:var(--o);transform:translateX(3px)}
 .sn-sponsor-link-open{color:var(--o)}
+
+/* Sponsor a Veteran fund */
+.sn-fund{position:relative;padding:120px 0;background:var(--ink);overflow:hidden}
+.sn-fund-glow{position:absolute;inset:auto -10% -30% -10%;height:70%;z-index:0;background:radial-gradient(50% 60% at 30% 50%,rgba(255,107,53,.22),transparent 70%),radial-gradient(45% 55% at 80% 60%,rgba(19,56,222,.22),transparent 72%);filter:blur(14px)}
+.sn-fund-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+.sn-fund-copy p{color:rgba(255,255,255,.74);font-size:1.05rem;line-height:1.7;margin-top:20px}
+.sn-fund-copy .sn-small{font-size:.95rem;color:rgba(255,255,255,.55)}
+.sn-fund-meter{margin-top:30px}
+.sn-fund-meter-top{display:flex;align-items:baseline;gap:10px;margin-bottom:10px}
+.sn-fund-meter-top strong{font-family:var(--disp);font-weight:700;font-size:2.2rem;color:var(--o);line-height:1;letter-spacing:-.02em}
+.sn-fund-meter-top span{font-size:.85rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.sn-fund-bar{height:12px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden}
+.sn-fund-bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--o),#ff8a5c);transition:width .8s cubic-bezier(.2,.7,.2,1)}
+.sn-fund-card{background:#fff;border-radius:24px;padding:34px 32px;box-shadow:0 40px 90px rgba(0,0,0,.45)}
+.sn-fund-card-label{font-family:var(--disp);font-weight:700;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.sn-fund-qty{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}
+.sn-fund-chip{font-family:var(--disp);font-weight:700;font-size:1.25rem;color:var(--ink);background:var(--cream);border:2px solid transparent;border-radius:14px;padding:.85rem 0;cursor:pointer;transition:.2s ease}
+.sn-fund-chip:hover{border-color:rgba(255,107,53,.4)}
+.sn-fund-chip-on{background:var(--o);color:#fff;border-color:var(--o)}
+.sn-fund-total{display:flex;align-items:baseline;gap:10px;padding:14px 0 18px;border-top:1px solid rgba(10,11,20,.08);border-bottom:1px solid rgba(10,11,20,.08);margin-bottom:18px}
+.sn-fund-total span{font-size:.82rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.sn-fund-total strong{font-family:var(--disp);font-weight:600;font-size:1.15rem;color:var(--ink)}
+.sn-fund-total em{margin-left:auto;font-style:normal;font-family:var(--disp);font-weight:700;font-size:1.6rem;color:var(--o)}
+.sn-fund-fine{margin-top:14px;font-size:.76rem;line-height:1.5;color:var(--muted);text-align:center}
 .sn-sponsor-openbtn{display:flex;flex-direction:column;align-items:center;gap:16px;width:100%;background:none;border:none;padding:0;margin:0;cursor:pointer;font-family:inherit}
 .sn-sponsor-openbtn .sn-sponsor-logo{transition:border-color .24s ease,background .24s ease}
 .sn-sponsor-openbtn:hover .sn-sponsor-logo-open{border-color:var(--o);background:rgba(255,107,53,.06)}
@@ -1161,6 +1280,8 @@ const CSS = `
 .sn-who{padding:90px 0}
 .sn-who-grid{grid-template-columns:1fr;gap:14px}
 .sn-sponsors{padding:90px 0}
+.sn-fund{padding:90px 0}
+.sn-fund-grid{grid-template-columns:1fr;gap:36px}
 .sn-sponsor-grid,.sn-sponsor-grid-5{grid-template-columns:1fr 1fr;gap:14px}
 .sn-reserve{padding:90px 0}
 .sn-reserve-grid{grid-template-columns:1fr;gap:44px}
