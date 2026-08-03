@@ -18,7 +18,7 @@ const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwmN-Ay_a19_I5q
 const DM_URL = "https://instagram.com/gvonflue";
 
 /* Sponsor-a-Veteran fund */
-const STRIPE_LINK = "https://buy.stripe.com/9B6cN614Z5oS6sMfOVdQQ01"; // your Stripe Payment Link
+const STRIPE_LINK = "https://buy.stripe.com/PASTE_YOUR_LINK"; // your Stripe Payment Link
 const FUND_GOAL = 250;   // stadium-fill goal, number of vets
 const FUND_PRICE = 12;   // dollars per veteran
 
@@ -484,7 +484,7 @@ export default function MilitarySuiteNight() {
             </div>
 
             <div className="sn-fund-card sn-reveal">
-              <p className="sn-fund-card-label">Sponsor a veteran</p>
+              <p className="sn-fund-card-label">Your impact</p>
               <div className="sn-fund-qty">
                 {[1, 2, 5, 10].map((n) => (
                   <button
@@ -498,7 +498,7 @@ export default function MilitarySuiteNight() {
                 ))}
               </div>
               <div className="sn-fund-total">
-                <span>You are sending</span>
+                <span>{qty === 1 ? "Sends" : "Sends"}</span>
                 <strong>
                   {qty} {qty === 1 ? "veteran" : "veterans"}
                 </strong>
@@ -506,15 +506,15 @@ export default function MilitarySuiteNight() {
               </div>
               <a
                 className="sn-btn sn-btn-orange sn-btn-block"
-                href={`${STRIPE_LINK}?quantity=${qty}`}
+                href={STRIPE_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Sponsor {qty === 1 ? "a veteran" : `${qty} veterans`} · ${qty * FUND_PRICE}
+                Sponsor a veteran · ${FUND_PRICE} each
               </a>
               <p className="sn-fund-fine">
-                Secure checkout. 100% buys general admission tickets for service members. Not tax
-                deductible.
+                Choose how many to sponsor on the next screen. 100% buys general admission tickets
+                for service members. Not tax deductible.
               </p>
             </div>
           </div>
