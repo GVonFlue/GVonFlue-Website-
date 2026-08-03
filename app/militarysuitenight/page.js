@@ -30,7 +30,7 @@ const HOST_BRANDS = [
 
 /* Sponsors · 5 slots · flip an open slot by adding name + logo + url */
 const SPONSORS = [
-  { name: "Dwell Real Estate Group", logo: "/logos/dwelllogo.png", url: "https://dwellwichita.com/", open: false },
+  { name: "Dwell Real Estate Group", logo: "/logos/dwelllogo.png", url: "https://dwellrealestategroup.com", open: false },
   { open: true },
   { open: true },
   { open: true },
@@ -150,6 +150,7 @@ export default function MilitarySuiteNight() {
     name: "",
     email: "",
     phone: "",
+    rank: "",
     status: "",
     branch: "",
     mos: "",
@@ -202,6 +203,7 @@ export default function MilitarySuiteNight() {
       name: form.name.trim(),
       email: form.email.trim(),
       phone: form.phone.trim(),
+      rank: form.rank.trim(),
       status: form.status,
       branch: form.branch,
       mos: form.mos.trim(),
@@ -640,6 +642,16 @@ export default function MilitarySuiteNight() {
                         </option>
                       ))}
                     </select>
+                  </label>
+
+                  <label>
+                    Rank
+                    <input
+                      value={form.rank}
+                      onChange={set("rank")}
+                      placeholder="e.g. SGT, SSG, E-5, CPT"
+                    />
+                    <small>Current or final rank. Optional.</small>
                   </label>
 
                   <label>
