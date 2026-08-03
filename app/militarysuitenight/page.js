@@ -18,7 +18,7 @@ const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwmN-Ay_a19_I5q
 const DM_URL = "https://instagram.com/gvonflue";
 
 /* Sponsor-a-Veteran fund */
-const STRIPE_LINK = "https://buy.stripe.com/PASTE_YOUR_LINK"; // your Stripe Payment Link
+const STRIPE_LINK = "https://buy.stripe.com/5kQ6oIbJD18C9EYgSZdQQ00"; // your Stripe Payment Link
 const FUND_GOAL = 250;   // stadium-fill goal, number of vets
 const FUND_PRICE = 12;   // dollars per veteran
 
