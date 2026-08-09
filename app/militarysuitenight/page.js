@@ -36,7 +36,7 @@ const HOST_BRANDS = [
 /* Sponsors · 5 slots · flip an open slot by adding name + logo + url */
 const SPONSORS = [
   { name: "Dwell Real Estate Group", logo: "/logos/dwelllogo.png", url: "https://dwellrealestategroup.com", open: false },
-  { open: true },
+  { name: "Guild Mortgage · Rick & Sherri Rangel", logo: "/logos/guildlogo.png", url: "https://branches.guildmortgage.com/ks/wichita/rick-rangel-288-chrra.html", open: false },
   { open: true },
   { open: true },
   { open: true },
@@ -347,6 +347,34 @@ export default function MilitarySuiteNight() {
                       </a>
                     </div>
                   ))}
+                </div>
+
+                <p className="sn-brought-label sn-brought-sponsors-label">Our sponsors</p>
+                <div className="sn-brought-sponsors">
+                  {SPONSORS.map((s, i) =>
+                    s.open ? (
+                      <button
+                        key={i}
+                        type="button"
+                        className="sn-brought-slot sn-brought-slot-open"
+                        onClick={() => setSponsorOpen(true)}
+                      >
+                        Open
+                      </button>
+                    ) : (
+                      <a
+                        key={i}
+                        className="sn-brought-slot"
+                        href={s.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={s.name}
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={s.logo} alt={s.name} />
+                      </a>
+                    )
+                  )}
                 </div>
               </div>
 
@@ -1058,8 +1086,14 @@ const CSS = `
 .sn-plate a:hover{opacity:.75;transform:translateY(-2px)}
 .sn-plate img{height:40px;width:auto;object-fit:contain}
 .sn-plate-div{width:1px;height:30px;background:rgba(10,11,20,.14);flex-shrink:0}
-.sn-flag-panel{text-align:left;border-color:rgba(255,107,53,.3)}
-.sn-flag-copy{font-family:var(--disp);font-weight:500;font-size:1.02rem;line-height:1.35;color:#fff;margin:0}
+.sn-brought-sponsors-label{margin-top:18px}
+.sn-brought-sponsors{display:grid;grid-template-columns:repeat(auto-fit,minmax(56px,1fr));gap:8px}
+.sn-brought-slot{display:flex;align-items:center;justify-content:center;height:52px;padding:7px;background:#fff;border:none;border-radius:10px;text-decoration:none;cursor:pointer;transition:.24s ease}
+.sn-brought-slot img{max-height:38px;max-width:100%;width:auto;object-fit:contain}
+.sn-brought-slot:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.3)}
+.sn-brought-slot-open{background:rgba(255,255,255,.05);border:1.5px dashed rgba(255,255,255,.28);font-family:var(--disp);font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.8)}
+.sn-brought-slot-open:hover{border-color:var(--o);background:rgba(255,107,53,.10);color:var(--o)}
+.sn-flag-panel{text-align:left;border-color:rgba(255,107,53,.3)}.sn-flag-copy{font-family:var(--disp);font-weight:500;font-size:1.02rem;line-height:1.35;color:#fff;margin:0}
 
 .sn-bubble{display:grid;grid-template-columns:1.5fr 1fr 1.2fr 1.2fr;gap:28px;align-items:center;margin:56px 0 0;background:#fff;border:2px solid var(--cobalt);border-radius:26px;padding:26px 32px;box-shadow:0 0 0 6px rgba(19,56,222,.14),0 30px 70px rgba(0,0,0,.45)}
 .sn-bub-cell span{display:block;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:6px}
