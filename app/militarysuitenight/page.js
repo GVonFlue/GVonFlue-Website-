@@ -941,7 +941,7 @@ export default function MilitarySuiteNight() {
             <span className="sn-kicker sn-kicker-orange">Become a sponsor</span>
             <h3 className="sn-modal-h">Put your name behind our military.</h3>
             <div className="sn-modal-price">
-              <strong>$450</strong>
+              <strong>$500</strong>
               <span>one sponsor spot</span>
             </div>
 
