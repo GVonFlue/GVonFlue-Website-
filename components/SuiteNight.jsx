@@ -2,124 +2,115 @@
 
 import { useEffect, useRef, useState } from "react";
 
-/* KNOBS · edit these, nothing else */
-const SEATS_TOTAL = 19;          // public framing: "Only 19 spots"
-const SEATS_TAKEN = 17;           // bump this as seats fill
-const SHOW_CATERING = true;     // flip to true to show the catering card (06) in the value stack
+/* ============================================================
+   SUITE NIGHT · THUNDER OPENING NIGHT · Oct 17
+   KNOBS · edit these, nothing else
+   ============================================================ */
+const EVENT_DATE = "October 17, 2026";
+const PUCK_DROP = "6:05 PM";
+const VENUE = "INTRUST Bank Arena";
+const SUITE_CAP = 32;            // total suite capacity incl. host, Logan, videographer, sponsors
+const TICKET_PRICE = 50;         // seat in the suite (covers the suite cost)
+const SPONSOR_PRICE = 250;       // per sponsor slot, includes 1 ticket
+
 const WEB3FORMS_KEY = "e87c5fc0-d3e8-47e8-a1ab-5be73241a042";
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwmN-Ay_a19_I5qKMWGEDw4p9OLKPttyzVDrkQe2EF0oa3xZtU6d8TcctCsKLdRK-1L/exec";
+const DM_URL = "https://instagram.com/gvonflue";
 
-const SPOTS_LEFT = Math.max(SEATS_TOTAL - SEATS_TAKEN, 0);
+const ROLES = ["Business owner", "Executive / Leadership", "Realtor", "Lender / Finance", "Other"];
+const SEAT_OPTS = ["1 seat", "2 seats", "3 seats", "4+ (I'll bring a group)"];
 
-const ROLES = ["Realtor", "Business owner", "Lender / Mortgage", "Other"];
-
-const MARQUEE = [
-  "20 IN THE ROOM",
-  "ONE REAL HOUR",
-  "PRIVATE SUITE 5",
-  "FIRST PITCH 7:05",
-  "NO PITCH",
-  "NO SUIT",
-];
-
-/* Host brands · shown top right of the hero */
+/* Host brands */
 const HOST_BRANDS = [
   { name: "GVonFlue Real Estate", logo: "/logos/gvonflue-logo.png", url: "https://gvonflue.vercel.app" },
   { name: "ProyTech", logo: "/logos/proytech-logo.png", url: "https://getproytech.com" },
 ];
 
-/* Catering sponsors · flip an "open" slot to a filled one by adding name + logo + url */
-const DM_URL = "https://instagram.com/gvonflue"; // where "DM to claim" / "Click to claim" points
-const CATERING_SPONSORS = [
-  { name: "Adeas Printing", logo: "/logos/adeaslogo.png", url: "https://www.adeasprinting.com/", open: false },
-  { name: "Kihle Roofing", logo: "/logos/kihlelogo.png", url: "https://kihleroofing.com", open: false },
-  { name: "Cruise Made EASY", logo: "/logos/cruisemadeeasylogo.png", url: "https://cruisemadeeasy.com", open: false },
+/* Sponsors · 4 slots · flip an open slot by adding name + logo + url */
+const SPONSORS = [
+  { open: true },
+  { open: true },
+  { open: true },
+  { open: true },
+];
+
+const MARQUEE = [
+  "BUSINESS NETWORKING DONE DIFFERENT",
+  "OPENING NIGHT",
+  "35TH SEASON",
+  "PRIVATE SUITE",
+  "PUCK DROP 6:05",
+  "THE THUNDER",
 ];
 
 const STACK = [
   {
     n: "01",
-    t: "One real hour",
-    d: "A curated room of 20 Wichita realtors and business owners. Not a card swap. Not a mixer. Twenty people who actually want to know each other.",
+    t: "A private suite for opening night",
+    d: "Watch the Thunder drop the puck on their 35th season from a private suite at INTRUST Bank Arena. Your seat, your view, all night.",
   },
   {
     n: "02",
-    t: "The game from Suite 5",
-    d: "Private suite at Equity Bank Park with the Wichita Wind Surge. Your seat is covered for the night.",
+    t: "A room worth being in",
+    d: "A curated group of Wichita business owners and leaders. Not a mixer. A small room of people actually worth knowing, with a hockey game as the backdrop.",
   },
   {
     n: "03",
-    t: "A live talk from me",
-    d: "Third inning, we step inside. How I have grown through community and relationships, plus real AI integration moves you can put to work in your own business.",
+    t: "Real connection, zero pressure",
+    d: "One night, good people, great hockey. No pitch, no name-tag shuffle. Just conversations that turn into something later.",
   },
   {
     n: "04",
-    t: "Professional photos",
-    d: "A group photo in the suite, then an on field photo after the game. Shot by the Wind Surge team photographer.",
+    t: "Catered in the suite",
+    d: "Food and drinks handled so you can focus on the room and the game.",
   },
   {
     n: "05",
-    t: "Something I am not announcing yet",
-    d: "There is more to this night than networking. You will find out in the suite.",
-    teaser: true,
+    t: "Captured on camera",
+    d: "Our videographer is in the suite all night. You leave with content, not just a memory.",
   },
-];
-
-const CATERING = {
-  n: "06",
-  t: "Catering provided",
-  d: "Eat well while you meet well. Covered for the night by our sponsors.",
-  sponsors: true,
-};
-
-const WHO = [
-  "You are a Wichita realtor who is tired of pretending mixers work",
-  "You own a business here and you want to know the people who move this city",
-  "You are a lender, a builder, a title rep, a creator building something real",
-  "You would rather have three real conversations than thirty polite ones",
-  "You are curious what AI can actually do for a business your size",
 ];
 
 const FAQ = [
   {
-    q: "What is actually included?",
-    a: "Your seat in the private suite for the whole game, the networking hour before first pitch, the live talk, catered access to the suite, and professional photos. You show up, that is it.",
+    q: "What is this, exactly?",
+    a: `Suite Night is a private-suite networking night at a Wichita game. This one is the Thunder's opening night on ${EVENT_DATE}. A small, curated room of business owners and leaders, catered, with the game from the suite.`,
   },
   {
-    q: "What does it cost?",
-    a: "There is a small cover to join. You will see the exact amount on the reserve form before you submit anything, so nothing about this is a surprise. This is not a profit event and it never will be.",
+    q: "What does a seat cost?",
+    a: `A seat in the suite is $${TICKET_PRICE}. That covers your spot for the whole night, the suite, the catered food, and the game. You will see the exact amount before you submit anything.`,
   },
   {
     q: "Do I pay on this page?",
-    a: "No. You reserve here. I text you to confirm the seat and send a simple payment link. The seat is locked once payment lands. That is the only reason payment exists, so the 20 people who said yes actually show up.",
+    a: "No. You reserve here, I text you to confirm your seat and send a simple payment link. The seat locks once payment is in. That is the only reason payment exists, so everyone who says yes actually shows up.",
   },
   {
-    q: "What is the timing?",
-    a: "Networking runs about 6:00 to 7:00 PM. First pitch is 7:05 PM. The talk happens during the third inning. Stay as long as you want after.",
+    q: "Who is in the room?",
+    a: "Wichita business owners, executives, and a few of the people who quietly move this city. It is curated on purpose and kept small.",
   },
   {
-    q: "Am I going to get pitched?",
-    a: "No pitch. Even if we never work together. I am not selling you real estate and I am not selling you software. I am building a room.",
+    q: "When is it?",
+    a: `${EVENT_DATE} at ${VENUE}. Puck drops at ${PUCK_DROP}. Plan to arrive a little before for the room and the food.`,
   },
   {
-    q: "What do I wear?",
-    a: "No suit. It is a baseball game. Come as the version of you that people actually like.",
+    q: "Can I bring my team?",
+    a: "Absolutely. Grab multiple seats when you reserve. Bringing a few key people to a room like this is one of the better moves you can make.",
   },
 ];
 
 /* Scroll reveal */
 function useReveal() {
   useEffect(() => {
-    const els = document.querySelectorAll(".sn-reveal");
+    const els = document.querySelectorAll(".tn-reveal");
     if (!("IntersectionObserver" in window)) {
-      els.forEach((el) => el.classList.add("sn-in"));
+      els.forEach((el) => el.classList.add("tn-in"));
       return;
     }
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
           if (e.isIntersecting) {
-            e.target.classList.add("sn-in");
+            e.target.classList.add("tn-in");
             io.unobserve(e.target);
           }
         });
@@ -131,54 +122,15 @@ function useReveal() {
   }, []);
 }
 
-/* Count up */
-function CountUp({ to }) {
-  const [n, setN] = useState(0);
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    let raf;
-    const run = () => {
-      const start = performance.now();
-      const dur = 900;
-      const tick = (now) => {
-        const p = Math.min((now - start) / dur, 1);
-        const eased = 1 - Math.pow(1 - p, 3);
-        setN(Math.round(to * eased));
-        if (p < 1) raf = requestAnimationFrame(tick);
-      };
-      raf = requestAnimationFrame(tick);
-    };
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          run();
-          io.disconnect();
-        }
-      },
-      { threshold: 0.5 }
-    );
-    io.observe(el);
-    return () => {
-      io.disconnect();
-      cancelAnimationFrame(raf);
-    };
-  }, [to]);
-
-  return <span ref={ref}>{n}</span>;
-}
-
 /* FAQ row */
 function FaqRow({ q, a, open, onToggle }) {
   return (
-    <div className={`sn-faq-row ${open ? "sn-faq-open" : ""}`}>
-      <button className="sn-faq-q" onClick={onToggle} aria-expanded={open}>
+    <div className={`tn-faq-row ${open ? "tn-faq-open" : ""}`}>
+      <button className="tn-faq-q" onClick={onToggle} aria-expanded={open}>
         <span>{q}</span>
-        <i className="sn-faq-plus" aria-hidden="true" />
+        <i className="tn-faq-plus" aria-hidden="true" />
       </button>
-      <div className="sn-faq-a">
+      <div className="tn-faq-a">
         <p>{a}</p>
       </div>
     </div>
@@ -186,7 +138,7 @@ function FaqRow({ q, a, open, onToggle }) {
 }
 
 /* Page */
-export default function SuiteNight() {
+export default function ThunderSuiteNight() {
   useReveal();
 
   const [form, setForm] = useState({
@@ -196,12 +148,14 @@ export default function SuiteNight() {
     business: "",
     role: "",
     roleOther: "",
-    referral: "",
+    seats: "",
+    note: "",
   });
   const [status, setStatus] = useState("idle");
   const [err, setErr] = useState("");
   const [openFaq, setOpenFaq] = useState(0);
   const [showBar, setShowBar] = useState(false);
+  const [sponsorOpen, setSponsorOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setShowBar(window.scrollY > 700);
@@ -209,11 +163,14 @@ export default function SuiteNight() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
+  useEffect(() => {
+    const onKey = (e) => e.key === "Escape" && setSponsorOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
-  const scrollToForm = () => {
-    document.getElementById("reserve")?.scrollIntoView({ behavior: "smooth" });
-  };
+  const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
+  const scrollToForm = () => document.getElementById("reserve")?.scrollIntoView({ behavior: "smooth" });
 
   async function submit(e) {
     e.preventDefault();
@@ -224,12 +181,11 @@ export default function SuiteNight() {
       return;
     }
     if (form.role === "Other" && !form.roleOther.trim()) {
-      setErr("Tell me what you do and I will get you in the right seat.");
+      setErr("Tell me what you do and I'll get you in the right seat.");
       return;
     }
 
     setStatus("sending");
-
     const role = form.role === "Other" ? form.roleOther.trim() : form.role;
     const payload = {
       name: form.name.trim(),
@@ -237,8 +193,9 @@ export default function SuiteNight() {
       phone: form.phone.trim(),
       business: form.business.trim(),
       role,
-      referral: form.referral.trim(),
-      source: "suitenight",
+      seats: form.seats,
+      note: form.note.trim(),
+      source: "thunder",
       submittedAt: new Date().toISOString(),
     };
 
@@ -257,108 +214,122 @@ export default function SuiteNight() {
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
           access_key: WEB3FORMS_KEY,
-          subject: "🎟️ New Suite Night Reservation",
-          from_name: "Suite Night · GVonFlue x ProyTech",
+          subject: "🏒 New Thunder Suite Night Reservation",
+          from_name: "Suite Night · Thunder Opening Night",
           ...payload,
         }),
       });
       const data = await res.json();
       if (!data.success) throw new Error(data.message || "Submit failed");
       setStatus("done");
-      window.plausible?.("SuiteNight Reserve");
+      window.plausible?.("Thunder Reserve");
       setTimeout(() => {
         document.getElementById("reserve")?.scrollIntoView({ behavior: "smooth", block: "center" });
       }, 60);
     } catch (e2) {
-      console.error("Suite Night submit error:", e2);
+      console.error("Thunder submit error:", e2);
       setStatus("error");
-      setErr("That did not go through. Text me at 901.335.3905 and I will hold the seat.");
+      setErr("That didn't go through. Text me at 901.335.3905 and I'll hold the seat.");
     }
   }
 
-  const stack = SHOW_CATERING ? [...STACK, CATERING] : STACK;
+  const snow = Array.from({ length: 18 });
 
   return (
-    <main className="sn">
+    <main className="tn">
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
 
       {/* HERO */}
-      <section className="sn-hero">
-        <div className="sn-photo" />
-        <div className="sn-shade" />
-        <div className="sn-grain" />
+      <section className="tn-hero">
+        <div className="tn-ice" />
+        <div className="tn-beams" />
+        <div className="tn-cracks" />
+        <div className="tn-aurora" />
+        <div className="tn-sheen" />
+        <div className="tn-streak" aria-hidden="true" />
+        <div className="tn-snow" aria-hidden="true">
+          {snow.map((_, i) => (
+            <span key={i} className={`tn-flake tn-flake-${i % 6}`} />
+          ))}
+        </div>
+        <div className="tn-vignette" />
 
-        <div className="sn-hero-inner">
-          <div className="sn-hero-grid">
-            <div className="sn-hero-main">
-              <div className="sn-eyebrow">
-                <i className="sn-dot" />
-                Wichita · August 12 · 2026
+        <div className="tn-hero-inner">
+          <div className="tn-hero-grid">
+            <div className="tn-hero-main">
+              <div className="tn-eyebrow">
+                <i className="tn-puck" />
+                Suite Night · Thunder Opening Night · {EVENT_DATE}
               </div>
 
-              <h1 className="sn-h1">
-                A Networking Event
+              <h1 className="tn-h1">
+                Business Networking
                 <br />
-                Like You’ve <em>Never Seen</em>.
+                <em>Done Different.</em>
               </h1>
 
-              <p className="sn-hero-sub">
-                Twenty people. One private suite. One real hour before first pitch.
-                <span className="sn-hl"> </span>
+              <p className="tn-hero-sub">
+                A private suite for the Thunder's opening faceoff. A curated room of Wichita business
+                owners, catered, with the game all night. This is what networking should feel like.
               </p>
 
-              <div className="sn-hero-cta">
-                <button className="sn-btn sn-btn-orange" onClick={scrollToForm}>
-                  Reserve your spot
+              <div className="tn-hero-cta">
+                <button className="tn-btn tn-btn-orange" onClick={scrollToForm}>
+                  Reserve your seat
                 </button>
-                <div className="sn-seats-pill">
-                  <strong>{SPOTS_LEFT}</strong>
+                <div className="tn-seat-pill">
+                  <strong>${TICKET_PRICE}</strong>
                   <span>
-                    of {SEATS_TOTAL} spots
+                    a seat
                     <br />
-                    still open
+                    in the suite
                   </span>
                 </div>
               </div>
             </div>
 
-            <aside className="sn-side">
-              {/* Brand plate · top right */}
-              <div className="sn-brought sn-brand-panel">
-                <p className="sn-brought-label">Brought to you by</p>
-                <div className="sn-plate">
-                  {HOST_BRANDS.map((b, i) => (
-                    <div className="sn-plate-item" key={b.name}>
-                      {i > 0 && <i className="sn-plate-div" />}
-                      <a href={b.url} target="_blank" rel="noopener noreferrer" aria-label={b.name}>
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={b.logo} alt={b.name} />
-                      </a>
-                    </div>
-                  ))}
+            <aside className="tn-side">
+              <div className="tn-glass tn-brand-panel">
+                <p className="tn-glass-label">Brought to you by</p>
+                <div className="tn-brandstack">
+                  <a
+                    className="tn-brand-primary"
+                    href="https://getproytech.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="ProyTech"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/logos/proytech-logo.png" alt="ProyTech" />
+                  </a>
+                  <a
+                    className="tn-brand-secondary"
+                    href="https://gvonflue.vercel.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GVonFlue Real Estate"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/logos/gvonflue-logo.png" alt="GVonFlue Real Estate" />
+                  </a>
                 </div>
-              </div>
 
-              {/* Catering sponsors · bottom right */}
-              <div className="sn-brought sn-cater-panel">
-                <p className="sn-brought-label">Catering brought to you by</p>
-                <div className="sn-cater-grid">
-                  {CATERING_SPONSORS.map((s, i) =>
+                <p className="tn-glass-label tn-glass-label-sp">Sponsors</p>
+                <div className="tn-side-sponsors">
+                  {SPONSORS.map((s, i) =>
                     s.open ? (
-                      <a
+                      <button
                         key={i}
-                        className="sn-cater-slot sn-cater-open"
-                        href={DM_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        type="button"
+                        className="tn-side-slot tn-side-slot-open"
+                        onClick={() => setSponsorOpen(true)}
                       >
-                        <span className="sn-cater-open-tag">Open</span>
-                        <span className="sn-cater-open-cta">DM to claim</span>
-                      </a>
+                        Open
+                      </button>
                     ) : (
                       <a
                         key={i}
-                        className="sn-cater-slot sn-cater-filled"
+                        className="tn-side-slot"
                         href={s.url}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -374,38 +345,34 @@ export default function SuiteNight() {
             </aside>
           </div>
 
-          <div className="sn-bubble">
-            <div className="sn-bub-cell sn-bub-venue">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logos/windsurge-logo.png" alt="Wichita Wind Surge" />
-              <div>
-                <span>Where</span>
-                <strong>Suite 5 · Equity Bank Park</strong>
-              </div>
+          <div className="tn-bubble">
+            <div className="tn-bub-cell">
+              <span>Where</span>
+              <strong>{VENUE}</strong>
             </div>
-            <div className="sn-bub-cell">
-              <span>Networking</span>
-              <strong>6:00 to 7:00 PM</strong>
+            <div className="tn-bub-cell">
+              <span>Puck drop</span>
+              <strong>{PUCK_DROP}</strong>
             </div>
-            <div className="sn-bub-cell">
-              <span>First pitch</span>
-              <strong>7:05 PM</strong>
+            <div className="tn-bub-cell">
+              <span>When</span>
+              <strong>Sat · Oct 17</strong>
             </div>
-            <div className="sn-bub-cell">
-              <span>Cover</span>
-              <strong>Just a small cover to join</strong>
+            <div className="tn-bub-cell">
+              <span>A seat</span>
+              <strong>${TICKET_PRICE} · covers the night</strong>
             </div>
           </div>
         </div>
 
-        <div className="sn-marquee">
-          <div className="sn-track">
+        <div className="tn-marquee">
+          <div className="tn-track">
             {[0, 1].map((dup) => (
-              <div className="sn-track-half" key={dup} aria-hidden={dup === 1}>
+              <div className="tn-track-half" key={dup} aria-hidden={dup === 1}>
                 {MARQUEE.map((m, i) => (
                   <span key={i}>
                     {m}
-                    <i>✦</i>
+                    <i>❄</i>
                   </span>
                 ))}
               </div>
@@ -415,132 +382,89 @@ export default function SuiteNight() {
       </section>
 
       {/* WHAT THIS IS */}
-      <section className="sn-what">
-        <div className="sn-what-glow" />
-        <div className="sn-wrap">
-          <span className="sn-kicker sn-reveal">01 · What this actually is</span>
-          <h2 className="sn-what-h sn-reveal">
-            This is not a<br />
-            <s>business card swap.</s>
+      <section className="tn-what">
+        <div className="tn-what-glow" />
+        <div className="tn-wrap">
+          <span className="tn-kicker tn-reveal">01 · What this is</span>
+          <h2 className="tn-what-h tn-reveal">
+            Business networking,
+            <br />
+            <em>at center ice.</em>
           </h2>
 
-          <div className="sn-chips sn-reveal">
-            <span>20 seats</span>
-            <span>1 real hour</span>
-            <span>9 innings</span>
-            <span>0 pitches</span>
+          <div className="tn-chips tn-reveal">
+            <span>Private suite</span>
+            <span>Curated room</span>
+            <span>Opening night</span>
+            <span>No pitch</span>
           </div>
 
-          <div className="sn-what-grid">
-            <p className="sn-lede sn-reveal">
-              I got tired of walking into rooms of a hundred people and leaving with a hundred cards
-              and zero relationships. So I built the opposite.
+          <div className="tn-what-grid">
+            <p className="tn-lede tn-reveal">
+              The best rooms in this city do not happen at a conference table. They happen when the
+              right people share a night worth remembering.
             </p>
-            <p className="sn-body sn-reveal">
-              Twenty of us. A curated room of Wichita realtors and business owners. One hour where
-              the only job is to actually meet each other. Then we take the game from a private
-              suite, and during the third inning we step inside and I talk about the thing nobody
-              teaches you: how community and relationships built my business, and the real AI
-              integration moves you can walk out with and use.
+            <p className="tn-body tn-reveal">
+              So we took a private suite for the Thunder's opening night and filled it with Wichita
+              business owners and leaders. One night, a great game, catered food, and a small room of
+              people actually worth knowing. No pitch. No pressure. Just the kind of connection that
+              turns into real business three months later.
               <br />
               <br />
-              There is also more to this night than networking. I am not telling you what yet. You
-              will find out in the suite.
+              Opening night. 35th season. A room that gets it.
             </p>
           </div>
         </div>
       </section>
 
       {/* VALUE STACK */}
-      <section className="sn-stack">
-        <div className="sn-wrap">
-          <span className="sn-kicker sn-kicker-orange sn-reveal">02 · What you get</span>
-          <h2 className="sn-h2 sn-h2-light sn-reveal">Everything in the room.</h2>
+      <section className="tn-stack">
+        <div className="tn-wrap">
+          <span className="tn-kicker tn-kicker-ice tn-reveal">02 · What you get</span>
+          <h2 className="tn-h2 tn-h2-light tn-reveal">Everything in the suite.</h2>
 
-          <div className="sn-cards">
-            {stack.map((s, i) => (
+          <div className="tn-cards">
+            {STACK.map((s, i) => (
               <article
                 key={s.n}
-                className={`sn-card sn-reveal ${i % 2 === 0 ? "sn-card-blue" : "sn-card-orange"}`}
+                className={`tn-card tn-reveal ${i % 2 === 0 ? "tn-card-blue" : "tn-card-ice"}`}
                 style={{ transitionDelay: `${i * 60}ms` }}
               >
-                <span className="sn-card-n">{s.n}</span>
+                <span className="tn-card-n">{s.n}</span>
                 <h3>{s.t}</h3>
                 <p>{s.d}</p>
-                {s.teaser && <span className="sn-card-tag">Live reveal</span>}
-                {s.sponsors && (
-                  <div className="sn-card-logos">
-                    {CATERING_SPONSORS.map((sp, k) =>
-                      sp.open ? (
-                        <span key={k} className="sn-card-logo sn-card-logo-open">
-                          Open
-                        </span>
-                      ) : (
-                        <span key={k} className="sn-card-logo">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={sp.logo} alt={sp.name} />
-                        </span>
-                      )
-                    )}
-                  </div>
-                )}
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* WHO IT IS FOR */}
-      <section className="sn-who">
-        <div className="sn-wrap">
-          <span className="sn-kicker sn-reveal">03 · Who is in the room</span>
-          <h2 className="sn-h2 sn-reveal">Twenty people. Chosen on purpose.</h2>
-
-          <div className="sn-who-grid">
-            {WHO.map((w, i) => (
-              <div className="sn-who-card sn-reveal" key={i} style={{ transitionDelay: `${i * 50}ms` }}>
-                <i>✓</i>
-                <p>{w}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CATERING SPONSORS */}
-      <section className="sn-sponsors">
-        <div className="sn-wrap">
-          <span className="sn-kicker sn-kicker-orange sn-reveal">Catering provided by</span>
-          <h2 className="sn-h2 sn-reveal">The people making the food happen.</h2>
-          <div className="sn-sponsor-grid">
-            {CATERING_SPONSORS.map((s, i) => (
-              <div className="sn-sponsor-card sn-reveal" key={i} style={{ transitionDelay: `${i * 70}ms` }}>
+      {/* SPONSORS */}
+      <section className="tn-sponsors">
+        <div className="tn-wrap">
+          <span className="tn-kicker tn-kicker-ice tn-reveal">Put your brand on the ice</span>
+          <h2 className="tn-h2 tn-reveal">Sponsor the night.</h2>
+          <p className="tn-sponsors-lede tn-reveal">
+            Get your brand in front of a curated room of Wichita business owners, and on every piece
+            of promotion leading up to opening night. Four spots.
+          </p>
+          <div className="tn-sponsor-grid">
+            {SPONSORS.map((s, i) => (
+              <div className="tn-sponsor-card tn-reveal" key={i} style={{ transitionDelay: `${i * 60}ms` }}>
                 {s.open ? (
-                  <>
-                    <div className="sn-sponsor-logo sn-sponsor-logo-open">
+                  <button type="button" className="tn-sponsor-openbtn" onClick={() => setSponsorOpen(true)}>
+                    <span className="tn-sponsor-logo tn-sponsor-logo-open">
                       <span>Open Spot</span>
-                    </div>
-                    <a
-                      className="sn-sponsor-link sn-sponsor-link-open"
-                      href={DM_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Click to claim →
-                    </a>
-                  </>
+                    </span>
+                    <span className="tn-sponsor-link tn-sponsor-link-open">See what you get →</span>
+                  </button>
                 ) : (
                   <>
-                    <div className="sn-sponsor-logo">
+                    <div className="tn-sponsor-logo">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={s.logo} alt={s.name} />
                     </div>
-                    <a
-                      className="sn-sponsor-link"
-                      href={s.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <a className="tn-sponsor-link" href={s.url} target="_blank" rel="noopener noreferrer">
                       Visit {s.name} →
                     </a>
                   </>
@@ -551,44 +475,23 @@ export default function SuiteNight() {
         </div>
       </section>
 
-      {/* SCARCITY */}
-      <section className="sn-scarcity">
-        <div className="sn-wrap sn-reveal">
-          <div className="sn-count">
-            <CountUp to={SPOTS_LEFT} />
-          </div>
-          <div className="sn-count-copy">
-            <h3>Only {SEATS_TOTAL} spots.</h3>
-            <p>
-              Twenty seats in the suite. One of them is mine. When they are gone, they are gone, and
-              I am not adding chairs.
-            </p>
-            <button className="sn-btn sn-btn-ink" onClick={scrollToForm}>
-              Take one of them
-            </button>
-          </div>
-        </div>
-      </section>
-
       {/* RESERVE */}
-      <section className="sn-reserve" id="reserve">
-        <div className="sn-wrap">
-          <div className="sn-reserve-grid">
-            <div className="sn-reserve-copy sn-reveal">
-              <span className="sn-kicker sn-kicker-orange">04 · Reserve</span>
-              <h2 className="sn-h2 sn-h2-light">Grab your seat.</h2>
+      <section className="tn-reserve" id="reserve">
+        <div className="tn-wrap">
+          <div className="tn-reserve-grid">
+            <div className="tn-reserve-copy tn-reveal">
+              <span className="tn-kicker tn-kicker-ice">03 · Reserve</span>
+              <h2 className="tn-h2 tn-h2-light">Grab your seat.</h2>
               <p>
-                Straight talk, because you deserve it before you type anything:{" "}
-                <strong>$60 reserves your seat.</strong> That covers your spot in the suite for the
-                night and everything that comes with it.
+                Straight up, before you type anything: <strong>${TICKET_PRICE} reserves your seat</strong> in
+                the suite for opening night. That covers the suite, the catered food, and the game.
               </p>
-              <p className="sn-small">
+              <p className="tn-small">
                 You are not paying on this page. Fill this out, I text you to confirm the seat and
-                send a simple payment link. The seat is only locked once payment is in. That is how I
-                keep twenty yeses into twenty people who actually show up.
+                send a simple payment link. The seat locks once payment is in.
               </p>
-              <div className="sn-badge-row">
-                <span>Reserve now</span>
+              <div className="tn-badge-row">
+                <span>Reserve</span>
                 <i>→</i>
                 <span>I text you</span>
                 <i>→</i>
@@ -596,110 +499,76 @@ export default function SuiteNight() {
               </div>
             </div>
 
-            <div className="sn-form-card sn-reveal">
+            <div className="tn-form-card tn-reveal">
               {status === "done" ? (
-                <div className="sn-success">
-                  <div className="sn-success-mark">✓</div>
-                  <h3>Seat held. Now watch your phone.</h3>
-                  <p>You are on the list, {form.name.split(" ")[0]}. Here is what happens next.</p>
+                <div className="tn-success">
+                  <div className="tn-success-mark">✓</div>
+                  <h3>Seat held. Watch your phone.</h3>
+                  <p>You're on the list, {form.name.split(" ")[0]}. Here's what's next.</p>
                   <ol>
-                    <li>
-                      <strong>I text you.</strong> From my real number, usually within a few hours.
-                    </li>
-                    <li>
-                      <strong>I send a simple payment link.</strong> $60 reserves your seat in the
-                      suite.
-                    </li>
-                    <li>
-                      <strong>Payment lands, seat is locked.</strong> You get the full rundown and
-                      parking details a few days out.
-                    </li>
+                    <li><strong>I text you.</strong> From my real number, usually within a few hours.</li>
+                    <li><strong>I send a payment link.</strong> ${TICKET_PRICE} reserves your seat.</li>
+                    <li><strong>Payment lands, seat locks.</strong> Full details a few days out.</li>
                   </ol>
-                  <p className="sn-small">
-                    If you do not hear from me by tomorrow, text 901.335.3905 and I will fix it.
-                  </p>
+                  <p className="tn-small">Don't hear from me by tomorrow? Text 901.335.3905.</p>
                 </div>
               ) : (
                 <form onSubmit={submit} noValidate>
-                  <h3>Reserve your spot</h3>
-                  <p className="sn-form-note">$60 reserves your seat · payment comes by text</p>
+                  <h3>Reserve your seat</h3>
+                  <p className="tn-form-note">${TICKET_PRICE} a seat · payment comes by text</p>
 
                   <label>
                     Full name <b>*</b>
                     <input value={form.name} onChange={set("name")} placeholder="Jordan Reyes" />
                   </label>
-
                   <label>
                     Email <b>*</b>
-                    <input
-                      type="email"
-                      value={form.email}
-                      onChange={set("email")}
-                      placeholder="you@email.com"
-                    />
+                    <input type="email" value={form.email} onChange={set("email")} placeholder="you@email.com" />
                   </label>
-
                   <label>
                     Phone <b>*</b>
-                    <input
-                      type="tel"
-                      value={form.phone}
-                      onChange={set("phone")}
-                      placeholder="316.555.0134"
-                    />
-                    <small>This is how I confirm your seat, so make it the one you answer.</small>
+                    <input type="tel" value={form.phone} onChange={set("phone")} placeholder="316.555.0134" />
+                    <small>This is how I confirm your seat.</small>
                   </label>
-
                   <label>
-                    Business or brokerage
-                    <input
-                      value={form.business}
-                      onChange={set("business")}
-                      placeholder="Real Broker LLC"
-                    />
+                    Business
+                    <input value={form.business} onChange={set("business")} placeholder="Your company" />
                   </label>
-
                   <label>
                     What do you do? <b>*</b>
                     <select value={form.role} onChange={set("role")}>
                       <option value="">Pick one</option>
                       {ROLES.map((r) => (
-                        <option key={r} value={r}>
-                          {r}
-                        </option>
+                        <option key={r} value={r}>{r}</option>
                       ))}
                     </select>
                   </label>
-
                   {form.role === "Other" && (
                     <label>
                       Tell me what you do
-                      <input
-                        value={form.roleOther}
-                        onChange={set("roleOther")}
-                        placeholder="Videographer, contractor, founder..."
-                      />
+                      <input value={form.roleOther} onChange={set("roleOther")} placeholder="Founder, operator..." />
                     </label>
                   )}
-
                   <label>
-                    Who sent you, or how did you find this?
-                    <input value={form.referral} onChange={set("referral")} placeholder="Optional" />
+                    How many seats?
+                    <select value={form.seats} onChange={set("seats")}>
+                      <option value="">Pick one</option>
+                      {SEAT_OPTS.map((r) => (
+                        <option key={r} value={r}>{r}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label>
+                    Anything I should know?
+                    <input value={form.note} onChange={set("note")} placeholder="Optional" />
                   </label>
 
-                  {err && <div className="sn-err">{err}</div>}
+                  {err && <div className="tn-err">{err}</div>}
 
-                  <button
-                    className="sn-btn sn-btn-orange sn-btn-block"
-                    type="submit"
-                    disabled={status === "sending"}
-                  >
-                    {status === "sending" ? "Holding your seat..." : "Reserve my spot"}
+                  <button className="tn-btn tn-btn-orange tn-btn-block" type="submit" disabled={status === "sending"}>
+                    {status === "sending" ? "Holding your seat..." : "Reserve my seat"}
                   </button>
-
-                  <p className="sn-fine">
-                    Reserving does not charge you. I text to confirm before any money moves.
-                  </p>
+                  <p className="tn-fine">Reserving doesn't charge you. I text to confirm first.</p>
                 </form>
               )}
             </div>
@@ -708,46 +577,32 @@ export default function SuiteNight() {
       </section>
 
       {/* HOST */}
-      <section className="sn-host">
-        <div className="sn-wrap">
-          <div className="sn-host-grid">
-            <div className="sn-host-copy sn-reveal">
-              <span className="sn-kicker">05 · Who is hosting</span>
-              <h2 className="sn-h2">I am the guy who shows up.</h2>
+      <section className="tn-host">
+        <div className="tn-wrap">
+          <div className="tn-host-grid">
+            <div className="tn-host-copy tn-reveal">
+              <span className="tn-kicker">04 · Who's hosting</span>
+              <h2 className="tn-h2">The guy who shows up.</h2>
               <p>
-                I am Garrett Von Flue. REALTOR® with Real Broker LLC, co CEO of ProyTech, and the guy
-                hiding hundreds of rubber ducks across Wichita because I would rather build an
-                audience than rent one.
+                I'm Garrett Von Flue. REALTOR® with Real Broker LLC, co-CEO of ProyTech, and the guy
+                who'd rather build a room than rent one.
               </p>
               <p>
-                I have guided 75 plus families home. I built an AI system that answers every lead in
-                seconds because I got tired of chasing my tail, and then others started asking
-                me to build theirs. Everything I have that works came from a relationship first, not
-                a transaction first.
+                Suite Night started at the ballpark and it's become the thing I'm proudest of, real
+                rooms of real people who leave actually knowing each other. This one trades the
+                diamond for the ice, and opening night is the perfect stage for it.
               </p>
-              <p className="sn-host-line">
-                That is the whole reason this night exists. No pitch. Even if we never work together.
-              </p>
+              <p className="tn-host-line">No pitch. Even if we never work together.</p>
             </div>
-
-            <div className="sn-host-panel sn-reveal">
-              <div className="sn-panel-glow" />
-              <div className="sn-stat">
-                <strong>75+</strong>
-                <span>families guided home</span>
-              </div>
-              <div className="sn-stat">
-                <strong>200</strong>
-                <span>ducks hidden across Wichita</span>
-              </div>
-              <div className="sn-stat">
-                <strong>20</strong>
-                <span>seats in the room on August 12</span>
-              </div>
-              <div className="sn-panel-tags">
+            <div className="tn-host-panel tn-reveal">
+              <div className="tn-panel-glow" />
+              <div className="tn-stat"><strong>{SUITE_CAP}</strong><span>seats in the suite</span></div>
+              <div className="tn-stat"><strong>1</strong><span>private suite, opening night</span></div>
+              <div className="tn-stat"><strong>35th</strong><span>Thunder season faceoff</span></div>
+              <div className="tn-panel-tags">
                 <span>Real Broker LLC</span>
                 <span>ProyTech</span>
-                <span>DuckWichita</span>
+                <span>Suite Night</span>
               </div>
             </div>
           </div>
@@ -755,48 +610,78 @@ export default function SuiteNight() {
       </section>
 
       {/* FAQ */}
-      <section className="sn-faq">
-        <div className="sn-wrap">
-          <span className="sn-kicker sn-reveal">06 · Before you ask</span>
-          <h2 className="sn-h2 sn-reveal">The honest answers.</h2>
-          <div className="sn-faq-list sn-reveal">
+      <section className="tn-faq">
+        <div className="tn-wrap">
+          <span className="tn-kicker tn-reveal">05 · Before you ask</span>
+          <h2 className="tn-h2 tn-reveal">The honest answers.</h2>
+          <div className="tn-faq-list tn-reveal">
             {FAQ.map((f, i) => (
-              <FaqRow
-                key={f.q}
-                q={f.q}
-                a={f.a}
-                open={openFaq === i}
-                onToggle={() => setOpenFaq(openFaq === i ? -1 : i)}
-              />
+              <FaqRow key={f.q} q={f.q} a={f.a} open={openFaq === i} onToggle={() => setOpenFaq(openFaq === i ? -1 : i)} />
             ))}
           </div>
         </div>
       </section>
 
       {/* FINAL */}
-      <section className="sn-final">
-        <div className="sn-wrap sn-reveal">
-          <h2>
-            {SPOTS_LEFT} seats left.
-            <br />
-            <em>August 12.</em>
-          </h2>
-          <p>Comment SUITE, or just take the seat now.</p>
-          <button className="sn-btn sn-btn-orange sn-btn-lg" onClick={scrollToForm}>
-            Reserve your spot
-          </button>
+      <section className="tn-final">
+        <div className="tn-wrap tn-reveal">
+          <h2>Opening night.<br /><em>Center ice.</em></h2>
+          <p>{EVENT_DATE} · {VENUE}</p>
+          <button className="tn-btn tn-btn-orange tn-btn-lg" onClick={scrollToForm}>Reserve your seat</button>
         </div>
       </section>
 
       {/* STICKY BAR */}
       {status !== "done" && (
-        <div className={`sn-bar ${showBar ? "sn-bar-in" : ""}`}>
-          <span>
-            <strong>{SPOTS_LEFT}</strong> spots left · Aug 12
-          </span>
-          <button className="sn-btn sn-btn-orange sn-btn-sm" onClick={scrollToForm}>
-            Reserve
-          </button>
+        <div className={`tn-bar ${showBar ? "tn-bar-in" : ""}`}>
+          <span><strong>${TICKET_PRICE}</strong> a seat · Oct 17</span>
+          <button className="tn-btn tn-btn-orange tn-btn-sm" onClick={scrollToForm}>Reserve</button>
+        </div>
+      )}
+
+      {/* SPONSOR MODAL */}
+      {sponsorOpen && (
+        <div className="tn-modal" role="dialog" aria-modal="true" aria-label="Become a sponsor">
+          <div className="tn-modal-scrim" onClick={() => setSponsorOpen(false)} />
+          <div className="tn-modal-card">
+            <button type="button" className="tn-modal-x" onClick={() => setSponsorOpen(false)} aria-label="Close">✕</button>
+            <span className="tn-kicker tn-kicker-ice">Become a sponsor</span>
+            <h3 className="tn-modal-h">Put your brand on the ice.</h3>
+            <div className="tn-modal-price">
+              <strong>${SPONSOR_PRICE}</strong>
+              <span>one sponsor spot · includes 1 ticket</span>
+            </div>
+            <div className="tn-modal-cols">
+              <div className="tn-modal-col">
+                <h4 className="tn-modal-colh tn-modal-colh-blue">What you get</h4>
+                <ul className="tn-modal-list">
+                  <li>Your logo on the website</li>
+                  <li>Your logo on every social post for this event</li>
+                  <li>Your own dedicated shoutout post</li>
+                  <li>1 ticket to Suite Night in the suite</li>
+                  <li>Your brand featured inside the suite</li>
+                  <li>Face time with a curated room of business owners</li>
+                </ul>
+              </div>
+              <div className="tn-modal-col">
+                <h4 className="tn-modal-colh tn-modal-colh-ice">Why it works</h4>
+                <ul className="tn-modal-list">
+                  <li>A small, high-level room, not a crowd</li>
+                  <li>Weeks of promotion with your name on it</li>
+                  <li>Opening night visibility, 35th season</li>
+                  <li>You're in the room, not just on a banner</li>
+                </ul>
+              </div>
+            </div>
+            <div className="tn-modal-contact">
+              <p className="tn-modal-contact-label">Ready, or have questions? Reach me directly.</p>
+              <div className="tn-modal-contact-row">
+                <a className="tn-modal-btn tn-modal-btn-primary" href="tel:19013353905">Call or text · 901-335-3905</a>
+                <a className="tn-modal-btn" href="https://www.instagram.com/gvonflue" target="_blank" rel="noopener noreferrer">Instagram · @gvonflue</a>
+                <a className="tn-modal-btn" href="https://www.facebook.com/GarrettVonFlue" target="_blank" rel="noopener noreferrer">Facebook · Garrett Von Flue</a>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </main>
@@ -804,249 +689,292 @@ export default function SuiteNight() {
 }
 
 const CSS = `
-.sn{--o:#FF6B35;--o-deep:#E4551F;--cream:#FBF6EA;--blue-lite:#5B7BFF;font-family:var(--body);background:var(--white);overflow-x:clip}
-.sn-wrap{max-width:1180px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
-.sn-reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
-.sn-reveal.sn-in{opacity:1;transform:none}
-.nav:not(.nav-solid) .nav-links a{color:#fff}
-.nav:not(.nav-solid) .nav-links a:hover{color:var(--o)}
-.nav:not(.nav-solid) .nav-toggle{color:#fff}
-.nav:not(.nav-solid) .brandlogo,.nav:not(.nav-solid) .brokerlogo{filter:brightness(0) invert(1)}
-.nav:not(.nav-solid) .divider{background:rgba(255,255,255,.28)}
-.sn-h2{font-family:var(--disp);font-weight:600;letter-spacing:-.02em;line-height:1.02;font-size:clamp(2rem,4vw,3.4rem);color:var(--ink);margin:14px 0 0}
-.sn-h2-light{color:#fff}
-.sn-kicker{display:inline-block;font-weight:700;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cobalt)}
-.sn-kicker-orange{color:var(--o)}
-.sn-btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-family:var(--body);font-weight:700;font-size:1rem;line-height:1;border:none;border-radius:999px;cursor:pointer;padding:1.05rem 1.8rem;transition:.24s ease;white-space:nowrap}
-.sn-btn-orange{background:var(--o);color:#fff;box-shadow:0 10px 30px rgba(255,107,53,.4)}
-.sn-btn-orange:hover{background:var(--o-deep);transform:translateY(-2px);box-shadow:0 16px 44px rgba(255,107,53,.55)}
-.sn-btn-orange:disabled{opacity:.6;cursor:wait;transform:none}
-.sn-btn-ink{background:var(--ink);color:#fff}
-.sn-btn-ink:hover{transform:translateY(-2px)}
-.sn-btn-block{width:100%}
-.sn-btn-lg{padding:1.2rem 2.4rem;font-size:1.1rem}
-.sn-btn-sm{padding:.7rem 1.25rem;font-size:.9rem}
+.tn{
+  --blue:#005DA6;--blue-lite:#2E86C8;--ice:#38BDF8;--ice-2:#7DD3FC;--frost:#EAF6FF;
+  --mid:#083253;--deep:#04263f;--ink:#03151f;--near:#020a12;
+  --o:#FF6B35;--o-deep:#E4551F;--muted:#9fb8cc;--txt:#dceaf5;
+  --disp:'Space Grotesk',system-ui,-apple-system,sans-serif;--body:'Inter',system-ui,-apple-system,sans-serif;
+  font-family:var(--body);background:var(--near);color:var(--txt);overflow-x:clip
+}
+.tn *{box-sizing:border-box}
+.tn-wrap{max-width:1180px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
+.tn-reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.tn-reveal.tn-in{opacity:1;transform:none}
+.tn-h2{font-family:var(--disp);font-weight:600;letter-spacing:-.02em;line-height:1.02;font-size:clamp(2rem,4vw,3.4rem);color:var(--frost);margin:14px 0 0}
+.tn-h2-light{color:#fff}
+.tn-kicker{display:inline-block;font-weight:700;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ice)}
+.tn-kicker-ice{color:var(--ice-2)}
+.tn-btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-family:var(--body);font-weight:700;font-size:1rem;line-height:1;border:none;border-radius:999px;cursor:pointer;padding:1.05rem 1.8rem;transition:.24s ease;white-space:nowrap}
+.tn-btn-orange{background:var(--o);color:#fff;box-shadow:0 10px 30px rgba(255,107,53,.4)}
+.tn-btn-orange:hover{background:var(--o-deep);transform:translateY(-2px);box-shadow:0 16px 44px rgba(255,107,53,.55)}
+.tn-btn-orange:disabled{opacity:.6;cursor:wait;transform:none}
+.tn-btn-block{width:100%}
+.tn-btn-lg{padding:1.2rem 2.4rem;font-size:1.1rem}
+.tn-btn-sm{padding:.7rem 1.25rem;font-size:.9rem}
 
-.sn-hero{position:relative;padding:190px 0 0;overflow:hidden;background:var(--ink)}
-.sn-photo{position:absolute;inset:0;z-index:0;background:url("/ballpark-hero.png") center 30% / cover no-repeat;transform:scale(1.06);animation:sn-drift 26s ease-in-out infinite alternate}
-@keyframes sn-drift{to{transform:scale(1.13) translate3d(0,-14px,0)}}
-.sn-shade{position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,rgba(10,11,20,.96) 0%,rgba(10,11,20,.88) 38%,rgba(10,11,20,.55) 64%,rgba(19,56,222,.42) 86%,rgba(255,107,53,.30) 100%)}
-.sn-shade:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,11,20,.55) 0%,transparent 26%,transparent 70%,rgba(10,11,20,.85) 100%)}
-.sn-grain{position:absolute;inset:0;z-index:2;opacity:.06;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-.sn-hero-inner{position:relative;z-index:3;max-width:1180px;margin:0 auto;padding:0 28px}
-.sn-hero-grid{display:grid;grid-template-columns:1.4fr .6fr;gap:48px;align-items:stretch}
-.sn-hero-main{display:flex;flex-direction:column;justify-content:flex-end}
-.sn-side{display:flex;flex-direction:column;justify-content:space-between;gap:28px}
-.sn-eyebrow{display:inline-flex;align-self:flex-start;align-items:center;gap:9px;font-weight:700;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.20);backdrop-filter:blur(8px);padding:.55rem 1rem;border-radius:999px}
-.sn-dot{width:7px;height:7px;border-radius:50%;background:var(--o);box-shadow:0 0 0 4px rgba(255,107,53,.28);animation:sn-pulse 2s ease-in-out infinite}
-@keyframes sn-pulse{50%{box-shadow:0 0 0 9px rgba(255,107,53,0)}}
-.sn-h1{font-family:var(--disp);font-weight:600;letter-spacing:-.03em;line-height:.96;font-size:clamp(2.6rem,6.2vw,5.6rem);color:#fff;margin:22px 0 0;text-shadow:0 4px 40px rgba(0,0,0,.5)}
-.sn-h1 em{font-style:normal;color:var(--blue-lite)}
-.sn-hero-sub{font-size:clamp(1.02rem,1.4vw,1.25rem);line-height:1.55;color:rgba(255,255,255,.66);margin:24px 0 0;max-width:46ch}
-.sn-hl{color:#fff;font-weight:700}
-.sn-hero-cta{display:flex;align-items:center;gap:20px;margin:34px 0 0;flex-wrap:wrap}
-.sn-seats-pill{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.20);backdrop-filter:blur(10px);border-radius:16px;padding:.7rem 1.1rem}
-.sn-seats-pill strong{font-family:var(--disp);font-size:2rem;color:var(--o);line-height:1}
-.sn-seats-pill span{font-size:.72rem;line-height:1.25;color:rgba(255,255,255,.7);font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+/* HERO */
+.tn-hero{position:relative;padding:190px 0 0;overflow:hidden;background:linear-gradient(180deg,#041c30 0%,#03151f 60%,#020a12 100%);isolation:isolate}
+.tn-ice{position:absolute;inset:0;z-index:0;background:
+  radial-gradient(120% 80% at 50% -10%, rgba(56,189,248,.28), transparent 60%),
+  radial-gradient(90% 60% at 15% 20%, rgba(0,93,166,.5), transparent 65%),
+  radial-gradient(90% 70% at 85% 15%, rgba(45,134,200,.42), transparent 62%),
+  linear-gradient(180deg, #05263f, #03151f);
+  transform:scale(1.05);animation:tn-drift 24s ease-in-out infinite alternate}
+@keyframes tn-drift{to{transform:scale(1.12) translate3d(0,-12px,0)}}
+.tn-aurora{position:absolute;inset:-20% -10% auto -10%;height:70%;z-index:0;pointer-events:none;filter:blur(48px);opacity:.55;
+  background:conic-gradient(from 120deg at 50% 40%, rgba(56,189,248,.0), rgba(56,189,248,.55), rgba(0,93,166,.0), rgba(125,211,252,.5), rgba(56,189,248,.0));
+  animation:tn-aurora 18s ease-in-out infinite}
+@keyframes tn-aurora{0%,100%{transform:translateX(-6%) translateY(0) rotate(0deg)}50%{transform:translateX(6%) translateY(3%) rotate(4deg)}}
 
-.sn-brought{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(12px);border-radius:20px;padding:20px;text-align:center}
-.sn-brought-label{font-size:.64rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:16px}
-.sn-plate{display:flex;align-items:center;justify-content:center;gap:16px;background:#fff;border-radius:12px;padding:16px 14px}
-.sn-plate-item{display:flex;align-items:center;gap:16px}
-.sn-plate a{display:flex;align-items:center;transition:opacity .24s ease,transform .24s ease}
-.sn-plate a:hover{opacity:.75;transform:translateY(-2px)}
-.sn-plate img{height:40px;width:auto;object-fit:contain}
-.sn-plate-div{width:1px;height:30px;background:rgba(10,11,20,.14);flex-shrink:0}
-.sn-cater-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.sn-cater-slot{display:flex;align-items:center;justify-content:center;height:74px;border-radius:12px;padding:8px;text-decoration:none;transition:.24s ease}
-.sn-cater-filled{background:#fff}
-.sn-cater-filled:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.3)}
-.sn-cater-filled img{max-height:56px;max-width:100%;width:auto;object-fit:contain}
-.sn-cater-open{flex-direction:column;gap:3px;background:rgba(255,255,255,.05);border:1.5px dashed rgba(255,255,255,.28)}
-.sn-cater-open:hover{border-color:var(--o);background:rgba(255,107,53,.10);transform:translateY(-2px)}
-.sn-cater-open-tag{font-family:var(--disp);font-weight:700;font-size:.86rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85)}
-.sn-cater-open-cta{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--o);line-height:1.2}
+/* Arena light beams sweeping from the top */
+.tn-beams{position:absolute;inset:0 0 auto 0;height:90%;z-index:0;pointer-events:none;opacity:.5;mix-blend-mode:screen;
+  background:
+    conic-gradient(from 90deg at 20% -10%, transparent 0 8deg, rgba(125,211,252,.16) 9deg 11deg, transparent 12deg 20deg),
+    conic-gradient(from 90deg at 50% -10%, transparent 0 6deg, rgba(56,189,248,.18) 7deg 9deg, transparent 10deg 18deg),
+    conic-gradient(from 90deg at 80% -10%, transparent 0 8deg, rgba(125,211,252,.14) 9deg 11deg, transparent 12deg 20deg);
+  animation:tn-beams 12s ease-in-out infinite alternate;transform-origin:50% 0}
+@keyframes tn-beams{0%{transform:translateX(-2%) scaleY(1)}100%{transform:translateX(2%) scaleY(1.05)}}
 
-.sn-bubble{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:28px;align-items:center;margin:56px 0 0;background:#fff;border:2px solid var(--cobalt);border-radius:26px;padding:26px 32px;box-shadow:0 0 0 6px rgba(19,56,222,.14),0 30px 70px rgba(0,0,0,.45)}
-.sn-bub-cell span{display:block;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:6px}
-.sn-bub-cell strong{font-family:var(--disp);font-weight:600;font-size:1rem;color:var(--ink);line-height:1.2;display:block}
-.sn-bub-venue{display:flex;align-items:center;gap:16px;border-right:1px solid rgba(10,11,20,.10);padding-right:24px}
-.sn-bub-venue img{height:46px;width:auto;object-fit:contain;flex-shrink:0}
+/* Faint ice-crack texture on the lower half */
+.tn-cracks{position:absolute;inset:auto 0 0 0;height:55%;z-index:0;pointer-events:none;opacity:.12;
+  background-image:
+    linear-gradient(115deg, transparent 49.6%, rgba(234,246,255,.6) 49.8%, transparent 50%),
+    linear-gradient(65deg, transparent 49.7%, rgba(234,246,255,.5) 49.85%, transparent 50%),
+    linear-gradient(160deg, transparent 49.7%, rgba(234,246,255,.4) 49.9%, transparent 50%);
+  background-size:220px 220px, 300px 300px, 180px 180px;background-position:10% 90%, 70% 100%, 40% 80%;
+  -webkit-mask-image:linear-gradient(180deg,transparent,#000);mask-image:linear-gradient(180deg,transparent,#000)}
 
-.sn-marquee{position:relative;z-index:3;margin-top:80px;background:var(--o);color:var(--ink);padding:18px 0;overflow:hidden;transform:rotate(-1.4deg) scale(1.05)}
-.sn-track{display:flex;width:max-content;animation:sn-scroll 28s linear infinite}
-.sn-track-half{display:flex;white-space:nowrap;font-family:var(--disp);font-weight:600;font-size:1.15rem;letter-spacing:.03em}
-.sn-track-half span{padding-right:1rem;display:inline-flex;align-items:center}
-.sn-track-half i{color:var(--cobalt);font-style:normal;margin:0 .5rem}
-@keyframes sn-scroll{to{transform:translateX(-50%)}}
+/* A glowing puck streak that glides across the hero */
+.tn-streak{position:absolute;left:-10%;top:64%;z-index:1;width:120px;height:6px;pointer-events:none;border-radius:999px;
+  background:linear-gradient(90deg, transparent, rgba(125,211,252,.9), #fff);
+  box-shadow:0 0 18px rgba(125,211,252,.9),0 0 40px rgba(56,189,248,.6);
+  filter:blur(.3px);opacity:0;animation:tn-streak 7s ease-in-out infinite}
+@keyframes tn-streak{0%{left:-12%;opacity:0}8%{opacity:1}42%{left:112%;opacity:0}100%{left:112%;opacity:0}}
+.tn-sheen{position:absolute;top:0;left:-60%;width:60%;height:100%;z-index:1;pointer-events:none;
+  background:linear-gradient(105deg, transparent, rgba(234,246,255,.10) 45%, rgba(234,246,255,.18) 50%, rgba(234,246,255,.10) 55%, transparent);
+  animation:tn-sheen 9s ease-in-out infinite}
+@keyframes tn-sheen{0%{left:-60%}55%,100%{left:120%}}
+.tn-vignette{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% 30%, transparent 55%, rgba(2,10,18,.75) 100%)}
+.tn-snow{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.tn-flake{position:absolute;top:-6%;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle,#fff,rgba(255,255,255,.2));opacity:.7;animation:tn-fall linear infinite}
+@keyframes tn-fall{0%{transform:translate3d(0,-10vh,0);opacity:0}10%{opacity:.85}100%{transform:translate3d(14px,110vh,0);opacity:0}}
+.tn-flake-0{left:6%;width:6px;height:6px;animation-duration:11s;animation-delay:0s}
+.tn-flake-1{left:16%;width:10px;height:10px;animation-duration:15s;animation-delay:2s}
+.tn-flake-2{left:27%;width:5px;height:5px;animation-duration:9s;animation-delay:1s}
+.tn-flake-3{left:38%;width:9px;height:9px;animation-duration:13s;animation-delay:4s}
+.tn-flake-4{left:49%;width:6px;height:6px;animation-duration:12s;animation-delay:.5s}
+.tn-flake-5{left:58%;width:11px;height:11px;animation-duration:17s;animation-delay:3s}
+.tn-flake-6{left:66%;width:5px;height:5px;animation-duration:10s;animation-delay:2.5s}
+.tn-flake-7{left:73%;width:8px;height:8px;animation-duration:14s;animation-delay:1.5s}
+.tn-flake-8{left:81%;width:7px;height:7px;animation-duration:12s;animation-delay:5s}
+.tn-flake-9{left:88%;width:10px;height:10px;animation-duration:16s;animation-delay:.8s}
+.tn-flake-10{left:93%;width:6px;height:6px;animation-duration:11s;animation-delay:3.5s}
+.tn-flake-11{left:12%;width:7px;height:7px;animation-duration:13s;animation-delay:6s}
+.tn-flake-12{left:34%;width:5px;height:5px;animation-duration:10s;animation-delay:2.2s}
+.tn-flake-13{left:44%;width:9px;height:9px;animation-duration:15s;animation-delay:4.5s}
+.tn-flake-14{left:62%;width:6px;height:6px;animation-duration:12s;animation-delay:1.2s}
+.tn-flake-15{left:77%;width:8px;height:8px;animation-duration:14s;animation-delay:3.2s}
+.tn-flake-16{left:22%;width:6px;height:6px;animation-duration:11s;animation-delay:5.5s}
+.tn-flake-17{left:85%;width:7px;height:7px;animation-duration:13s;animation-delay:.3s}
+.tn-hero-inner{position:relative;z-index:3;max-width:1180px;margin:0 auto;padding:0 28px}
+.tn-hero-grid{display:grid;grid-template-columns:1.4fr .6fr;gap:48px;align-items:stretch}
+.tn-hero-main{display:flex;flex-direction:column;justify-content:flex-end}
+.tn-side{display:flex;flex-direction:column;justify-content:flex-start;gap:20px}
+.tn-eyebrow{display:inline-flex;align-self:flex-start;align-items:center;gap:9px;font-weight:700;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.3);backdrop-filter:blur(8px);padding:.55rem 1rem;border-radius:999px}
+.tn-puck{width:12px;height:8px;border-radius:3px;background:linear-gradient(#0b0f14,#020507);box-shadow:0 0 0 1px rgba(255,255,255,.15),0 0 12px rgba(56,189,248,.6)}
+.tn-h1{font-family:var(--disp);font-weight:700;letter-spacing:-.03em;line-height:.94;font-size:clamp(2.8rem,6.4vw,5.8rem);margin:22px 0 0;
+  color:#fff;text-shadow:0 4px 40px rgba(0,0,0,.5)}
+.tn-h1 em{font-style:normal;background:linear-gradient(100deg,var(--ice-2),#fff 40%,var(--ice) 60%,var(--ice-2));-webkit-background-clip:text;background-clip:text;color:transparent;background-size:220% auto;animation:tn-shimmer 6s linear infinite}
+@keyframes tn-shimmer{to{background-position:220% center}}
+.tn-hero-sub{font-size:clamp(1.02rem,1.4vw,1.22rem);line-height:1.55;color:rgba(220,234,245,.72);margin:24px 0 0;max-width:48ch}
+.tn-hero-cta{display:flex;align-items:center;gap:20px;margin:34px 0 0;flex-wrap:wrap}
+.tn-seat-pill{display:flex;align-items:center;gap:12px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.28);backdrop-filter:blur(10px);border-radius:16px;padding:.7rem 1.1rem}
+.tn-seat-pill strong{font-family:var(--disp);font-size:2rem;color:var(--ice);line-height:1}
+.tn-seat-pill span{font-size:.72rem;line-height:1.25;color:rgba(220,234,245,.7);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
 
-.sn-what{position:relative;padding:140px 0 120px;background:var(--cream);overflow:hidden}
-.sn-what-glow{position:absolute;inset:auto -8% -30% auto;width:60%;height:80%;z-index:0;background:radial-gradient(45% 55% at 70% 40%,rgba(19,56,222,.14),transparent 70%),radial-gradient(40% 50% at 90% 80%,rgba(255,107,53,.16),transparent 70%);filter:blur(12px)}
-.sn-what-h{font-family:var(--disp);font-weight:600;letter-spacing:-.03em;line-height:.98;font-size:clamp(2.3rem,5.4vw,4.6rem);color:var(--ink);margin:16px 0 0}
-.sn-what-h s{text-decoration:none;position:relative;color:var(--o);white-space:nowrap}
-.sn-what-h s:after{content:"";position:absolute;left:-1%;right:-1%;top:52%;height:7px;background:var(--cobalt);border-radius:4px;transform:rotate(-1.6deg)}
-.sn-chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px}
-.sn-chips span{font-family:var(--disp);font-weight:600;font-size:.9rem;letter-spacing:.04em;color:var(--cobalt);background:#fff;border:1.5px solid rgba(19,56,222,.25);padding:.6rem 1.05rem;border-radius:999px;box-shadow:0 6px 18px rgba(19,56,222,.10)}
-.sn-chips span:nth-child(even){color:var(--o);border-color:rgba(255,107,53,.32);box-shadow:0 6px 18px rgba(255,107,53,.12)}
-.sn-what-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:52px}
-.sn-lede{font-family:var(--disp);font-weight:500;font-size:clamp(1.3rem,1.9vw,1.7rem);line-height:1.28;color:var(--ink);letter-spacing:-.01em;border-left:5px solid var(--o);padding-left:26px}
-.sn-body{font-size:1.05rem;line-height:1.72;color:var(--muted)}
+.tn-glass{background:rgba(10,40,64,.5);border:1px solid rgba(125,211,252,.22);backdrop-filter:blur(14px);border-radius:20px;padding:20px;text-align:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 20px 50px rgba(0,0,0,.4)}
+.tn-glass-label{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(220,234,245,.6);margin-bottom:14px}
+.tn-glass-label-sp{margin-top:18px}
+.tn-brandstack{display:flex;flex-direction:column;align-items:center;gap:12px;background:#fff;border-radius:14px;padding:20px 18px}
+.tn-brand-primary{display:flex;align-items:center;justify-content:center;transition:.24s ease}
+.tn-brand-primary img{height:46px;width:auto;object-fit:contain}
+.tn-brand-primary:hover{transform:translateY(-2px)}
+.tn-brand-secondary{display:flex;align-items:center;justify-content:center;padding-top:12px;border-top:1px solid rgba(3,21,31,.12);width:100%;transition:.24s ease}
+.tn-brand-secondary img{height:26px;width:auto;object-fit:contain;opacity:.92}
+.tn-brand-secondary:hover{transform:translateY(-2px)}
+.tn-side-sponsors{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.tn-side-slot{display:flex;align-items:center;justify-content:center;height:44px;padding:6px;background:#fff;border:none;border-radius:9px;text-decoration:none;cursor:pointer;transition:.24s ease}
+.tn-side-slot img{max-height:30px;max-width:100%;object-fit:contain}
+.tn-side-slot:hover{transform:translateY(-2px)}
+.tn-side-slot-open{background:rgba(56,189,248,.08);border:1.5px dashed rgba(125,211,252,.4);font-family:var(--disp);font-weight:700;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ice-2)}
+.tn-side-slot-open:hover{border-color:var(--ice);background:rgba(56,189,248,.16)}
 
-.sn-stack{padding:120px 0;background:var(--ink)}
-.sn-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
-.sn-card{border-radius:20px;padding:34px 28px 30px;transition:transform .3s ease,box-shadow .3s ease}
-.sn-card-blue{background:var(--cobalt);border:2px solid var(--o);box-shadow:0 0 0 5px rgba(19,56,222,.16),0 20px 46px rgba(19,56,222,.32)}
-.sn-card-blue:hover{transform:translateY(-8px);box-shadow:0 0 0 6px rgba(255,107,53,.20),0 28px 60px rgba(19,56,222,.5)}
-.sn-card-blue .sn-card-n{color:var(--o)}
-.sn-card-blue h3{color:#fff}
-.sn-card-blue p{color:rgba(255,255,255,.78)}
-.sn-card-orange{background:var(--o);border:2px solid var(--cobalt);box-shadow:0 0 0 5px rgba(255,107,53,.16),0 20px 46px rgba(255,107,53,.30)}
-.sn-card-orange:hover{transform:translateY(-8px);box-shadow:0 0 0 6px rgba(19,56,222,.22),0 28px 60px rgba(255,107,53,.48)}
-.sn-card-orange .sn-card-n{color:var(--ink)}
-.sn-card-orange h3{color:var(--ink)}
-.sn-card-orange p{color:rgba(10,11,20,.76)}
-.sn-card-n{font-family:var(--disp);font-size:.85rem;font-weight:700;letter-spacing:.14em}
-.sn-card h3{font-family:var(--disp);font-weight:600;font-size:1.4rem;margin:14px 0 12px;letter-spacing:-.01em}
-.sn-card p{font-size:.97rem;line-height:1.66}
-.sn-card-tag{display:inline-block;margin-top:16px;font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);background:var(--o);padding:.4rem .75rem;border-radius:999px}
-.sn-card-logos{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
-.sn-card-logo{display:flex;align-items:center;justify-content:center;height:46px;min-width:88px;padding:6px 12px;background:#fff;border-radius:10px}
-.sn-card-logo img{max-height:32px;max-width:100%;width:auto;object-fit:contain}
-.sn-card-logo-open{font-family:var(--disp);font-weight:700;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);background:rgba(10,11,20,.14)}
+.tn-bubble{position:relative;z-index:3;display:grid;grid-template-columns:1.4fr 1fr 1fr 1.4fr;gap:24px;align-items:center;margin:52px 0 0;background:rgba(10,40,64,.55);border:1px solid rgba(125,211,252,.24);backdrop-filter:blur(14px);border-radius:22px;padding:24px 30px;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+.tn-bub-cell span{display:block;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:6px}
+.tn-bub-cell strong{font-family:var(--disp);font-weight:600;font-size:1rem;color:var(--frost);line-height:1.2;display:block}
 
-.sn-who{padding:120px 0;background:var(--white)}
-.sn-who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:50px}
-.sn-who-card{display:flex;gap:16px;align-items:flex-start;background:var(--cream);border:1.5px solid rgba(19,56,222,.14);border-radius:18px;padding:26px 24px;transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease}
-.sn-who-card:hover{transform:translateY(-5px);border-color:var(--cobalt);box-shadow:0 16px 40px rgba(19,56,222,.16)}
-.sn-who-card i{font-style:normal;font-weight:900;color:#fff;background:var(--cobalt);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0}
-.sn-who-card:nth-child(even) i{background:var(--o)}
-.sn-who-card p{font-size:1rem;line-height:1.55;color:var(--txt);font-weight:500}
+.tn-marquee{position:relative;z-index:3;margin-top:70px;background:var(--blue);color:#fff;padding:16px 0;overflow:hidden;transform:rotate(-1.2deg) scale(1.05);border-top:1px solid rgba(255,255,255,.15);border-bottom:1px solid rgba(255,255,255,.15)}
+.tn-track{display:flex;width:max-content;animation:tn-scroll 26s linear infinite}
+.tn-track-half{display:flex;white-space:nowrap;font-family:var(--disp);font-weight:600;font-size:1.1rem;letter-spacing:.05em}
+.tn-track-half span{padding-right:1rem;display:inline-flex;align-items:center}
+.tn-track-half i{color:var(--ice-2);font-style:normal;margin:0 .55rem}
+@keyframes tn-scroll{to{transform:translateX(-50%)}}
 
-.sn-sponsors{padding:120px 0;background:var(--cream)}
-.sn-sponsor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
-.sn-sponsor-card{display:flex;flex-direction:column;align-items:center;gap:20px;background:#fff;border:2px solid var(--cobalt);border-radius:20px;padding:36px 28px;box-shadow:0 0 0 5px rgba(19,56,222,.12),0 20px 46px rgba(19,56,222,.14);transition:transform .3s ease,box-shadow .3s ease}
-.sn-sponsor-card:hover{transform:translateY(-6px);box-shadow:0 0 0 6px rgba(255,107,53,.18),0 28px 60px rgba(19,56,222,.22)}
-.sn-sponsor-card:nth-child(even){border-color:var(--o);box-shadow:0 0 0 5px rgba(255,107,53,.14),0 20px 46px rgba(255,107,53,.16)}
-.sn-sponsor-card:nth-child(even):hover{box-shadow:0 0 0 6px rgba(19,56,222,.20),0 28px 60px rgba(255,107,53,.24)}
-.sn-sponsor-logo{display:flex;align-items:center;justify-content:center;height:90px;width:100%}
-.sn-sponsor-logo img{max-height:80px;max-width:100%;width:auto;object-fit:contain}
-.sn-sponsor-logo-open{border:1.5px dashed rgba(10,11,20,.24);border-radius:14px}
-.sn-sponsor-logo-open span{font-family:var(--disp);font-weight:700;font-size:.9rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.sn-sponsor-link{font-family:var(--disp);font-weight:600;font-size:1rem;color:var(--cobalt);text-decoration:none;transition:color .2s,transform .2s}
-.sn-sponsor-link:hover{color:var(--o);transform:translateX(3px)}
-.sn-sponsor-link-open{color:var(--o)}
+.tn-what{position:relative;padding:130px 0 110px;background:linear-gradient(180deg,#020a12,#04202f);overflow:hidden}
+.tn-what-glow{position:absolute;inset:auto -10% -40% auto;width:70%;height:80%;z-index:0;background:radial-gradient(45% 55% at 70% 40%,rgba(0,93,166,.35),transparent 70%),radial-gradient(40% 50% at 90% 80%,rgba(56,189,248,.28),transparent 70%);filter:blur(20px)}
+.tn-what-h{font-family:var(--disp);font-weight:700;letter-spacing:-.03em;line-height:.98;font-size:clamp(2.3rem,5.4vw,4.4rem);color:#fff;margin:16px 0 0}
+.tn-what-h em{font-style:normal;color:var(--ice)}
+.tn-chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px}
+.tn-chips span{font-family:var(--disp);font-weight:600;font-size:.9rem;letter-spacing:.03em;color:var(--ice-2);background:rgba(56,189,248,.08);border:1.5px solid rgba(56,189,248,.28);padding:.55rem 1rem;border-radius:999px}
+.tn-what-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;margin-top:50px}
+.tn-lede{font-family:var(--disp);font-weight:500;font-size:clamp(1.25rem,1.9vw,1.65rem);line-height:1.3;color:var(--frost);letter-spacing:-.01em;border-left:4px solid var(--ice);padding-left:24px}
+.tn-body{font-size:1.05rem;line-height:1.72;color:var(--muted)}
 
-.sn-scarcity{background:var(--o);padding:100px 0}
-.sn-scarcity .sn-wrap{display:grid;grid-template-columns:auto 1fr;gap:56px;align-items:center}
-.sn-count{font-family:var(--disp);font-weight:700;font-size:clamp(7rem,15vw,15rem);line-height:.82;color:#fff;letter-spacing:-.05em}
-.sn-count-copy h3{font-family:var(--disp);font-weight:600;font-size:clamp(1.8rem,3vw,2.8rem);color:var(--ink);letter-spacing:-.02em}
-.sn-count-copy p{margin:16px 0 28px;font-size:1.08rem;line-height:1.62;color:rgba(10,11,20,.72);max-width:42ch}
+.tn-stack{padding:110px 0;background:#020a12}
+.tn-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:50px}
+.tn-card{border-radius:20px;padding:32px 26px 28px;transition:transform .3s ease,box-shadow .3s ease;border:1px solid rgba(125,211,252,.18)}
+.tn-card-blue{background:linear-gradient(160deg,rgba(0,93,166,.35),rgba(4,38,63,.6));box-shadow:0 20px 46px rgba(0,0,0,.4)}
+.tn-card-ice{background:linear-gradient(160deg,rgba(56,189,248,.16),rgba(4,38,63,.6));box-shadow:0 20px 46px rgba(0,0,0,.4)}
+.tn-card:hover{transform:translateY(-8px);box-shadow:0 0 0 1px rgba(56,189,248,.4),0 28px 60px rgba(0,93,166,.4)}
+.tn-card-n{font-family:var(--disp);font-size:.85rem;font-weight:700;letter-spacing:.14em;color:var(--ice)}
+.tn-card h3{font-family:var(--disp);font-weight:600;font-size:1.35rem;margin:14px 0 12px;letter-spacing:-.01em;color:#fff}
+.tn-card p{font-size:.97rem;line-height:1.66;color:var(--muted)}
 
-.sn-reserve{background:var(--ink);padding:120px 0}
-.sn-reserve-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
-.sn-reserve-copy p{color:rgba(255,255,255,.72);font-size:1.05rem;line-height:1.7;margin-top:22px}
-.sn-reserve-copy strong{color:var(--o)}
-.sn-reserve-copy .sn-small{font-size:.95rem;color:rgba(255,255,255,.5)}
-.sn-badge-row{display:flex;align-items:center;gap:14px;margin-top:34px;flex-wrap:wrap}
-.sn-badge-row span{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);padding:.6rem 1rem;border-radius:999px}
-.sn-badge-row i{color:var(--o);font-style:normal;font-weight:700}
-.sn-form-card{background:#fff;border-radius:26px;padding:44px 40px;box-shadow:0 40px 90px rgba(0,0,0,.4)}
-.sn-form-card h3{font-family:var(--disp);font-weight:600;font-size:1.75rem;color:var(--ink);letter-spacing:-.02em}
-.sn-form-note{font-size:.88rem;color:var(--o);font-weight:700;margin:8px 0 28px}
-.sn-form-card label{display:block;margin-bottom:18px;font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.sn-form-card label b{color:var(--o)}
-.sn-form-card input,.sn-form-card select{width:100%;margin-top:8px;padding:.95rem 1.05rem;font-family:var(--body);font-size:1rem;font-weight:500;color:var(--txt);text-transform:none;letter-spacing:0;background:var(--paper);border:1.5px solid transparent;border-radius:12px;transition:.2s ease;outline:none}
-.sn-form-card input:focus,.sn-form-card select:focus{border-color:var(--cobalt);background:#fff;box-shadow:0 0 0 4px rgba(19,56,222,.10)}
-.sn-form-card small{display:block;margin-top:7px;font-size:.75rem;font-weight:500;letter-spacing:0;text-transform:none;color:var(--muted)}
-.sn-err{background:rgba(255,107,53,.10);border:1px solid rgba(255,107,53,.4);color:var(--o-deep);font-size:.9rem;font-weight:600;padding:.85rem 1rem;border-radius:12px;margin-bottom:18px}
-.sn-fine{margin-top:16px;font-size:.78rem;color:var(--muted);text-align:center;line-height:1.5}
-.sn-success{text-align:left}
-.sn-success-mark{width:58px;height:58px;border-radius:50%;background:var(--cobalt);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.7rem;font-weight:900;margin-bottom:22px;animation:sn-pop .5s cubic-bezier(.2,1.4,.4,1)}
-@keyframes sn-pop{from{transform:scale(0)}}
-.sn-success h3{font-family:var(--disp);font-weight:600;font-size:1.7rem;color:var(--ink);letter-spacing:-.02em}
-.sn-success p{margin-top:12px;color:var(--muted);line-height:1.65;font-size:1rem}
-.sn-success ol{margin:24px 0 20px;padding-left:20px}
-.sn-success li{margin-bottom:14px;color:var(--muted);line-height:1.6;font-size:.98rem}
-.sn-success li strong{color:var(--ink);font-weight:700}
-.sn-success .sn-small{font-size:.82rem}
+.tn-sponsors{padding:110px 0;background:linear-gradient(180deg,#020a12,#04202f)}
+.tn-sponsors-lede{max-width:640px;margin:20px 0 0;font-size:1.05rem;line-height:1.6;color:var(--muted)}
+.tn-sponsor-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
+.tn-sponsor-card{display:flex;flex-direction:column;align-items:center;gap:16px;background:rgba(10,40,64,.5);border:1px solid rgba(125,211,252,.2);border-radius:20px;padding:24px 18px;transition:transform .3s ease,box-shadow .3s ease}
+.tn-sponsor-card:hover{transform:translateY(-6px);box-shadow:0 0 0 1px rgba(56,189,248,.4),0 22px 50px rgba(0,93,166,.35)}
+.tn-sponsor-openbtn{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%;background:none;border:none;padding:0;cursor:pointer;font-family:inherit}
+.tn-sponsor-logo{display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:1/1;background:#fff;border-radius:14px}
+.tn-sponsor-logo img{max-height:80%;max-width:80%;object-fit:contain}
+.tn-sponsor-logo-open{background:rgba(56,189,248,.06);border:1.5px dashed rgba(125,211,252,.4)}
+.tn-sponsor-logo-open span{font-family:var(--disp);font-weight:700;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ice-2)}
+.tn-sponsor-link{font-family:var(--disp);font-weight:700;font-size:.86rem;color:var(--ice);text-decoration:none;text-align:center;transition:.2s}
+.tn-sponsor-card:hover .tn-sponsor-link{color:var(--ice-2)}
 
-.sn-host{padding:120px 0;background:var(--white)}
-.sn-host-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center}
-.sn-host-copy p{margin-top:20px;font-size:1.05rem;line-height:1.72;color:var(--muted)}
-.sn-host-line{font-family:var(--disp);font-weight:600;font-size:1.3rem;color:var(--ink);border-left:4px solid var(--o);padding-left:20px;line-height:1.35}
-.sn-host-panel{position:relative;overflow:hidden;background:var(--ink);border:2px solid var(--cobalt);border-radius:26px;padding:44px 38px;box-shadow:0 0 0 6px rgba(19,56,222,.12),0 30px 70px rgba(10,11,20,.28)}
-.sn-panel-glow{position:absolute;inset:auto -20% -40% auto;width:80%;height:70%;background:radial-gradient(50% 60% at 60% 50%,rgba(255,107,53,.30),transparent 72%);filter:blur(14px)}
-.sn-stat{position:relative;z-index:1;display:flex;align-items:baseline;gap:18px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.10)}
-.sn-stat strong{font-family:var(--disp);font-weight:700;font-size:2.5rem;line-height:1;color:var(--o);letter-spacing:-.03em;min-width:110px}
-.sn-stat:nth-child(4) strong{color:var(--blue-lite)}
-.sn-stat:last-of-type{border-bottom:none}
-.sn-stat span{font-size:.95rem;line-height:1.4;color:rgba(255,255,255,.66);font-weight:500}
-.sn-panel-tags{position:relative;z-index:1;display:flex;gap:8px;margin-top:28px;flex-wrap:wrap}
-.sn-panel-tags span{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.18);padding:.5rem .85rem;border-radius:999px}
+.tn-reserve{background:#020a12;padding:110px 0}
+.tn-reserve-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.tn-reserve-copy p{color:rgba(220,234,245,.72);font-size:1.05rem;line-height:1.7;margin-top:22px}
+.tn-reserve-copy strong{color:var(--ice)}
+.tn-reserve-copy .tn-small{font-size:.95rem;color:rgba(220,234,245,.5)}
+.tn-badge-row{display:flex;align-items:center;gap:12px;margin-top:32px;flex-wrap:wrap}
+.tn-badge-row span{font-size:.76rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.26);padding:.55rem 1rem;border-radius:999px}
+.tn-badge-row i{color:var(--ice);font-style:normal;font-weight:700}
+.tn-form-card{background:rgba(10,40,64,.55);border:1px solid rgba(125,211,252,.24);backdrop-filter:blur(14px);border-radius:24px;padding:40px 36px;box-shadow:0 40px 90px rgba(0,0,0,.5)}
+.tn-form-card h3{font-family:var(--disp);font-weight:600;font-size:1.7rem;color:#fff;letter-spacing:-.02em}
+.tn-form-note{font-size:.88rem;color:var(--ice);font-weight:700;margin:8px 0 26px}
+.tn-form-card label{display:block;margin-bottom:16px;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tn-form-card label b{color:var(--o)}
+.tn-form-card input,.tn-form-card select{width:100%;margin-top:8px;padding:.9rem 1rem;font-family:var(--body);font-size:1rem;font-weight:500;color:var(--frost);text-transform:none;letter-spacing:0;background:rgba(2,10,18,.6);border:1.5px solid rgba(125,211,252,.2);border-radius:12px;transition:.2s ease;outline:none}
+.tn-form-card input::placeholder{color:rgba(159,184,204,.5)}
+.tn-form-card input:focus,.tn-form-card select:focus{border-color:var(--ice);background:rgba(2,10,18,.85);box-shadow:0 0 0 4px rgba(56,189,248,.14)}
+.tn-form-card select option{background:#04202f;color:var(--frost)}
+.tn-form-card small{display:block;margin-top:7px;font-size:.75rem;font-weight:500;letter-spacing:0;text-transform:none;color:var(--muted)}
+.tn-err{background:rgba(255,107,53,.12);border:1px solid rgba(255,107,53,.4);color:#ffb59a;font-size:.9rem;font-weight:600;padding:.8rem 1rem;border-radius:12px;margin-bottom:16px}
+.tn-fine{margin-top:14px;font-size:.78rem;color:var(--muted);text-align:center;line-height:1.5}
+.tn-success{text-align:left}
+.tn-success-mark{width:56px;height:56px;border-radius:50%;background:var(--ice);color:#03151f;display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:900;margin-bottom:20px;animation:tn-pop .5s cubic-bezier(.2,1.4,.4,1)}
+@keyframes tn-pop{from{transform:scale(0)}}
+.tn-success h3{font-family:var(--disp);font-weight:600;font-size:1.6rem;color:#fff}
+.tn-success p{margin-top:12px;color:var(--muted);line-height:1.65}
+.tn-success ol{margin:22px 0 18px;padding-left:20px}
+.tn-success li{margin-bottom:12px;color:var(--muted);line-height:1.6}
+.tn-success li strong{color:var(--frost)}
+.tn-success .tn-small{font-size:.82rem}
 
-.sn-faq{padding:120px 0;background:var(--cream)}
-.sn-faq-list{margin-top:46px;border-top:1px solid rgba(10,11,20,.12)}
-.sn-faq-row{border-bottom:1px solid rgba(10,11,20,.12)}
-.sn-faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;background:none;border:none;cursor:pointer;padding:28px 0;text-align:left;font-family:var(--disp);font-weight:600;font-size:clamp(1.05rem,1.6vw,1.35rem);color:var(--ink);letter-spacing:-.01em;transition:color .2s}
-.sn-faq-q:hover{color:var(--cobalt)}
-.sn-faq-plus{position:relative;width:18px;height:18px;flex-shrink:0}
-.sn-faq-plus:before,.sn-faq-plus:after{content:"";position:absolute;background:var(--o);border-radius:2px;transition:transform .3s ease}
-.sn-faq-plus:before{top:8px;left:0;width:18px;height:2px}
-.sn-faq-plus:after{left:8px;top:0;width:2px;height:18px}
-.sn-faq-open .sn-faq-plus:after{transform:rotate(90deg)}
-.sn-faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.2,.7,.2,1)}
-.sn-faq-open .sn-faq-a{max-height:340px}
-.sn-faq-a p{padding:0 60px 30px 0;font-size:1.02rem;line-height:1.72;color:var(--muted)}
+.tn-host{padding:110px 0;background:linear-gradient(180deg,#04202f,#020a12)}
+.tn-host-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+.tn-host-copy p{margin-top:20px;font-size:1.05rem;line-height:1.72;color:var(--muted)}
+.tn-host-line{font-family:var(--disp);font-weight:600;font-size:1.3rem;color:var(--frost);border-left:4px solid var(--o);padding-left:20px;line-height:1.35}
+.tn-host-panel{position:relative;overflow:hidden;background:rgba(10,40,64,.6);border:1px solid rgba(125,211,252,.24);border-radius:26px;padding:42px 36px;box-shadow:0 30px 70px rgba(0,0,0,.45)}
+.tn-panel-glow{position:absolute;inset:auto -20% -40% auto;width:80%;height:70%;background:radial-gradient(50% 60% at 60% 50%,rgba(56,189,248,.4),transparent 72%);filter:blur(16px)}
+.tn-stat{position:relative;z-index:1;display:flex;align-items:baseline;gap:18px;padding:18px 0;border-bottom:1px solid rgba(125,211,252,.14)}
+.tn-stat strong{font-family:var(--disp);font-weight:700;font-size:2.4rem;line-height:1;color:var(--ice);letter-spacing:-.03em;min-width:96px}
+.tn-stat:last-of-type{border-bottom:none}
+.tn-stat span{font-size:.95rem;line-height:1.4;color:var(--muted);font-weight:500}
+.tn-panel-tags{position:relative;z-index:1;display:flex;gap:8px;margin-top:26px;flex-wrap:wrap}
+.tn-panel-tags span{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.24);padding:.5rem .85rem;border-radius:999px}
 
-.sn-final{background:var(--ink);padding:130px 0;text-align:center}
-.sn-final h2{font-family:var(--disp);font-weight:600;letter-spacing:-.03em;line-height:.98;font-size:clamp(2.6rem,6.4vw,5.6rem);color:#fff}
-.sn-final em{font-style:normal;color:var(--o)}
-.sn-final p{margin:26px 0 38px;font-size:1.1rem;color:rgba(255,255,255,.6)}
+.tn-faq{padding:110px 0;background:#020a12}
+.tn-faq-list{margin-top:44px;border-top:1px solid rgba(125,211,252,.16)}
+.tn-faq-row{border-bottom:1px solid rgba(125,211,252,.16)}
+.tn-faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;background:none;border:none;cursor:pointer;padding:26px 0;text-align:left;font-family:var(--disp);font-weight:600;font-size:clamp(1.05rem,1.6vw,1.3rem);color:var(--frost);letter-spacing:-.01em;transition:color .2s}
+.tn-faq-q:hover{color:var(--ice)}
+.tn-faq-plus{position:relative;width:18px;height:18px;flex-shrink:0}
+.tn-faq-plus:before,.tn-faq-plus:after{content:"";position:absolute;background:var(--ice);border-radius:2px;transition:transform .3s ease}
+.tn-faq-plus:before{top:8px;left:0;width:18px;height:2px}
+.tn-faq-plus:after{left:8px;top:0;width:2px;height:18px}
+.tn-faq-open .tn-faq-plus:after{transform:rotate(90deg)}
+.tn-faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.2,.7,.2,1)}
+.tn-faq-open .tn-faq-a{max-height:360px}
+.tn-faq-a p{padding:0 60px 28px 0;font-size:1.02rem;line-height:1.72;color:var(--muted)}
 
-.sn-bar{position:fixed;left:16px;right:16px;bottom:16px;z-index:70;display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--ink);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:.7rem .7rem .7rem 1.4rem;box-shadow:0 20px 50px rgba(0,0,0,.35);transform:translateY(140%);opacity:0;transition:transform .45s cubic-bezier(.2,.7,.2,1),opacity .35s;max-width:520px;margin:0 auto}
-.sn-bar-in{transform:none;opacity:1}
-.sn-bar span{font-size:.9rem;color:rgba(255,255,255,.7);font-weight:600}
-.sn-bar strong{color:var(--o);font-family:var(--disp);font-size:1.15rem}
+.tn-final{position:relative;background:linear-gradient(180deg,#04202f,#020a12);padding:120px 0;text-align:center;overflow:hidden}
+.tn-final h2{font-family:var(--disp);font-weight:700;letter-spacing:-.03em;line-height:.98;font-size:clamp(2.6rem,6.4vw,5.4rem);color:#fff}
+.tn-final em{font-style:normal;color:var(--ice)}
+.tn-final p{margin:24px 0 36px;font-size:1.1rem;color:var(--muted)}
+
+.tn-bar{position:fixed;left:16px;right:16px;bottom:16px;z-index:70;display:flex;align-items:center;justify-content:space-between;gap:16px;background:rgba(4,30,48,.92);border:1px solid rgba(125,211,252,.3);backdrop-filter:blur(10px);border-radius:999px;padding:.7rem .7rem .7rem 1.4rem;box-shadow:0 20px 50px rgba(0,0,0,.5);transform:translateY(140%);opacity:0;transition:transform .45s cubic-bezier(.2,.7,.2,1),opacity .35s;max-width:520px;margin:0 auto}
+.tn-bar-in{transform:none;opacity:1}
+.tn-bar span{font-size:.9rem;color:var(--muted);font-weight:600}
+.tn-bar strong{color:var(--ice);font-family:var(--disp);font-size:1.15rem}
+
+/* MODAL */
+.tn-modal{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;padding:24px}
+.tn-modal-scrim{position:absolute;inset:0;background:rgba(2,8,16,.8);backdrop-filter:blur(4px);animation:tn-fade .25s ease}
+@keyframes tn-fade{from{opacity:0}}
+.tn-modal-card{position:relative;z-index:1;width:100%;max-width:720px;max-height:88vh;overflow-y:auto;background:linear-gradient(180deg,#06263d,#04202f);border:1px solid rgba(125,211,252,.3);border-radius:24px;padding:40px;box-shadow:0 40px 120px rgba(0,0,0,.6);animation:tn-modal-in .32s cubic-bezier(.2,.9,.3,1)}
+@keyframes tn-modal-in{from{opacity:0;transform:translateY(24px) scale(.98)}}
+.tn-modal-x{position:absolute;top:18px;right:18px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(125,211,252,.25);background:rgba(2,10,18,.6);color:var(--frost);font-size:1rem;cursor:pointer;transition:.2s}
+.tn-modal-x:hover{background:var(--o);color:#fff;border-color:var(--o);transform:rotate(90deg)}
+.tn-modal-h{font-family:var(--disp);font-weight:600;font-size:clamp(1.5rem,3vw,2.1rem);color:#fff;letter-spacing:-.02em;margin:10px 0 0}
+.tn-modal-price{display:flex;align-items:baseline;gap:12px;margin:18px 0 4px;padding:14px 20px;background:rgba(2,10,18,.6);border:1px solid rgba(125,211,252,.2);border-radius:16px;width:fit-content}
+.tn-modal-price strong{font-family:var(--disp);font-weight:700;font-size:2.2rem;color:var(--ice);line-height:1}
+.tn-modal-price span{font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tn-modal-cols{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:24px}
+.tn-modal-colh{font-family:var(--disp);font-weight:700;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
+.tn-modal-colh-blue{color:var(--ice)}
+.tn-modal-colh-ice{color:var(--ice-2)}
+.tn-modal-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.tn-modal-list li{position:relative;padding-left:24px;font-size:.96rem;line-height:1.5;color:var(--txt)}
+.tn-modal-list li:before{content:"❯";position:absolute;left:0;top:1px;color:var(--ice);font-size:.75rem}
+.tn-modal-contact{margin-top:28px;padding-top:22px;border-top:1px solid rgba(125,211,252,.16)}
+.tn-modal-contact-label{font-size:.95rem;color:var(--muted);margin-bottom:14px;font-weight:600}
+.tn-modal-contact-row{display:flex;flex-wrap:wrap;gap:10px}
+.tn-modal-btn{display:inline-flex;align-items:center;font-family:var(--disp);font-weight:600;font-size:.92rem;color:var(--frost);text-decoration:none;background:rgba(2,10,18,.6);border:1.5px solid rgba(125,211,252,.22);border-radius:999px;padding:.72rem 1.2rem;transition:.2s}
+.tn-modal-btn:hover{border-color:var(--ice);transform:translateY(-2px)}
+.tn-modal-btn-primary{background:var(--o);color:#fff;border-color:var(--o)}
+.tn-modal-btn-primary:hover{background:var(--o-deep);border-color:var(--o-deep)}
 
 @media(max-width:900px){
-.sn-hero{padding:140px 0 0}
-.sn-photo{background-position:center 34%}
-.sn-shade{background:linear-gradient(180deg,rgba(10,11,20,.92) 0%,rgba(10,11,20,.80) 45%,rgba(19,56,222,.42) 82%,rgba(255,107,53,.32) 100%)}
-.sn-hero-grid{grid-template-columns:1fr;gap:34px;align-items:start}
-.sn-hero-main{justify-content:flex-start}
-.sn-side{gap:16px}
-.sn-hero-cta{gap:14px}
-.sn-brought{max-width:340px}
-.sn-bubble{grid-template-columns:1fr;gap:20px;padding:24px 22px;margin-top:40px;border-radius:22px}
-.sn-bub-venue{border-right:none;border-bottom:1px solid rgba(10,11,20,.10);padding-right:0;padding-bottom:18px}
-.sn-marquee{margin-top:56px}
-.sn-track-half{font-size:1rem}
-.sn-what{padding:90px 0 80px}
-.sn-what-h s{white-space:normal}
-.sn-what-grid{grid-template-columns:1fr;gap:26px}
-.sn-lede{padding-left:20px}
-.sn-stack{padding:90px 0}
-.sn-cards{grid-template-columns:1fr;gap:16px}
-.sn-who{padding:90px 0}
-.sn-who-grid{grid-template-columns:1fr;gap:14px}
-.sn-sponsors{padding:90px 0}
-.sn-sponsor-grid{grid-template-columns:1fr;gap:16px}
-.sn-scarcity{padding:70px 0}
-.sn-scarcity .sn-wrap{grid-template-columns:1fr;gap:12px;text-align:center}
-.sn-count-copy p{margin-left:auto;margin-right:auto}
-.sn-reserve{padding:90px 0}
-.sn-reserve-grid{grid-template-columns:1fr;gap:44px}
-.sn-form-card{padding:32px 24px}
-.sn-host{padding:90px 0}
-.sn-host-grid{grid-template-columns:1fr;gap:44px}
-.sn-host-panel{padding:34px 26px}
-.sn-stat strong{font-size:2rem;min-width:86px}
-.sn-faq{padding:90px 0}
-.sn-faq-a p{padding-right:0}
-.sn-final{padding:90px 0}
+.tn-hero{padding:130px 0 0}
+.tn-hero-grid{grid-template-columns:1fr;gap:30px;align-items:start}
+.tn-hero-main{justify-content:flex-start}
+.tn-brand-panel{max-width:360px}
+.tn-bubble{grid-template-columns:1fr 1fr;gap:18px;padding:22px 20px;margin-top:38px}
+.tn-flake-10,.tn-flake-11,.tn-flake-12,.tn-flake-13,.tn-flake-14,.tn-flake-15,.tn-flake-16,.tn-flake-17{display:none}
+.tn-marquee{margin-top:50px}
+.tn-what{padding:80px 0 70px}
+.tn-what-grid{grid-template-columns:1fr;gap:24px}
+.tn-stack{padding:80px 0}
+.tn-cards{grid-template-columns:1fr;gap:14px}
+.tn-sponsors{padding:80px 0}
+.tn-sponsor-grid{grid-template-columns:1fr 1fr;gap:14px}
+.tn-reserve{padding:80px 0}
+.tn-reserve-grid{grid-template-columns:1fr;gap:40px}
+.tn-form-card{padding:30px 22px}
+.tn-host{padding:80px 0}
+.tn-host-grid{grid-template-columns:1fr;gap:40px}
+.tn-faq{padding:80px 0}
+.tn-faq-a p{padding-right:0}
+.tn-final{padding:80px 0}
+.tn-modal-card{padding:28px 20px}
+.tn-modal-cols{grid-template-columns:1fr;gap:20px}
 }
 @media(prefers-reduced-motion:reduce){
-.sn-reveal{opacity:1;transform:none;transition:none}
-.sn-track,.sn-photo,.sn-dot{animation:none}
+.tn-reveal{opacity:1;transform:none;transition:none}
+.tn-ice,.tn-aurora,.tn-sheen,.tn-flake,.tn-track,.tn-h1 em,.tn-beams,.tn-streak{animation:none}
+.tn-snow{display:none}
 }
 `;
